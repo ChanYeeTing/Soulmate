@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "646102512048",
+    "firebase_url": "https://soulmate-420c5-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "soulmate-420c5",
+    "storage_bucket": "soulmate-420c5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:646102512048:android:63e2211eebbfaf4f3da675",
+        "android_client_info": {
+          "package_name": "com.example.soulmate"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDWDmqg0giNox1N_tOBqk2xUzZtWyvQ3xU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
