@@ -1,6 +1,5 @@
 plugins {
     id("com.android.application")
-    id("com.google.gms.google-services")
 }
 
 android {
@@ -9,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.soulmate"
-        minSdk = 19
+        minSdk = 18
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -34,8 +33,6 @@ android {
 
 dependencies {
 
-    implementation(platform("com.google.firebase:firebase-bom:32.6.0"))
-    implementation("com.google.firebase:firebase-analytics")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.10.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
