@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Soulmate</string>
+    <string name="appication_name">Soulmate</string>
+    <string name="login_page_icon">icon</string>
 </resources>
