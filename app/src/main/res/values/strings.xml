@@ -2,4 +2,18 @@
     <string name="app_name">Soulmate</string>
     <string name="appication_name">Soulmate</string>
     <string name="login_page_icon">icon</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="email_address">Email</string>
+    <string name="password">Password</string>
+    <string name="button_login">Log-In</string>
+    <string name="button_register">Register</string>
+    <string name="register_title">Let\'s Register</string>
+    <string name="username">Name</string>
+    <string name="user_phone">Mobile No</string>
+    <string name="user_birthday">Date of Birth</string>
+    <string name="user_gender">Gender\n</string>
+    <string name="gender_female">Female</string>
+    <string name="gender_male">Male</string>
+    <string name="confirm_password">Confirm Password</string>
 </resources>
