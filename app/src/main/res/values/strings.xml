@@ -16,4 +16,9 @@
     <string name="gender_female">Female</string>
     <string name="gender_male">Male</string>
     <string name="confirm_password">Confirm Password</string>
+    <string name="email_verification">Email Verification</string>
+    <string name="verification_code">Verification Code</string>
+    <string name="getCode">Get Code</string>
+    <string name="submit">Submit</string>
+    <string name="phone_verification">Mobile Number Verification</string>
 </resources>

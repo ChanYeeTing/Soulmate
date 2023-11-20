@@ -69,13 +69,23 @@ public class RegistrationFragment extends Fragment {
     @Override
     public void onActivityCreated ( @Nullable Bundle savedInstanceState ) {
         super.onActivityCreated ( savedInstanceState );
-        Button login;
+        Button login, register2 ;
+
         login = getView () .findViewById ( R.id.loginButton );
         login.setOnClickListener ( new View.OnClickListener () {
             @Override
             public void onClick ( View v ) {
                 NavController controller = Navigation.findNavController ( v );
                 controller.navigate ( R.id.action_registrationFragment_to_login_fragment );
+            }
+        } );
+
+        register2 = getView ().findViewById ( R.id.registerButton );
+        register2.setOnClickListener ( new View.OnClickListener () {
+            @Override
+            public void onClick ( View v ) {
+                NavController controller = Navigation.findNavController ( v );
+                controller.navigate ( R.id.action_registrationFragment_to_emailVerificationFragment );
             }
         } );
     }
