@@ -11,6 +11,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.Toast;
+
+import com.example.soulmate.databinding.ActivityMainBinding;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -18,6 +29,9 @@ import android.widget.Button;
  * create an instance of this fragment.
  */
 public class RegistrationFragment extends Fragment {
+
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference databaseReference;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -70,6 +84,8 @@ public class RegistrationFragment extends Fragment {
     public void onActivityCreated ( @Nullable Bundle savedInstanceState ) {
         super.onActivityCreated ( savedInstanceState );
         Button login, register2 ;
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference ref = firebaseDatabase.getReference();
 
         login = getView () .findViewById ( R.id.loginButton );
         login.setOnClickListener ( new View.OnClickListener () {
@@ -81,12 +97,56 @@ public class RegistrationFragment extends Fragment {
         } );
 
         register2 = getView ().findViewById ( R.id.registerButton );
+        EditText name = getView().findViewById(R.id.username);
+        EditText email = getView().findViewById(R.id.emailAddress);
+        EditText number = getView().findViewById(R.id.userPhone);
+        EditText DOB = getView().findViewById(R.id.dateOfBirth);
+//        RadioButton gender = getView().findViewById(R.id.gender);
+
+
         register2.setOnClickListener ( new View.OnClickListener () {
             @Override
             public void onClick ( View v ) {
+                String getName = name.getText().toString();
+                String getEmail = email.getText().toString();
+                String getNumber = number.getText().toString();
+                String getDOB = DOB.getText().toString();
+//                String getGender = gender.getText().toString();
+
+                DatabaseReference userRef = ref.child("Users").child(getName);
+                HashMap<String,Object> hashMap = new HashMap<>();
+                hashMap.put("name",getName);
+                hashMap.put("email",getEmail);
+                hashMap.put("Mobile Number",getNumber);
+                hashMap.put("Date of Birth",getDOB);
+//                hashMap.put("Gender",getGender);
+
+                userRef.setValue(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Toast.makeText(getActivity(), "Register Successful", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+//                FirebaseDatabase.getInstance().clone("User")
+//                        .document("UserData")
+//                        .set(hashMap);
+////                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+////                            @Override
+////                            public void onSuccess(Void unused) {
+////                                Toast.makeText(RegistrationFragment.this, "Data", Toast.LENGTH_SHORT).show();
+////                            }
+////                        }
+////                        );
+
                 NavController controller = Navigation.findNavController ( v );
                 controller.navigate ( R.id.action_registrationFragment_to_emailVerificationFragment );
             }
         } );
     }
+
+
+
+
+
 }
