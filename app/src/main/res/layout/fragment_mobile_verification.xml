@@ -6,15 +6,42 @@
     android:layout_height="match_parent"
     tools:context=".MobileVerificationFragment">
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.051983584" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.95" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.951983584" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.051983584" />
 
         <Button
             android:id="@+id/getCodeButton2"
             android:layout_width="140dp"
             android:layout_height="54dp"
-            android:layout_marginStart="238dp"
             android:layout_marginTop="228dp"
             android:background="@color/cardview_shadow_end_color"
             android:fontFamily="serif"
@@ -22,39 +49,41 @@
             android:textAllCaps="false"
             android:textColor="@color/material_dynamic_primary20"
             android:textStyle="bold|italic"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline13"
+            app:layout_constraintHorizontal_bias="0.965"
+            app:layout_constraintStart_toStartOf="@+id/guideline12"
             app:layout_constraintTop_toTopOf="@+id/guideline4" />
 
         <EditText
             android:id="@+id/verificationCode2"
             android:layout_width="300dp"
             android:layout_height="48dp"
-            android:layout_marginTop="235dp"
+            android:layout_marginTop="228dp"
             android:ems="10"
             android:fontFamily="serif"
             android:hint="@string/verification_code"
             android:inputType="number"
             android:textColor="@color/black"
             android:textSize="22sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.495"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline13"
+            app:layout_constraintHorizontal_bias="0.596"
+            app:layout_constraintStart_toStartOf="@+id/guideline12"
             app:layout_constraintTop_toTopOf="@+id/guideline4" />
 
         <EditText
             android:id="@+id/mobileNo"
             android:layout_width="300dp"
             android:layout_height="48dp"
-            android:layout_marginTop="175dp"
+            android:layout_marginTop="172dp"
             android:ems="10"
             android:fontFamily="serif"
             android:hint="@string/user_phone"
             android:inputType="textEmailAddress"
             android:textColor="@color/black"
             android:textSize="22sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.495"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline13"
+            app:layout_constraintHorizontal_bias="0.591"
+            app:layout_constraintStart_toStartOf="@+id/guideline12"
             app:layout_constraintTop_toTopOf="@+id/guideline4" />
 
         <androidx.constraintlayout.widget.Guideline
@@ -68,16 +97,16 @@
             android:id="@+id/mobileVerification"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="48dp"
+            android:layout_marginTop="40dp"
             android:fontFamily="serif"
             android:text="@string/phone_verification"
             android:textAlignment="center"
             android:textColor="@color/material_dynamic_primary10"
             android:textSize="35sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.494"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline13"
+            app:layout_constraintHorizontal_bias="0.525"
+            app:layout_constraintStart_toStartOf="@+id/guideline12"
             app:layout_constraintTop_toTopOf="@+id/guideline4" />
 
         <Button
@@ -90,9 +119,11 @@
             android:textSize="22sp"
             android:textStyle="bold"
             app:backgroundTint="@color/material_dynamic_primary70"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.496"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline4" />
+            app:layout_constraintBottom_toTopOf="@+id/guideline14"
+            app:layout_constraintEnd_toStartOf="@+id/guideline13"
+            app:layout_constraintHorizontal_bias="0.487"
+            app:layout_constraintStart_toStartOf="@+id/guideline12"
+            app:layout_constraintTop_toTopOf="@+id/guideline4"
+            app:layout_constraintVertical_bias="0.0" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
