@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.example.soulmate.databinding.ActivityMainBinding;
@@ -96,37 +97,53 @@ public class RegistrationFragment extends Fragment {
             }
         } );
 
-        register2 = getView ().findViewById ( R.id.registerButton );
-        EditText name = getView().findViewById(R.id.username);
-        EditText email = getView().findViewById(R.id.emailAddress);
-        EditText number = getView().findViewById(R.id.userPhone);
-        EditText DOB = getView().findViewById(R.id.dateOfBirth);
-//        RadioButton gender = getView().findViewById(R.id.gender);
 
+        register2 = getView ().findViewById ( R.id.registerButton );
 
         register2.setOnClickListener ( new View.OnClickListener () {
             @Override
             public void onClick ( View v ) {
+
+                EditText name = getView().findViewById(R.id.username);
+                EditText email = getView().findViewById(R.id.emailAddress);
+                EditText number = getView().findViewById(R.id.userPhone);
+                EditText DOB = getView().findViewById(R.id.dateOfBirth);
+
+                RadioGroup rg = getView().findViewById(R.id.genderSelector);
+                int genid=rg.getCheckedRadioButtonId();
+                RadioButton gender = getView().findViewById(genid);
+//        RadioButton gender = getView().findViewById(rg.getCheckedRadioButtonId());
+
+                EditText password = getView().findViewById(R.id.password);
+                EditText Cpassword = getView().findViewById(R.id.confirmPassword);
                 String getName = name.getText().toString();
                 String getEmail = email.getText().toString();
                 String getNumber = number.getText().toString();
                 String getDOB = DOB.getText().toString();
-//                String getGender = gender.getText().toString();
+                String getGender = gender.getText().toString();
+                String getpassword = password.getText().toString();
+                String getCpassword = Cpassword.getText().toString();
 
-                DatabaseReference userRef = ref.child("Users").child(getName);
-                HashMap<String,Object> hashMap = new HashMap<>();
-                hashMap.put("name",getName);
-                hashMap.put("email",getEmail);
-                hashMap.put("Mobile Number",getNumber);
-                hashMap.put("Date of Birth",getDOB);
-//                hashMap.put("Gender",getGender);
+                if (!getName.isEmpty() && !getEmail.isEmpty() && !getNumber.isEmpty() && !getDOB.isEmpty()&&!getGender.equals(-1)
+                && !getpassword.isEmpty() && !getCpassword.isEmpty()){
+                    DatabaseReference userRef = ref.child("Users").child(getName);
+                    HashMap<String, Object> hashMap = new HashMap<>();
+                    hashMap.put("name", getName);
+                    hashMap.put("email", getEmail);
+                    hashMap.put("Mobile Number", getNumber);
+                    hashMap.put("Date of Birth", getDOB);
+                    hashMap.put("Gender",getGender);
 
-                userRef.setValue(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        Toast.makeText(getActivity(), "Register Successful", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                    if(getpassword.equals(getCpassword)) {
+                        hashMap.put("Password", getpassword);
+                        userRef.setValue(hashMap);
+//                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+//                        @Override
+//                        public void onSuccess(Void unused) {
+//                            Toast.makeText(getActivity(), "Register Successful", Toast.LENGTH_SHORT).show();
+//                        }
+//                    });
+
 
 //                FirebaseDatabase.getInstance().clone("User")
 //                        .document("UserData")
@@ -139,8 +156,16 @@ public class RegistrationFragment extends Fragment {
 ////                        }
 ////                        );
 
-                NavController controller = Navigation.findNavController ( v );
-                controller.navigate ( R.id.action_registrationFragment_to_emailVerificationFragment );
+                        NavController controller = Navigation.findNavController(v);
+                        controller.navigate(R.id.action_registrationFragment_to_emailVerificationFragment);
+                    }
+                    else{
+                        Toast.makeText(getActivity(),"Password Not Same", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                else {
+                    Toast.makeText(getActivity(),"Not Empty Field Allowed", Toast.LENGTH_SHORT).show();
+                }
             }
         } );
     }
