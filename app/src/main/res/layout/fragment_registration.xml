@@ -94,21 +94,6 @@
             app:layout_constraintStart_toStartOf="@+id/guideline7"
             app:layout_constraintTop_toTopOf="@+id/guideline2" />
 
-        <EditText
-            android:id="@+id/dateOfBirth"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="270dp"
-            android:ems="10"
-            android:fontFamily="serif"
-            android:hint="@string/user_birthday"
-            android:inputType="date"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toStartOf="@+id/guideline8"
-            app:layout_constraintStart_toStartOf="@+id/guideline7"
-            app:layout_constraintTop_toTopOf="@+id/guideline2" />
-
         <TextView
             android:id="@+id/gender"
             android:layout_width="78dp"
@@ -235,6 +220,20 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.951983584" />
+
+        <TextView
+            android:id="@+id/dateOfBirth"
+            android:layout_width="238dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="20dp"
+            android:text="Date of Birth"
+            android:textColor="#000000"
+            android:textColorHint="#A8A5A8"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.508"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/userPhone" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

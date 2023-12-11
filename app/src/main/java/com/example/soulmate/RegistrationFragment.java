@@ -1,27 +1,32 @@
 package com.example.soulmate;
 
+import static androidx.fragment.app.FragmentManager.TAG;
+
+import android.app.DatePickerDialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.Toast;
-
-import com.example.soulmate.databinding.ActivityMainBinding;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.Calendar;
 import java.util.HashMap;
 
 /**
@@ -33,6 +38,8 @@ public class RegistrationFragment extends Fragment {
 
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
+
+   private DatePickerDialog.OnDateSetListener DateSetListener;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -96,6 +103,42 @@ public class RegistrationFragment extends Fragment {
                 controller.navigate ( R.id.action_registrationFragment_to_login_fragment );
             }
         } );
+               TextView DOB = getView().findViewById(R.id.dateOfBirth);
+               DOB.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Calendar cal = Calendar.getInstance();
+                        int year = cal.get(Calendar.YEAR);
+                        int month = cal.get(Calendar.MONTH);
+                        int day = cal.get(Calendar.DAY_OF_MONTH);
+
+                        DatePickerDialog dialog = new DatePickerDialog(
+                                getActivity(),
+                                android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                                DateSetListener,
+                                year, month, day
+                        );
+                        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                        dialog.show();
+
+                    }
+       });
+       DateSetListener = new DatePickerDialog.OnDateSetListener() {
+           @Override
+           public void onDateSet(DatePicker view, int year, int month, int day) {
+               month = month + 1;
+               Log.d(TAG, "onDateSet: dd/mm/yyyy: " + day + "/" + month + "/" + year);
+               String date = day + "/" + month + "/" + year;
+               DOB.setText(date);
+           }
+
+       };
+
+
+
+
+
+
 
 
         register2 = getView ().findViewById ( R.id.registerButton );
@@ -107,12 +150,13 @@ public class RegistrationFragment extends Fragment {
                 EditText name = getView().findViewById(R.id.username);
                 EditText email = getView().findViewById(R.id.emailAddress);
                 EditText number = getView().findViewById(R.id.userPhone);
-                EditText DOB = getView().findViewById(R.id.dateOfBirth);
+
 
                 RadioGroup rg = getView().findViewById(R.id.genderSelector);
                 int genid=rg.getCheckedRadioButtonId();
                 RadioButton gender = getView().findViewById(genid);
-//        RadioButton gender = getView().findViewById(rg.getCheckedRadioButtonId());
+//        RadioButton gender = getView().findViewById(rg.getCheckedRadioButtonId())
+
 
                 EditText password = getView().findViewById(R.id.password);
                 EditText Cpassword = getView().findViewById(R.id.confirmPassword);
@@ -169,6 +213,10 @@ public class RegistrationFragment extends Fragment {
             }
         } );
     }
+
+
+
+
 
 
 
