@@ -21,4 +21,9 @@
     <string name="getCode">Get Code</string>
     <string name="submit">Submit</string>
     <string name="phone_verification">Mobile Number Verification</string>
+    <string name="side_menu_icon">Side Menu</string>
+    <string name="notification_icon">Notification Icon</string>
+    <string name="emergency_call">Emergency Call</string>
+    <string name="home_icon">Home Icon</string>
+    <string name="schedule_icon">Schedule Icon</string>
 </resources>
