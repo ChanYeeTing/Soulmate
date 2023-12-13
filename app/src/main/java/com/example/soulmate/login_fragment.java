@@ -70,6 +70,8 @@ public class login_fragment extends Fragment {
     public void onActivityCreated ( @Nullable Bundle savedInstanceState ) {
         super.onActivityCreated ( savedInstanceState );
         Button register;
+        Button acc_login;
+
         register = getView().findViewById (R.id.RegisterButton);
         register.setOnClickListener ( new View.OnClickListener () {
             @Override
@@ -79,5 +81,16 @@ public class login_fragment extends Fragment {
             }
         } );
 
+        acc_login = getView ().findViewById ( R.id.LoginButton );
+        acc_login.setOnClickListener ( new View.OnClickListener () {
+            @Override
+            public void onClick ( View v ) {
+                NavController controller = Navigation.findNavController (v);
+                controller.navigate ( R.id.action_login_fragment_to_fragment_main_page );
+           }
+        } );
+
     }
+
+
 }
