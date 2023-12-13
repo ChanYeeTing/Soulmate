@@ -26,4 +26,10 @@
     <string name="emergency_call">Emergency Call</string>
     <string name="home_icon">Home Icon</string>
     <string name="schedule_icon">Schedule Icon</string>
+    <string name="medical_history">Medical History</string>
+    <string name="date_tracking">Date Tracking</string>
+    <string name="telemedicine">Telemedicine</string>
+    <string name="setting_button">Settings</string>
+    <string name="yes">Yes</string>
+    <string name="cancel">Cancel</string>
 </resources>
