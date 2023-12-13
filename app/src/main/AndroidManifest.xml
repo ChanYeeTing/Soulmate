@@ -13,6 +13,11 @@
         android:theme="@style/Theme.Soulmate"
         tools:targetApi="34">
         <activity
+            android:name=".main_page"
+            android:exported="false"
+            android:label="@string/title_activity_main_page"
+            android:theme="@style/Theme.Soulmate.NoActionBar" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
