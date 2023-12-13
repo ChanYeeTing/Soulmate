@@ -98,25 +98,23 @@
             android:id="@+id/gender"
             android:layout_width="78dp"
             android:layout_height="25dp"
-            android:layout_marginStart="56dp"
-            android:layout_marginTop="335dp"
+            android:layout_marginTop="336dp"
             android:fontFamily="serif"
             android:text="@string/user_gender"
             android:textColor="@color/black"
             android:textSize="20sp"
-            app:layout_constraintEnd_toStartOf="@+id/guideline8"
-            app:layout_constraintHorizontal_bias="0.05"
-            app:layout_constraintStart_toStartOf="@+id/guideline7"
+            app:layout_constraintEnd_toStartOf="@+id/genderSelector"
+            app:layout_constraintHorizontal_bias="0.88"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline2" />
 
         <RadioGroup
             android:id="@+id/genderSelector"
             android:layout_width="182dp"
             android:layout_height="105dp"
-            android:layout_marginTop="325dp"
-            android:layout_marginEnd="32dp"
+            android:layout_marginTop="324dp"
             app:layout_constraintEnd_toStartOf="@+id/guideline8"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.83"
             app:layout_constraintStart_toStartOf="@+id/guideline7"
             app:layout_constraintTop_toTopOf="@+id/guideline2">
 
@@ -182,8 +180,8 @@
             android:id="@+id/question"
             android:layout_width="179dp"
             android:layout_height="20dp"
-            android:layout_marginStart="48dp"
-            android:layout_marginTop="610dp"
+            android:layout_marginStart="64dp"
+            android:layout_marginTop="612dp"
             android:fontFamily="serif"
             android:text="Already have an account?"
             android:textColor="@color/material_dynamic_neutral20"
@@ -194,10 +192,9 @@
 
         <Button
             android:id="@+id/loginButton"
-            android:layout_width="136dp"
-            android:layout_height="55dp"
+            android:layout_width="97dp"
+            android:layout_height="42dp"
             android:layout_marginTop="592dp"
-            android:layout_marginEnd="40dp"
             android:background="@color/cardview_shadow_end_color"
             android:fontFamily="serif"
             android:text="@string/button_login"
@@ -205,6 +202,8 @@
             android:textColor="@color/material_dynamic_primary20"
             android:textStyle="bold|italic"
             app:layout_constraintEnd_toStartOf="@+id/guideline8"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/question"
             app:layout_constraintTop_toTopOf="@+id/guideline2" />
 
         <androidx.constraintlayout.widget.Guideline
