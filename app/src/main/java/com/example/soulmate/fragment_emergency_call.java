@@ -15,10 +15,10 @@ import android.widget.ImageButton;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link fragment_main_page#newInstance} factory method to
+ * Use the {@link fragment_emergency_call#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class fragment_main_page extends Fragment {
+public class fragment_emergency_call extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -29,7 +29,7 @@ public class fragment_main_page extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public fragment_main_page () {
+    public fragment_emergency_call () {
         // Required empty public constructor
     }
 
@@ -39,11 +39,11 @@ public class fragment_main_page extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment fragment_main_page.
+     * @return A new instance of fragment fragment_emergency_call.
      */
     // TODO: Rename and change types and number of parameters
-    public static fragment_main_page newInstance ( String param1, String param2 ) {
-        fragment_main_page fragment = new fragment_main_page ();
+    public static fragment_emergency_call newInstance ( String param1, String param2 ) {
+        fragment_emergency_call fragment = new fragment_emergency_call ();
         Bundle args = new Bundle ();
         args.putString ( ARG_PARAM1, param1 );
         args.putString ( ARG_PARAM2, param2 );
@@ -64,30 +64,40 @@ public class fragment_main_page extends Fragment {
     public View onCreateView ( LayoutInflater inflater, ViewGroup container,
                                Bundle savedInstanceState ) {
         // Inflate the layout for this fragment
-        return inflater.inflate ( R.layout.fragment_main_page, container, false );
+        return inflater.inflate ( R.layout.fragment_emergency_call, container, false );
     }
 
     @Override
     public void onActivityCreated ( @Nullable Bundle savedInstanceState ) {
         super.onActivityCreated ( savedInstanceState );
 
-        ImageButton side_menu;
-        side_menu = getView ().findViewById ( R.id.SideMenuButton );
-        side_menu.setOnClickListener ( new View.OnClickListener () {
+        Button yes;
+        yes = getView ().findViewById ( R.id.yesButton );
+        yes.setOnClickListener ( new View.OnClickListener () {
             @Override
             public void onClick ( View v ) {
-                NavController controller = Navigation.findNavController (v);
-                controller.navigate ( R.id.action_fragment_main_page_to_fragment_side_menu );
+                NavController controller = Navigation.findNavController ( v );
+                controller.navigate ( R.id.action_fragment_emergency_call_to_fragment_emergency_location );
             }
         } );
 
-        ImageButton emergency;
-        emergency = getView ().findViewById ( R.id.emergencyCall );
-        emergency.setOnClickListener ( new View.OnClickListener () {
+        Button cancel;
+        cancel = getView ().findViewById ( R.id.cancelButton );
+        cancel.setOnClickListener ( new View.OnClickListener () {
             @Override
             public void onClick ( View v ) {
-                NavController controller = Navigation.findNavController (v);
-                controller.navigate ( R.id.action_fragment_main_page_to_fragment_emergency_call );
+                NavController controller = Navigation.findNavController ( v );
+                controller.navigate ( R.id.action_fragment_emergency_call_to_fragment_main_page );
+            }
+        } );
+
+        ImageButton side_menu;
+        side_menu = getView ().findViewById ( R.id.sideMenuButton3 );
+        side_menu.setOnClickListener ( new View.OnClickListener () {
+            @Override
+            public void onClick ( View v ) {
+                NavController controller = Navigation.findNavController ( v );
+                controller.navigate ( R.id.action_fragment_emergency_call_to_fragment_side_menu );
             }
         } );
     }
