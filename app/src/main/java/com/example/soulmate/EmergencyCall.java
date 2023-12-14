@@ -2,24 +2,18 @@ package com.example.soulmate;
 
 import android.os.Bundle;
 
-import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageButton;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link PopUpCallFragment#newInstance} factory method to
+ * Use the {@link EmergencyCall#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PopUpCallFragment extends DialogFragment {
+public class EmergencyCall extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -30,7 +24,7 @@ public class PopUpCallFragment extends DialogFragment {
     private String mParam1;
     private String mParam2;
 
-    public PopUpCallFragment () {
+    public EmergencyCall () {
         // Required empty public constructor
     }
 
@@ -40,11 +34,11 @@ public class PopUpCallFragment extends DialogFragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment PopUpCallFragment.
+     * @return A new instance of fragment EmergencyCall.
      */
     // TODO: Rename and change types and number of parameters
-    public static PopUpCallFragment newInstance ( String param1, String param2 ) {
-        PopUpCallFragment fragment = new PopUpCallFragment ();
+    public static EmergencyCall newInstance ( String param1, String param2 ) {
+        EmergencyCall fragment = new EmergencyCall ();
         Bundle args = new Bundle ();
         args.putString ( ARG_PARAM1, param1 );
         args.putString ( ARG_PARAM2, param2 );
@@ -65,31 +59,6 @@ public class PopUpCallFragment extends DialogFragment {
     public View onCreateView ( LayoutInflater inflater, ViewGroup container,
                                Bundle savedInstanceState ) {
         // Inflate the layout for this fragment
-        return inflater.inflate ( R.layout.fragment_pop_up_call, container, false );
-    }
-
-    @Override
-    public void onActivityCreated ( @Nullable Bundle savedInstanceState ) {
-        super.onActivityCreated ( savedInstanceState );
-
-        Button yes;
-        yes = getView ().findViewById ( R.id.yesButton2 );
-        yes.setOnClickListener ( new View.OnClickListener () {
-            @Override
-            public void onClick ( View v ) {
-                NavController controller = Navigation.findNavController ( v );
-                controller.navigate ( R.id.action_popUpCallFragment_to_emergencyCall );
-            }
-        } );
-
-        Button cancel;
-        cancel = getView ().findViewById ( R.id.cancelButton2 );
-        cancel.setOnClickListener ( new View.OnClickListener () {
-            @Override
-            public void onClick ( View v ) {
-                NavController controller = Navigation.findNavController ( v );
-                controller.navigate ( R.id.action_popUpCallFragment_to_main_page );
-            }
-        } );
+        return inflater.inflate ( R.layout.fragment_emergency_call, container, false );
     }
 }
