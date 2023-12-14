@@ -9,7 +9,17 @@
         android:id="@+id/nav_home"
         android:name="com.example.soulmate.ui.home.HomeFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_nav_home_to_popUpCallFragment2"
+            app:destination="@id/popUpCallFragment2" />
+        <action
+            android:id="@+id/action_popUpCallFragment2_to_nav_home"
+            app:destination="@id/nav_home" />
+        <action
+            android:id="@+id/action_popUpCallFragment2_to_emergencyCall3"
+            app:destination="@id/emergencyCall3" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_medical_history"
@@ -32,4 +42,15 @@
         android:name="com.example.soulmate.ui.settings.SettingsFragment"
         android:label="@string/menu_settings"
         tools:layout="@layout/fragment_settings" />
+    <dialog
+        android:id="@+id/popUpCallFragment2"
+        android:name="com.example.soulmate.PopUpCallFragment"
+        android:label="fragment_pop_up_call"
+        tools:layout="@layout/fragment_pop_up_call" >
+    </dialog>
+    <fragment
+        android:id="@+id/emergencyCall3"
+        android:name="com.example.soulmate.EmergencyCall"
+        android:label="fragment_emergency_call"
+        tools:layout="@layout/fragment_emergency_call" />
 </navigation>

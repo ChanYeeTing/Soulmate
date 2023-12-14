@@ -7,6 +7,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -69,27 +70,35 @@ public class PopUpCallFragment extends DialogFragment {
     }
 
     @Override
-    public void onActivityCreated ( @Nullable Bundle savedInstanceState ) {
-        super.onActivityCreated ( savedInstanceState );
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
-        Button yes;
-        yes = getView ().findViewById ( R.id.yesButton2 );
-        yes.setOnClickListener ( new View.OnClickListener () {
-            @Override
-            public void onClick ( View v ) {
-                NavController controller = Navigation.findNavController ( v );
-                controller.navigate ( R.id.action_popUpCallFragment_to_emergencyCall );
-            }
-        } );
+        Button yes = getView().findViewById(R.id.yesButton2);
+        Button cancel = getView().findViewById(R.id.cancelButton2);
 
-        Button cancel;
-        cancel = getView ().findViewById ( R.id.cancelButton2 );
-        cancel.setOnClickListener ( new View.OnClickListener () {
+        // Use requireView() to get the View associated with the Fragment
+        View fragmentView = requireView();
+
+        // Use NavHostFragment.findNavController to get the correct NavController
+        NavController navController = NavHostFragment.findNavController(this);
+
+        yes.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick ( View v ) {
-                NavController controller = Navigation.findNavController ( v );
-                controller.navigate ( R.id.action_popUpCallFragment_to_main_page );
+            public void onClick(View v) {
+                // Use the NavController obtained from NavHostFragment
+                navController.navigate(R.id.action_popUpCallFragment2_to_emergencyCall3);
+                dismiss();
             }
-        } );
+        });
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Use the NavController obtained from NavHostFragment
+                navController.navigate(R.id.action_popUpCallFragment2_to_nav_home);
+                dismiss ();
+            }
+        });
     }
+
 }
