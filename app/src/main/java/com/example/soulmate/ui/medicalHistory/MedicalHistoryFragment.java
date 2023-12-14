@@ -23,9 +23,6 @@ public class MedicalHistoryFragment extends Fragment {
 
         binding = FragmentMedicalHistoryBinding.inflate ( inflater, container, false );
         View root = binding.getRoot ();
-
-        final TextView textView = binding.textMedicalHistory;
-        medicalHistoryViewModel.getText ().observe ( getViewLifecycleOwner (), textView::setText );
         return root;
     }
 
