@@ -33,6 +33,14 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+
+    android {
+        // ...
+        defaultConfig {
+            // ...
+            multiDexEnabled = true
+        }
+    }
 }
 
 dependencies {
@@ -55,6 +63,9 @@ dependencies {
     implementation ("com.google.firebase:firebase-auth")
     implementation ("com.google.firebase:firebase-firestore")
     implementation("com.google.firebase:firebase-auth")
+    implementation ("com.android.support:multidex:1.0.3")
+
+
 
 
 

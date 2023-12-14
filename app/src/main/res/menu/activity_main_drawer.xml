@@ -15,7 +15,7 @@
         <item
             android:id="@+id/nav_date_tracking"
             android:icon="@drawable/menu_date_icon"
-            android:title="@string/menu_date_tracking"
+            android:title="@string/menu_date_tracking"/>
         <item
             android:id="@+id/nav_telemedicine"
             android:icon="@drawable/menu_telemedicine_icon"
