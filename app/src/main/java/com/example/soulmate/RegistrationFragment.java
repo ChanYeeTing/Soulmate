@@ -184,7 +184,7 @@ public class RegistrationFragment extends Fragment {
 
 
 
-                if (!getName.isEmpty() && !getEmail.isEmpty() && !getNumber.isEmpty() && !getDOB.isEmpty() && !getGender.equals(-1)
+                if (!getName.isEmpty() && !getEmail.isEmpty() && !getNumber.isEmpty() && !getDOB.equals("Date of Birth") && !getGender.equals(-1)
                         && !getpassword.isEmpty() && !getCpassword.isEmpty()) {
 
 
@@ -198,11 +198,23 @@ public class RegistrationFragment extends Fragment {
                                     if(task.isSuccessful())
                                     {
                                         FirebaseAuth.getInstance().getCurrentUser().sendEmailVerification();
-                                        Toast.makeText(getActivity(), "Please Verify Your Email", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getActivity(), "Verification Link Sent", Toast.LENGTH_SHORT).show();
+                                        String user_id = auth.getCurrentUser().getUid();
+                                        DatabaseReference userRef = ref.child("Users").child(getName);
+                                        HashMap<String, Object> hashMap = new HashMap<>();
+                                        hashMap.put("name", getName);
+                                        hashMap.put("email", getEmail);
+                                        hashMap.put("Mobile Number", getNumber);
+                                        hashMap.put("Date of Birth", getDOB);
+                                        hashMap.put("Gender", getGender);
+                                        hashMap.put("Password", getpassword);
+                                        userRef.setValue(hashMap);
+                                        NavController controller = Navigation.findNavController(v);
+                                        controller.navigate(R.id.action_registrationFragment_to_emailVerificationFragment);
 
                                     }
                                     else {
-                                        Toast.makeText(getActivity(), "Error!", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getActivity(), "Error! "+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
@@ -216,37 +228,13 @@ public class RegistrationFragment extends Fragment {
                                 }
                             });
 
-                            FirebaseUser user = auth.getCurrentUser();
-                            FirebaseAuth.AuthStateListener listener = new FirebaseAuth.AuthStateListener() {
-                                @Override
-                                public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                                    while(!user.isEmailVerified())
-                                    {
-                                        auth.getCurrentUser().reload();
-                                    }
 
-                                    if (user.isEmailVerified())
-                                    {
-                                        String user_id = auth.getCurrentUser().getUid();
-                                        DatabaseReference userRef = ref.child("Users").child(user_id);
-                                        HashMap<String, Object> hashMap = new HashMap<>();
-                                        hashMap.put("name", getName);
-                                        hashMap.put("email", getEmail);
-                                        hashMap.put("Mobile Number", getNumber);
-                                        hashMap.put("Date of Birth", getDOB);
-                                        hashMap.put("Gender", getGender);
-                                        hashMap.put("Password", getpassword);
-                                        userRef.setValue(hashMap);
-                                        NavController controller = Navigation.findNavController(v);
-                                        controller.navigate(R.id.action_registrationFragment_to_emailVerificationFragment);
-                                    }
-                                }
-                            };
+
 
                         } else {
                             Cpassword.setError("Password not matched");
                             Cpassword.requestFocus();
-                            Cpassword.setText(" ");
+                            Cpassword.setText("");
                             //                        Toast.makeText(getActivity(),"Password Not Same", Toast.LENGTH_SHORT).show();
                         }
                     }

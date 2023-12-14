@@ -1,16 +1,21 @@
 package com.example.soulmate;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -69,13 +74,77 @@ public class EmailVerificationFragment extends Fragment {
     @Override
     public void onActivityCreated ( @Nullable Bundle savedInstanceState ) {
         super.onActivityCreated ( savedInstanceState );
-        Button submit;
-        submit = getView ().findViewById ( R.id.submitButton );
-        submit.setOnClickListener ( new View.OnClickListener () {
+        Button resend;
+        Button main;
+        TextView message = getView().findViewById(R.id.message);
+        resend = getView ().findViewById ( R.id.resendButton);
+        main = getView ().findViewById ( R.id.continue_main);
+
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser user = auth.getCurrentUser();
+        FirebaseAuth.AuthStateListener listener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                    auth.getCurrentUser().reload();
+
+                if (!user.isEmailVerified())
+                {
+                    resend.setVisibility(View.VISIBLE);
+                    message.setVisibility(View.VISIBLE);
+
+                }
+                else if(user.isEmailVerified())
+                {
+                    Toast.makeText(getActivity(), "Successful Registered", Toast.LENGTH_SHORT).show();
+                }
+                auth.getCurrentUser().reload();
+            }
+        };
+        main.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth auth = FirebaseAuth.getInstance();
+                FirebaseUser user = auth.getCurrentUser();
+
+
+                FirebaseAuth.AuthStateListener listener = new FirebaseAuth.AuthStateListener() {
+                    @Override
+                    public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                        auth.getCurrentUser().reload();
+
+                        if (!user.isEmailVerified())
+                        {
+                            Toast.makeText(getActivity(), "Email Not Verified", Toast.LENGTH_SHORT).show();
+
+                        }
+                        else if(user.isEmailVerified())
+                        {
+                            Toast.makeText(getActivity(), "Successful Registered", Toast.LENGTH_SHORT).show();
+                            NavController controller = Navigation.findNavController (v);
+                            controller.navigate ( R.id.action_login_fragment_to_registrationFragment );
+                        }
+                        auth.getCurrentUser().reload();
+                    }
+                };
+
+            }
+        });
+        resend.setOnClickListener ( new View.OnClickListener () {
             @Override
             public void onClick ( View v ) {
-                NavController controller = Navigation.findNavController (v);
-                controller.navigate ( R.id.action_emailVerificationFragment_to_mobileVerificationFragment );
+
+
+                FirebaseAuth.getInstance().getCurrentUser().sendEmailVerification();
+                Toast.makeText(getActivity(), "Verification Link Sent", Toast.LENGTH_SHORT).show();
+                while(!user.isEmailVerified())
+                    auth.getCurrentUser().reload();
+
+
+
+
+
+//                NavController controller = Navigation.findNavController (v);
+//                controller.navigate ( R.id.action_emailVerificationFragment_to_mobileVerificationFragment );
             }
         } );
     }
