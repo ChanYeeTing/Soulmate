@@ -6,4 +6,13 @@
     </style>
 
     <style name="Theme.Soulmate" parent="Base.Theme.Soulmate" />
+
+    <style name="Theme.Soulmate.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.Soulmate.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.Soulmate.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

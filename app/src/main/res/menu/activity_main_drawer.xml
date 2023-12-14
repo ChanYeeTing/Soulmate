@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/menu_home_icon"
+            android:title="@string/menu_home" />
+        <item
+            android:id="@+id/nav_medical_history"
+            android:icon="@drawable/menu_record_icon"
+            android:title="@string/menu_medical_history" />
+        <item
+            android:id="@+id/nav_date_tracking"
+            android:icon="@drawable/menu_date_icon"
+            android:title="@string/menu_date_tracking"/>
+        <item
+            android:id="@+id/nav_telemedicine"
+            android:icon="@drawable/menu_telemedicine_icon"
+            android:title="@string/menu_telemedicine" />
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/menu_settings_icon"
+            android:title="@string/menu_settings" />
+    </group>
+</menu>
