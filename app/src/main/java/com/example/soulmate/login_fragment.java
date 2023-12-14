@@ -1,96 +1,102 @@
 package com.example.soulmate;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link login_fragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class login_fragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    EditText loginEmail, loginPassword;
+    Button loginButton;
+    TextView signupRedirectText;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public login_fragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment login_fragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static login_fragment newInstance(String param1, String param2) {
-        login_fragment fragment = new login_fragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    private FirebaseAuth firebaseAuth;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_login_fragment, container, false);
     }
 
     @Override
-    public void onActivityCreated ( @Nullable Bundle savedInstanceState ) {
-        super.onActivityCreated ( savedInstanceState );
-        Button register;
-        Button acc_login;
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
-        register = getView().findViewById (R.id.RegisterButton);
-        register.setOnClickListener ( new View.OnClickListener () {
-            @Override
-            public void onClick ( View v ) {
-                NavController controller = Navigation.findNavController (v);
-                controller.navigate ( R.id.action_login_fragment_to_registrationFragment );
+        firebaseAuth = FirebaseAuth.getInstance();
+
+        loginEmail = getView().findViewById(R.id.EmailAddress);
+        loginPassword = getView().findViewById(R.id.Password);
+        signupRedirectText = getView().findViewById(R.id.RegisterButton);
+        loginButton = getView().findViewById(R.id.LoginButton);
+
+        signupRedirectText.setOnClickListener(v -> {
+            NavController controller = Navigation.findNavController(v);
+            controller.navigate(R.id.action_login_fragment_to_registrationFragment);
+        });
+
+        loginButton.setOnClickListener(v -> {
+            String email = loginEmail.getText().toString().trim();
+            String password = loginPassword.getText().toString().trim();
+
+            if (validateEmail(email) && validatePassword()) {
+                loginUser(email, password);
             }
-        } );
-
-        acc_login = getView ().findViewById ( R.id.LoginButton );
-        acc_login.setOnClickListener ( new View.OnClickListener () {
-            @Override
-            public void onClick ( View v ) {
-                NavController controller = Navigation.findNavController (v);
-                controller.navigate ( R.id.action_login_fragment_to_main_page);
-           }
-        } );
-
+        });
     }
 
+    private Boolean validateEmail(String email) {
+        String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
+        if (!email.matches(emailPattern)) {
+            loginEmail.setError("Invalid email address");
+            return false;
+        } else {
+            loginEmail.setError(null);
+            return true;
+        }
+    }
+
+    private Boolean validatePassword() {
+        String val = loginPassword.getText().toString();
+        if (val.isEmpty()) {
+            loginPassword.setError("Password cannot be empty");
+            return false;
+        } else {
+            loginPassword.setError(null);
+            return true;
+        }
+    }
+
+    private void loginUser(String email, String password) {
+        firebaseAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(requireActivity(), task -> {
+                    if (task.isSuccessful()) {
+                        FirebaseUser user = firebaseAuth.getCurrentUser();
+                        if (user != null && user.isEmailVerified()) {
+                            Toast.makeText(getActivity(), "Login successful", Toast.LENGTH_SHORT).show();
+
+                            NavController controller = Navigation.findNavController(getView());
+                            controller.navigate(R.id.action_login_fragment_to_main_page);
+                        } else {
+                            Toast.makeText(getActivity(), "Please verify your email", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Toast.makeText(getActivity(), "Login failed. Check your credentials", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
 }
