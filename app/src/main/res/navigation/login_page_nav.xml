@@ -52,21 +52,4 @@
         android:name="com.example.soulmate.main_page"
         android:label="app_bar_main_page"
         tools:layout="@layout/app_bar_main_page" />
-    <dialog
-        android:id="@+id/popUpCallFragment"
-        android:name="com.example.soulmate.PopUpCallFragment"
-        android:label="fragment_pop_up_call"
-        tools:layout="@layout/fragment_pop_up_call" >
-        <action
-            android:id="@+id/action_popUpCallFragment_to_main_page"
-            app:destination="@id/main_page" />
-        <action
-            android:id="@+id/action_popUpCallFragment_to_emergencyCall"
-            app:destination="@id/emergencyCall" />
-    </dialog>
-    <fragment
-        android:id="@+id/emergencyCall"
-        android:name="com.example.soulmate.EmergencyCall"
-        android:label="fragment_emergency_call"
-        tools:layout="@layout/fragment_emergency_call" />
 </navigation>

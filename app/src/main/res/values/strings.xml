@@ -93,4 +93,5 @@
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
     <string name="menu_emergency_call">Emergency Call</string>
+    <string name="title_activity_date_tracking">dateTracking</string>
 </resources>

@@ -24,8 +24,6 @@ public class DateTrackingFragment extends Fragment {
         binding = FragmentDateTrackingBinding.inflate ( inflater, container, false );
         View root = binding.getRoot ();
 
-        final TextView textView = binding.textDateTracking;
-        dateTrackingViewModelViewModel.getText ().observe ( getViewLifecycleOwner (), textView::setText );
         return root;
     }
 
