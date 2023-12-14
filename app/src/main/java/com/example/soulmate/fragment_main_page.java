@@ -67,7 +67,7 @@ public class fragment_main_page extends Fragment {
         return inflater.inflate ( R.layout.fragment_main_page, container, false );
     }
 
-    @Override
+/*    @Override
     public void onActivityCreated ( @Nullable Bundle savedInstanceState ) {
         super.onActivityCreated ( savedInstanceState );
 
@@ -90,5 +90,5 @@ public class fragment_main_page extends Fragment {
                 controller.navigate ( R.id.action_fragment_main_page_to_fragment_emergency_call );
             }
         } );
-    }
+    }*/
 }

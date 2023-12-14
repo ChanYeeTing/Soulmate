@@ -3,6 +3,7 @@ package com.example.soulmate;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -15,10 +16,10 @@ import android.widget.ImageButton;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link fragment_emergency_call#newInstance} factory method to
+ * Use the {@link PopUpCallFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class fragment_emergency_call extends Fragment {
+public class PopUpCallFragment extends DialogFragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -29,7 +30,7 @@ public class fragment_emergency_call extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public fragment_emergency_call () {
+    public PopUpCallFragment () {
         // Required empty public constructor
     }
 
@@ -39,11 +40,11 @@ public class fragment_emergency_call extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment fragment_emergency_call.
+     * @return A new instance of fragment PopUpCallFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static fragment_emergency_call newInstance ( String param1, String param2 ) {
-        fragment_emergency_call fragment = new fragment_emergency_call ();
+    public static PopUpCallFragment newInstance ( String param1, String param2 ) {
+        PopUpCallFragment fragment = new PopUpCallFragment ();
         Bundle args = new Bundle ();
         args.putString ( ARG_PARAM1, param1 );
         args.putString ( ARG_PARAM2, param2 );
@@ -64,41 +65,31 @@ public class fragment_emergency_call extends Fragment {
     public View onCreateView ( LayoutInflater inflater, ViewGroup container,
                                Bundle savedInstanceState ) {
         // Inflate the layout for this fragment
-        return inflater.inflate ( R.layout.fragment_emergency_call, container, false );
+        return inflater.inflate ( R.layout.fragment_pop_up_call, container, false );
     }
 
-    @Override
+/*    @Override
     public void onActivityCreated ( @Nullable Bundle savedInstanceState ) {
         super.onActivityCreated ( savedInstanceState );
 
         Button yes;
-        yes = getView ().findViewById ( R.id.yesButton );
+        yes = getView ().findViewById ( R.id.yesButton2 );
         yes.setOnClickListener ( new View.OnClickListener () {
             @Override
             public void onClick ( View v ) {
                 NavController controller = Navigation.findNavController ( v );
-                controller.navigate ( R.id.action_fragment_emergency_call_to_fragment_emergency_location );
+                controller.navigate ( R.id.action_popUpCallFragment_to_fragment_emergency_location );
             }
         } );
 
         Button cancel;
-        cancel = getView ().findViewById ( R.id.cancelButton );
+        cancel = getView ().findViewById ( R.id.cancelButton2 );
         cancel.setOnClickListener ( new View.OnClickListener () {
             @Override
             public void onClick ( View v ) {
                 NavController controller = Navigation.findNavController ( v );
-                controller.navigate ( R.id.action_fragment_emergency_call_to_fragment_main_page );
+                controller.navigate ( R.id.action_popUpCallFragment_to_main_page );
             }
         } );
-
-        ImageButton side_menu;
-        side_menu = getView ().findViewById ( R.id.sideMenuButton3 );
-        side_menu.setOnClickListener ( new View.OnClickListener () {
-            @Override
-            public void onClick ( View v ) {
-                NavController controller = Navigation.findNavController ( v );
-                controller.navigate ( R.id.action_fragment_emergency_call_to_fragment_side_menu );
-            }
-        } );
-    }
+    }*/
 }
