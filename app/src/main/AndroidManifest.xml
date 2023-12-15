@@ -18,7 +18,7 @@
             android:label="@string/title_activity_date_tracking"
             android:theme="@style/Theme.Soulmate" />
         <activity
-            android:name=".dateTracking"
+            android:name="dateTracking"
             android:exported="false"
             android:label="@string/title_activity_date_tracking"
             android:theme="@style/Theme.Soulmate" />

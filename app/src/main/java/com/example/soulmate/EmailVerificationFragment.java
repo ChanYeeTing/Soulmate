@@ -72,80 +72,56 @@ public class EmailVerificationFragment extends Fragment {
     }
 
     @Override
-    public void onActivityCreated ( @Nullable Bundle savedInstanceState ) {
-        super.onActivityCreated ( savedInstanceState );
-        Button resend;
-        Button main;
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        Button resend = getView().findViewById(R.id.resendButton);
+        Button main = getView().findViewById(R.id.continue_main);
         TextView message = getView().findViewById(R.id.message);
-        resend = getView ().findViewById ( R.id.resendButton);
-        main = getView ().findViewById ( R.id.continue_main);
 
         FirebaseAuth auth = FirebaseAuth.getInstance();
         FirebaseUser user = auth.getCurrentUser();
+
         FirebaseAuth.AuthStateListener listener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                    auth.getCurrentUser().reload();
+                auth.getCurrentUser().reload();
 
-                if (!user.isEmailVerified())
-                {
+                if (!user.isEmailVerified()) {
                     resend.setVisibility(View.VISIBLE);
                     message.setVisibility(View.VISIBLE);
-
-                }
-                else if(user.isEmailVerified())
-                {
+                } else {
                     Toast.makeText(getActivity(), "Successful Registered", Toast.LENGTH_SHORT).show();
+                    NavController controller = Navigation.findNavController(getView());
+                    controller.navigate(R.id.action_emailVerificationFragment_to_login_fragment);
                 }
-                auth.getCurrentUser().reload();
             }
         };
+
+        // Register the AuthStateListener
+        auth.addAuthStateListener(listener);
+
         main.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseAuth auth = FirebaseAuth.getInstance();
-                FirebaseUser user = auth.getCurrentUser();
+                FirebaseAuth.getInstance().getCurrentUser().reload();
 
-
-                FirebaseAuth.AuthStateListener listener = new FirebaseAuth.AuthStateListener() {
-                    @Override
-                    public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                        auth.getCurrentUser().reload();
-
-                        if (!user.isEmailVerified())
-                        {
-                            Toast.makeText(getActivity(), "Email Not Verified", Toast.LENGTH_SHORT).show();
-
-                        }
-                        else if(user.isEmailVerified())
-                        {
-                            Toast.makeText(getActivity(), "Successful Registered", Toast.LENGTH_SHORT).show();
-                            NavController controller = Navigation.findNavController (v);
-                            controller.navigate ( R.id.action_login_fragment_to_registrationFragment );
-                        }
-                        auth.getCurrentUser().reload();
-                    }
-                };
-
+                if (!user.isEmailVerified()) {
+                    Toast.makeText(getActivity(), "Email Not Verified", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getActivity(), "Successful Registered", Toast.LENGTH_SHORT).show();
+                    NavController controller = Navigation.findNavController(v);
+                    controller.navigate(R.id.action_emailVerificationFragment_to_login_fragment);
+                }
             }
         });
-        resend.setOnClickListener ( new View.OnClickListener () {
+
+        resend.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick ( View v ) {
-
-
+            public void onClick(View v) {
                 FirebaseAuth.getInstance().getCurrentUser().sendEmailVerification();
                 Toast.makeText(getActivity(), "Verification Link Sent", Toast.LENGTH_SHORT).show();
-                while(!user.isEmailVerified())
-                    auth.getCurrentUser().reload();
-
-
-
-
-
-//                NavController controller = Navigation.findNavController (v);
-//                controller.navigate ( R.id.action_emailVerificationFragment_to_mobileVerificationFragment );
             }
-        } );
+        });
     }
 }
