@@ -121,9 +121,11 @@ public class EmailVerificationFragment extends Fragment {
                         {
                             Toast.makeText(getActivity(), "Successful Registered", Toast.LENGTH_SHORT).show();
                             NavController controller = Navigation.findNavController (v);
-                            controller.navigate ( R.id.action_login_fragment_to_registrationFragment );
+                            controller.navigate ( R.id.action_emailVerificationFragment_to_login_fragment );
                         }
                         auth.getCurrentUser().reload();
+//                        NavController controller = Navigation.findNavController (v);
+//                        controller.navigate ( R.id.action_login_fragment_to_registrationFragment );
                     }
                 };
 

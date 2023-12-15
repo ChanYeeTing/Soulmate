@@ -37,6 +37,9 @@
         <action
             android:id="@+id/action_emailVerificationFragment_to_mobileVerificationFragment"
             app:destination="@id/mobileVerificationFragment" />
+        <action
+            android:id="@+id/action_emailVerificationFragment_to_login_fragment"
+            app:destination="@id/login_fragment" />
     </fragment>
     <fragment
         android:id="@+id/mobileVerificationFragment"
