@@ -42,6 +42,20 @@
         android:name="com.example.soulmate.ui.settings.SettingsFragment"
         android:label="@string/menu_settings"
         tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/nav_reminder"
+        android:name="com.example.soulmate.ui.reminder.ReminderFragment"
+        android:label="@string/menu_reminder"
+        tools:layout="@layout/fragment_reminder" >
+        <action
+            android:id="@+id/action_popUpReminderFragment_to_nav_reminder"
+            app:destination="@id/nav_reminder" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_contact_us"
+        android:name="com.example.soulmate.ui.contactUs.ContactUsFragment"
+        android:label="@string/menu_contact_us"
+        tools:layout="@layout/fragment_contact_us" />
     <dialog
         android:id="@+id/popUpCallFragment2"
         android:name="com.example.soulmate.PopUpCallFragment"
@@ -53,4 +67,9 @@
         android:name="com.example.soulmate.EmergencyCall"
         android:label="fragment_emergency_call"
         tools:layout="@layout/fragment_emergency_call" />
+    <dialog
+        android:id="@+id/popUpReminderFragment"
+        android:name="com.example.soulmate.PopUpReminderFragment"
+        android:label="fragment_pop_up_reminder"
+        tools:layout="@layout/fragment_pop_up_reminder" />
 </navigation>

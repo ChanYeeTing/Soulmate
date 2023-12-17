@@ -58,4 +58,10 @@
     <string name="contact_us">Contact Us</string>
     <string name="menu_emergency_call">Emergency Call</string>
     <string name="title_activity_date_tracking">dateTracking</string>
+    <string name="menu_contact_us">Contact Us</string>
+    <string name="contactUsDescription">\n Call: 03-1523 4598 \n ( 8am - 7am )\n \n  Chat via WhatsApp: +6017-325 7899 \n ( 7am - 12am )\n\n  E-mail: soulmate-help@gmail.com
+        \n ( You will receive a reply in 24 hours )
+    </string>
+    <string name="menu_reminder">Reminder</string>
+    <string name="addReminder">Add Reminder</string>
 </resources>
