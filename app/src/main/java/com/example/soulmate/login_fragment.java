@@ -9,7 +9,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
@@ -93,6 +92,7 @@ public class login_fragment extends Fragment {
                             controller.navigate(R.id.action_login_fragment_to_main_page);
                         } else {
                             Toast.makeText(getActivity(), "Please verify your email", Toast.LENGTH_SHORT).show();
+                            FirebaseAuth.getInstance().getCurrentUser().sendEmailVerification();
                         }
                     } else {
                         Toast.makeText(getActivity(), "Login failed. Check your credentials", Toast.LENGTH_SHORT).show();

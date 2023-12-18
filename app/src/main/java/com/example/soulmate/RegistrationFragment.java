@@ -3,7 +3,6 @@ package com.example.soulmate;
 import static androidx.fragment.app.FragmentManager.TAG;
 
 import android.app.DatePickerDialog;
-import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -14,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -186,7 +184,12 @@ public class RegistrationFragment extends Fragment {
 
                 if (!getName.isEmpty() && !getEmail.isEmpty() && !getNumber.isEmpty() && !getDOB.equals("Date of Birth") && !getGender.equals(-1)
                         && !getpassword.isEmpty() && !getCpassword.isEmpty()) {
+                    String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
+                    if (!getEmail.matches(emailPattern)) {
+                        email.setError("Invalid email address");
+                        email.requestFocus();
+                    }
 
                     if (getpassword.length() >= 6 && getCpassword.length() >= 6) {
 
