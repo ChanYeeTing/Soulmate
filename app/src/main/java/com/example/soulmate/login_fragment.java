@@ -1,5 +1,6 @@
 package com.example.soulmate;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +25,7 @@ public class login_fragment extends Fragment {
     TextView signupRedirectText;
 
     private FirebaseAuth firebaseAuth;
+    public static String PREFS_NAME = "MyPrefsFile";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -34,6 +36,8 @@ public class login_fragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        checkBox();
 
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -53,6 +57,11 @@ public class login_fragment extends Fragment {
 
             if (validateEmail(email) && validatePassword()) {
                 loginUser(email, password);
+                SharedPreferences sharedPreferences = getActivity().getSharedPreferences(PREFS_NAME,0);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                editor.putBoolean("hasLoggedIn", true);
+                editor.apply();
             }
         });
     }
@@ -98,5 +107,16 @@ public class login_fragment extends Fragment {
                         Toast.makeText(getActivity(), "Login failed. Check your credentials", Toast.LENGTH_SHORT).show();
                     }
                 });
+    }
+    //Skip login if already login
+    private void checkBox()
+    {
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(PREFS_NAME, 0);
+        Boolean check = sharedPreferences.getBoolean("hasLoggedIn", false);
+        if(check)
+        {
+            NavController controller = Navigation.findNavController(getView());
+            controller.navigate(R.id.action_login_fragment_to_main_page);
+        }
     }
 }

@@ -175,14 +175,13 @@ public class RegistrationFragment extends Fragment {
                 String getEmail = email.getText().toString().trim();
                 String getNumber = number.getText().toString().trim();
                 String getDOB = DOB.getText().toString();
-                String getGender = gender.getText().toString();
                 String getpassword = password.getText().toString().trim();
                 String getCpassword = Cpassword.getText().toString().trim();
 
 
 
 
-                if (!getName.isEmpty() && !getEmail.isEmpty() && !getNumber.isEmpty() && !getDOB.equals("Date of Birth") && !getGender.equals(-1)
+                if (!getName.isEmpty() && !getEmail.isEmpty() && !getNumber.isEmpty() && !getDOB.equals("Date of Birth") && genid!=-1
                         && !getpassword.isEmpty() && !getCpassword.isEmpty()) {
                     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
@@ -200,10 +199,11 @@ public class RegistrationFragment extends Fragment {
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if(task.isSuccessful())
                                     {
+                                        String getGender = gender.getText().toString();
                                         FirebaseAuth.getInstance().getCurrentUser().sendEmailVerification();
                                         Toast.makeText(getActivity(), "Verification Link Sent", Toast.LENGTH_SHORT).show();
                                         String user_id = auth.getCurrentUser().getUid();
-                                        DatabaseReference userRef = ref.child("Users").child(getName);
+                                        DatabaseReference userRef = ref.child("Users").child(user_id);
                                         HashMap<String, Object> hashMap = new HashMap<>();
                                         hashMap.put("name", getName);
                                         hashMap.put("email", getEmail);
