@@ -58,7 +58,15 @@ public class EmergencyCall extends Fragment {
     @Override
     public View onCreateView ( LayoutInflater inflater, ViewGroup container,
                                Bundle savedInstanceState ) {
-        // Inflate the layout for this fragment
-        return inflater.inflate ( R.layout.fragment_emergency_call, container, false );
+
+        View view = inflater.inflate(R.layout.fragment_emergency_call, container, false);
+
+        // Set the title of the app bar dynamically
+        if (getActivity() instanceof main_page) {
+            ((main_page) getActivity()).getSupportActionBar().setTitle("Emergency Call");
+        }
+
+        return view;
+
     }
 }

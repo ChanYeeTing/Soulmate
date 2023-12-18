@@ -21,8 +21,16 @@
             android:icon="@drawable/menu_telemedicine_icon"
             android:title="@string/menu_telemedicine" />
         <item
+            android:id="@+id/nav_reminder"
+            android:icon="@drawable/menu_reminder"
+            android:title="@string/menu_reminder"/>
+        <item
             android:id="@+id/nav_settings"
             android:icon="@drawable/menu_settings_icon"
             android:title="@string/menu_settings" />
+        <item
+            android:id="@+id/nav_contact_us"
+            android:icon="@drawable/menu_call_icon"
+            android:title="@string/contact_us" />
     </group>
 </menu>
