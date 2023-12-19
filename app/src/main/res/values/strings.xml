@@ -64,4 +64,6 @@
     </string>
     <string name="menu_reminder">Reminder</string>
     <string name="addReminder">Add Reminder</string>
+    <string name="map_content_description">Google Map View</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDSTtlxPDoYXft1J0h1HHTxotYzxnJEHPw</string>
 </resources>

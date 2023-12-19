@@ -124,16 +124,6 @@ public class EmergencyCall extends Fragment implements OnMapReadyCallback {
         }
     }
 
-//    private void updateLocationUI(Location location) {
-//        if (location != null) {
-//            LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-//            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
-//            TextView addressTextView;
-//            addressTextView = getView().findViewById(R.id.textView5);
-//            // Replace the following line with code to get the address from the location (Geocoding).
-//            addressTextView.setText("Lat: " + location.getLatitude() + ", Lng: " + location.getLongitude());
-//        }
-//    }
 
     private void updateLocationUI(Location location) {
         if (location != null) {
