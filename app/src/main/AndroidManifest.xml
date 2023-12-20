@@ -29,7 +29,7 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="${MAPS_API_KEY}" />
+            android:value="AIzaSyDSTtlxPDoYXft1J0h1HHTxotYzxnJEHPw" />
 
         <activity
             android:name=".ui.dateTracking.DateTracking"

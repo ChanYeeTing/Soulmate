@@ -72,4 +72,12 @@
         android:name="com.example.soulmate.PopUpReminderFragment"
         android:label="fragment_pop_up_reminder"
         tools:layout="@layout/fragment_pop_up_reminder" />
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.example.soulmate.MainActivity"
+        android:label="activity_main"
+        tools:layout="@layout/activity_main" />
+    <action
+        android:id="@+id/action_global_login"
+        app:destination="@id/mainActivity" />
 </navigation>
