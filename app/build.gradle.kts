@@ -27,7 +27,7 @@ android {
         }
     }
     buildFeatures{
-        viewBinding= true;
+        viewBinding= true
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -65,8 +65,9 @@ dependencies {
     implementation("com.google.firebase:firebase-auth")
     implementation ("com.android.support:multidex:1.0.3")
 
-
-
+//    Agora SDK
+//    implementation ("io.agora.rtc:<artifact id>:4.0.1")
+//    implementation ("com.github.agoraio-community:videouikit-android:final:4.0.1")
 
 
 }

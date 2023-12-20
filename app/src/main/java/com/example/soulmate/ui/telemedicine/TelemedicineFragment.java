@@ -4,15 +4,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.soulmate.databinding.FragmentHomeBinding;
 import com.example.soulmate.databinding.FragmentTelemedicineBinding;
-import com.example.soulmate.ui.home.HomeViewModel;
 
 public class TelemedicineFragment extends Fragment {
 
@@ -26,8 +23,8 @@ public class TelemedicineFragment extends Fragment {
         binding = FragmentTelemedicineBinding.inflate ( inflater, container, false );
         View root = binding.getRoot ();
 
-        final TextView textView = binding.textTelemedicine;
-        telemedicineViewModel.getText ().observe ( getViewLifecycleOwner (), textView::setText );
+//        final TextView textView = binding.textTelemedicine;
+//        telemedicineViewModel.getText ().observe ( getViewLifecycleOwner (), textView::setText );
         return root;
     }
 
@@ -36,5 +33,7 @@ public class TelemedicineFragment extends Fragment {
         super.onDestroyView ();
         binding = null;
     }
+
+
 
 }
