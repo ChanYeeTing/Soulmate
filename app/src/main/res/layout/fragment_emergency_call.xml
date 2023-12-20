@@ -4,11 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
     tools:context=".EmergencyCall">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="541dp">
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline22"
@@ -29,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.97" />
+            app:layout_constraintGuide_percent="0.75" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline25"
@@ -73,7 +74,8 @@
             app:layout_constraintHorizontal_bias="0.086"
             app:layout_constraintStart_toStartOf="@+id/guideline23"
             app:layout_constraintTop_toTopOf="@+id/guideline22"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.0"
+            tools:ignore="UnknownId" />
 
         <TextView
             android:id="@+id/textView5"
@@ -91,5 +93,17 @@
             app:layout_constraintStart_toStartOf="@+id/guideline23"
             app:layout_constraintTop_toTopOf="@+id/guideline22"
             app:layout_constraintVertical_bias="0.0" />
+
+        <com.google.android.gms.maps.MapView
+            android:id="@+id/mapView"
+            android:layout_width="420dp"
+            android:layout_height="463dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.555"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textView5"
+            app:layout_constraintVertical_bias="0.0"
+            android:contentDescription="@string/map_content_description"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
