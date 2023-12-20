@@ -38,6 +38,24 @@
         android:label="@string/menu_telemedicine"
         tools:layout="@layout/fragment_telemedicine" />
     <fragment
+        android:id="@+id/nav_appointment"
+        android:name="com.example.soulmate.ui.appointment.appointmentFragment"
+        android:label="@string/menu_appointment"
+        tools:layout="@layout/fragment_telemedicine" >
+        <action
+            android:id="@+id/action_nav_appointment_to_telemedicineBooking"
+            app:destination="@id/telemedicineBooking" />
+        <action
+            android:id="@+id/action_nav_appointment_to_clinicHospitalBooking"
+            app:destination="@id/clinicHospitalBooking" />
+        <action
+            android:id="@+id/action_nav_appointment_to_bloodDonationBooking"
+            app:destination="@id/bloodDonationBooking" />
+        <action
+            android:id="@+id/action_nav_appointment_to_vaccinationBooking"
+            app:destination="@id/vaccinationBooking" />
+    </fragment>
+    <fragment
         android:id="@+id/nav_settings"
         android:name="com.example.soulmate.ui.settings.SettingsFragment"
         android:label="@string/menu_settings"
@@ -72,6 +90,26 @@
         android:name="com.example.soulmate.PopUpReminderFragment"
         android:label="fragment_pop_up_reminder"
         tools:layout="@layout/fragment_pop_up_reminder" />
+    <fragment
+        android:id="@+id/telemedicineBooking"
+        android:name="com.example.soulmate.ui.appointment.TelemedicineBookingFragment"
+        android:label="fragment_telemedicine_booking"
+        tools:layout="@layout/fragment_telemedicine_booking"/>
+    <fragment
+        android:id="@+id/clinicHospitalBooking"
+        android:name="com.example.soulmate.ui.appointment.ClinicBookingFragment"
+        android:label="fragment_clinic_booking"
+        tools:layout="@layout/fragment_clinic_booking"/>
+    <fragment
+        android:id="@+id/bloodDonationBooking"
+        android:name="com.example.soulmate.ui.appointment.BloodDonationFragment"
+        android:label="fragment_blood_donation"
+        tools:layout="@layout/fragment_blood_donation"/>
+    <fragment
+        android:id="@+id/vaccinationBooking"
+        android:name="com.example.soulmate.ui.appointment.VaccinationFragment"
+        android:label="fragment_vaccination"
+        tools:layout="@layout/fragment_vaccination"/>
     <activity
         android:id="@+id/mainActivity"
         android:name="com.example.soulmate.MainActivity"
