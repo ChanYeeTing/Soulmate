@@ -59,7 +59,11 @@
         android:id="@+id/nav_settings"
         android:name="com.example.soulmate.ui.settings.SettingsFragment"
         android:label="@string/menu_settings"
-        tools:layout="@layout/fragment_settings" />
+        tools:layout="@layout/fragment_settings" >
+        <action
+            android:id="@+id/action_nav_settings_to_updateProfile"
+            app:destination="@id/updateProfile" />
+    </fragment>
     <fragment
         android:id="@+id/nav_reminder"
         android:name="com.example.soulmate.ui.reminder.ReminderFragment"
@@ -110,6 +114,15 @@
         android:name="com.example.soulmate.ui.appointment.VaccinationFragment"
         android:label="fragment_vaccination"
         tools:layout="@layout/fragment_vaccination"/>
+    <fragment
+        android:id="@+id/updateProfile"
+        android:name="com.example.soulmate.ui.settings.UpdateProfileFragment"
+        android:label="fragment_update_profile"
+        tools:layout="@layout/fragment_update_profile">
+        <action
+            android:id="@+id/action_updateProfile_to_nav_settings"
+            app:destination="@id/nav_settings" />
+    </fragment>
     <activity
         android:id="@+id/mainActivity"
         android:name="com.example.soulmate.MainActivity"
