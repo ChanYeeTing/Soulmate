@@ -2,8 +2,25 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <!-- For Android 12, you need to add the following line to apply for the alarm clock permission. For Agora Chat 1.0.9 or later, this permission is optional.-->
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PROJECTION" />
+
+
 
     <application
         android:allowBackup="true"
@@ -29,18 +46,18 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="${MAPS_API_KEY}" />
+            android:value="AIzaSyDSTtlxPDoYXft1J0h1HHTxotYzxnJEHPw" />
 
         <activity
             android:name=".ui.dateTracking.DateTracking"
             android:exported="false"
             android:label="@string/title_activity_date_tracking"
             android:theme="@style/Theme.Soulmate" />
-        <activity
-            android:name=".dateTracking"
-            android:exported="false"
-            android:label="@string/title_activity_date_tracking"
-            android:theme="@style/Theme.Soulmate" />
+<!--        <activity-->
+<!--            android:name=".dateTracking"-->
+<!--            android:exported="false"-->
+<!--            android:label="@string/title_activity_date_tracking"-->
+<!--            android:theme="@style/Theme.Soulmate" />-->
         <activity
             android:name=".EmergencyCall"
             android:exported="false"

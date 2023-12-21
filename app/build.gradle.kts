@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.soulmate"
-        minSdk = 19
+        minSdk = 25
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -69,9 +69,7 @@ dependencies {
     implementation ("com.android.support:multidex:1.0.3")
     implementation ("com.google.android.gms:play-services-maps:17.0.0")
 
-//    Agora SDK
-//    implementation ("io.agora.rtc:<artifact id>:4.0.1")
-//    implementation ("com.github.agoraio-community:videouikit-android:final:4.0.1")
-
+    //Jitsi Meet
+    implementation ("org.jitsi.react:jitsi-meet-sdk:+")
 
 }

@@ -10,10 +10,13 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-        jcenter() // Warning: this repository is going to shut down soon
-        maven { setUrl("https://jitpack.io") }
+        maven {
+            url = uri("https://github.com/jitsi/jitsi-maven-repository/raw/master/releases")
+        }
+        maven {
+            url = uri("https://maven.google.com")
+        }
     }
-
 }
 
 rootProject.name = "Soulmate"
