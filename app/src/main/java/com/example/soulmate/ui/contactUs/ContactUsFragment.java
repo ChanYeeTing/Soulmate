@@ -18,7 +18,7 @@ public class ContactUsFragment extends Fragment {
 
     public View onCreateView ( @NonNull LayoutInflater inflater,
                                ViewGroup container, Bundle savedInstanceState ) {
-        ContactUsViewModel settingsViewModel =
+        ContactUsViewModel contactUsViewModel =
                 new ViewModelProvider ( this ).get ( ContactUsViewModel.class );
 
         binding = FragmentContactUsBinding.inflate ( inflater, container, false );

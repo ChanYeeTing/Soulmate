@@ -18,7 +18,7 @@ public class DateTrackingFragment extends Fragment {
 
     public View onCreateView ( @NonNull LayoutInflater inflater,
                                ViewGroup container, Bundle savedInstanceState ) {
-        DateTrackingViewModel dateTrackingViewModelViewModel =
+        DateTrackingViewModel dateTrackingViewModel =
                 new ViewModelProvider ( this ).get ( DateTrackingViewModel.class );
 
         binding = FragmentDateTrackingBinding.inflate ( inflater, container, false );

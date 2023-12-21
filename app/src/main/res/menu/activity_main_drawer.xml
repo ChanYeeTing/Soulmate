@@ -33,7 +33,7 @@
             android:icon="@drawable/menu_settings_icon"
             android:title="@string/menu_settings" />
         <item
-            android:id="@+id/n_av_contactus"
+            android:id="@+id/nav_contact_us"
             android:icon="@drawable/menu_call_icon"
             android:title="@string/contact_us" />
 
