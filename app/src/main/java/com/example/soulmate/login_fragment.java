@@ -37,7 +37,7 @@ public class login_fragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        checkBox();
+//        checkBox();
 
         firebaseAuth = FirebaseAuth.getInstance();
 

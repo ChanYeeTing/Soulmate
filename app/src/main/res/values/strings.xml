@@ -63,6 +63,7 @@
         \n ( You will receive a reply in 24 hours )
     </string>
     <string name="menu_reminder">Reminder</string>
+    <string name="menu_appointment">Appointment</string>
     <string name="addReminder">Add Reminder</string>
     <string name="map_content_description">Google Map View</string>
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDSTtlxPDoYXft1J0h1HHTxotYzxnJEHPw</string>
@@ -88,4 +89,7 @@
 
     <string name="app_key">41117440#383391</string>
 
+    <string name="clinic_hospitals">Clinic / Hospital</string>
+    <string name="vaccination_button">Vaccination</string>
+    <string name="blood_donation">Blood Donation</string>
 </resources>

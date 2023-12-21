@@ -112,9 +112,9 @@
             android:id="@+id/genderSelector"
             android:layout_width="182dp"
             android:layout_height="105dp"
-            android:layout_marginTop="324dp"
+            android:layout_marginTop="320dp"
             app:layout_constraintEnd_toStartOf="@+id/guideline8"
-            app:layout_constraintHorizontal_bias="0.83"
+            app:layout_constraintHorizontal_bias="0.835"
             app:layout_constraintStart_toStartOf="@+id/guideline7"
             app:layout_constraintTop_toTopOf="@+id/guideline2">
 
