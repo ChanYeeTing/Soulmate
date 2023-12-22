@@ -98,7 +98,11 @@
         android:id="@+id/telemedicineBooking"
         android:name="com.example.soulmate.ui.appointment.TelemedicineBookingFragment"
         android:label="fragment_telemedicine_booking"
-        tools:layout="@layout/fragment_telemedicine_booking"/>
+        tools:layout="@layout/fragment_telemedicine_booking">
+        <action
+            android:id="@+id/action_telemedicineBooking_to_timeslot"
+            app:destination="@id/timeslot" />
+    </fragment>
     <fragment
         android:id="@+id/clinicHospitalBooking"
         android:name="com.example.soulmate.ui.appointment.ClinicBookingFragment"
@@ -131,4 +135,16 @@
     <action
         android:id="@+id/action_global_login"
         app:destination="@id/mainActivity" />
+    <fragment
+        android:id="@+id/timeslot"
+        android:name="com.example.soulmate.timeslot"
+        android:label="fragment_timeslot"
+        tools:layout="@layout/fragment_timeslot" >
+        <action
+            android:id="@+id/action_timeslot_to_nav_date_tracking"
+            app:destination="@id/nav_date_tracking" />
+        <action
+            android:id="@+id/action_timeslot_to_telemedicineBooking"
+            app:destination="@id/telemedicineBooking" />
+    </fragment>
 </navigation>

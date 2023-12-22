@@ -63,6 +63,8 @@ public class main_page extends AppCompatActivity {
             String uid = currentUser.getUid();
             NavigationView navigationView1 = binding.navView;
             View headerView = navigationView1.getHeaderView(0);
+
+            //set username
             username = headerView.findViewById(R.id.username);
             DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
             reference.child(uid).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {

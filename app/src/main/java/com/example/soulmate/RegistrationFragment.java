@@ -126,6 +126,7 @@ public class RegistrationFragment extends Fragment {
                                 DateSetListener,
                                 year, month, day
                         );
+
                         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                         dialog.show();
 

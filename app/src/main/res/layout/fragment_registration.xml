@@ -222,10 +222,10 @@
 
         <TextView
             android:id="@+id/dateOfBirth"
-            android:layout_width="238dp"
-            android:layout_height="45dp"
+            android:layout_width="231dp"
+            android:layout_height="43dp"
             android:layout_marginTop="20dp"
-            android:text="Date of Birth"
+            android:hint="Date of Birth"
             android:textColor="#000000"
             android:textColorHint="#A8A5A8"
             android:textSize="20sp"

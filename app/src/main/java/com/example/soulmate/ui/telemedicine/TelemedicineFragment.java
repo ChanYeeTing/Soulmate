@@ -1,5 +1,7 @@
 package com.example.soulmate.ui.telemedicine;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +11,8 @@ import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -76,14 +80,14 @@ public class TelemedicineFragment extends Fragment {
             public void onClick(View v) {
 
                 // Check if the permission is granted
-//                if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.FOREGROUND_SERVICE_MEDIA_PROJECTION)
-//                        != PackageManager.PERMISSION_GRANTED) {
-//                    // Permission is not granted, request it
-//                    ActivityCompat.requestPermissions(getActivity(),
-//                            new String[]{Manifest.permission.FOREGROUND_SERVICE_MEDIA_PROJECTION},
-//                            REQUEST_CODE); // Replace REQUEST_CODE with your own code
-//                }
-//                else {
+                if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.FOREGROUND_SERVICE_MEDIA_PROJECTION)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    // Permission is not granted, request it
+                    ActivityCompat.requestPermissions(getActivity(),
+                            new String[]{Manifest.permission.FOREGROUND_SERVICE_MEDIA_PROJECTION},
+                            REQUEST_CODE); // Replace REQUEST_CODE with your own code
+                }
+                else {
                     String text = input.getText().toString();
                     if(text.length()>0)
                     {
@@ -98,22 +102,22 @@ public class TelemedicineFragment extends Fragment {
                 }
 
 
-//            }
+            }
         });
 
 
     }
-//    @Override
-//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-//        if (requestCode == REQUEST_CODE) {
-//            // Check if the permission is granted
-//            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//                // Permission was granted, proceed with service initialization or usage
-//            } else {
-//                // Permission denied, handle accordingly (possibly show a message to the user)
-//            }
-//        }
-//    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == REQUEST_CODE) {
+            // Check if the permission is granted
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permission was granted, proceed with service initialization or usage
+            } else {
+                // Permission denied, handle accordingly (possibly show a message to the user)
+            }
+        }
+    }
 
 
 
