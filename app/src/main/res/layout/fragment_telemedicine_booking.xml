@@ -45,6 +45,20 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="318dp"
+            android:layout_height="38dp"
+            android:background="#DFDEDE"
+            android:text="Select Date"
+            android:textSize="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline49"
+            app:layout_constraintHorizontal_bias="0.628"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.313" />
+
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline50"
             android:layout_width="wrap_content"
@@ -181,20 +195,6 @@
                 app:layout_constraintVertical_bias="0.113" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <TextView
-            android:id="@+id/date"
-            android:layout_width="318dp"
-            android:layout_height="38dp"
-            android:background="#DFDEDE"
-            android:text="Select Date"
-            android:textSize="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/guideline49"
-            app:layout_constraintHorizontal_bias="0.628"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.313" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
