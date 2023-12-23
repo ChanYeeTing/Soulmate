@@ -143,13 +143,6 @@ public class RegistrationFragment extends Fragment {
 
        };
 
-
-
-
-
-
-
-
         register2 = getView ().findViewById ( R.id.registerButton );
 
 
