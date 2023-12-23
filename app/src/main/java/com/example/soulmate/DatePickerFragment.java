@@ -28,7 +28,9 @@ public class DatePickerFragment extends DialogFragment implements android.app.Da
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
-        return new DatePickerDialog(getActivity(), this, year, month, day);
+        DatePickerDialog dialog = new DatePickerDialog(getActivity(), this, year, month, day);
+        dialog.getDatePicker().setMinDate(System.currentTimeMillis() -1000);
+        return dialog;
     }
 
 
@@ -38,7 +40,8 @@ public class DatePickerFragment extends DialogFragment implements android.app.Da
         c.set(Calendar.YEAR, year);
         c.set(Calendar.MONTH, month);
         c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-        String currentDataString = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
+        String currentDataString = DateFormat.getDateInstance(DateFormat.MEDIUM).format(c.getTime());
         ((TextView) getActivity().findViewById(R.id.date)).setText(currentDataString);
+
     }
 }

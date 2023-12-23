@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,6 +15,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.soulmate.DatePickerFragment;
 import com.example.soulmate.R;
@@ -29,15 +30,17 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
+import java.util.TimeZone;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link TelemedicineBookingFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class TelemedicineBookingFragment extends Fragment implements android.app.DatePickerDialog.OnDateSetListener {
+public class TelemedicineBookingFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -60,7 +63,10 @@ public class TelemedicineBookingFragment extends Fragment implements android.app
     Button button7;
     Button button8;
     Button button9;
-    String choice ;
+    String getName,getNumber;
+    public static String getDate ;
+    public static String check;
+    String getTime;
 
     public TelemedicineBookingFragment () {
         // Required empty public constructor
@@ -127,8 +133,10 @@ public class TelemedicineBookingFragment extends Fragment implements android.app
                             DataSnapshot dataSnapshot = task.getResult();
                             String user = String.valueOf(dataSnapshot.child("name").getValue());
                             name.setText(user);
+                            getName = user;
                             String contact = String.valueOf(dataSnapshot.child("Mobile Number").getValue());
                             number.setText(contact);
+                            getNumber=contact;
                         }
                     }
                 }
@@ -146,19 +154,12 @@ public class TelemedicineBookingFragment extends Fragment implements android.app
         button7= getView().findViewById(R.id.button7);
         button8= getView().findViewById(R.id.button8);
         button9= getView().findViewById(R.id.button9);
-
+        check = Selectdate.getText().toString().trim();
         enableButton();
 
 
 
-        Selectdate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DialogFragment datePicker = new DatePickerFragment();
-                datePicker.show(getActivity().getSupportFragmentManager(),"datePicker");
 
-            }
-        });
 
 
 
@@ -170,113 +171,167 @@ public class TelemedicineBookingFragment extends Fragment implements android.app
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+                enableButton();
             }
             @Override
             public void afterTextChanged(Editable s) {
+                check = Selectdate.getText().toString().trim();
                 enableButton();
+                getDate = Selectdate.getText().toString().trim();
+
             }
         };
         Selectdate.addTextChangedListener(textWatcher);
+        Selectdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFragment datePicker = new DatePickerFragment();
+                datePicker.show(getActivity().getSupportFragmentManager(),"datePicker");
 
-        final Bundle bundle = this.getArguments();
+            }
+        });
+
+
+
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                getTime = button1.getText().toString().trim();
                 timeslot showPopUp = new timeslot();
-                showPopUp.show(((AppCompatActivity) requireActivity()).getSupportFragmentManager(), "showpopup");
-                if (bundle != null) {
-                    choice  = bundle.getString("choice");
+                Bundle bundle = new Bundle();
+                bundle.putString("name", getName);
+                bundle.putString("number",getNumber);
+                bundle.putString("date",getDate);
+                bundle.putString("time",getTime);
 
-                }
+                showPopUp.setArguments(bundle);
+                showPopUp.show(((AppCompatActivity) requireActivity()).getSupportFragmentManager(), "showpopup");
+
+
             }
         });
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                getTime = button2.getText().toString().trim();
                 timeslot showPopUp = new timeslot();
-                showPopUp.show(((AppCompatActivity) requireActivity()).getSupportFragmentManager(), "showpopup");
-                if (bundle != null) {
-                    choice  = bundle.getString("choice");
+                Bundle bundle = new Bundle();
+                bundle.putString("name", getName);
+                bundle.putString("number",getNumber);
+                bundle.putString("date",getDate);
+                bundle.putString("time",getTime);
 
-                }
+                showPopUp.setArguments(bundle);
+                showPopUp.show(((AppCompatActivity) requireActivity()).getSupportFragmentManager(), "showpopup");
             }
         });
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                getTime = button3.getText().toString().trim();
                 timeslot showPopUp = new timeslot();
-                showPopUp.show(((AppCompatActivity) requireActivity()).getSupportFragmentManager(), "showpopup");
-                if (bundle != null) {
-                    choice  = bundle.getString("choice");
+                Bundle bundle = new Bundle();
+                bundle.putString("name", getName);
+                bundle.putString("number",getNumber);
+                bundle.putString("date",getDate);
+                bundle.putString("time",getTime);
 
-                }
+                showPopUp.setArguments(bundle);
+                showPopUp.show(((AppCompatActivity) requireActivity()).getSupportFragmentManager(), "showpopup");
             }
         });
         button4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                getTime = button4.getText().toString().trim();
                 timeslot showPopUp = new timeslot();
-                showPopUp.show(((AppCompatActivity) requireActivity()).getSupportFragmentManager(), "showpopup");
-                if (bundle != null) {
-                    choice  = bundle.getString("choice");
+                Bundle bundle = new Bundle();
+                bundle.putString("name", getName);
+                bundle.putString("number",getNumber);
+                bundle.putString("date",getDate);
+                bundle.putString("time",getTime);
 
-                }
+                showPopUp.setArguments(bundle);
+                showPopUp.show(((AppCompatActivity) requireActivity()).getSupportFragmentManager(), "showpopup");
             }
         });
         button5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                getTime = button5.getText().toString().trim();
                 timeslot showPopUp = new timeslot();
-                showPopUp.show(((AppCompatActivity) requireActivity()).getSupportFragmentManager(), "showpopup");
-                if (bundle != null) {
-                    choice  = bundle.getString("choice");
+                Bundle bundle = new Bundle();
+                bundle.putString("name", getName);
+                bundle.putString("number",getNumber);
+                bundle.putString("date",getDate);
+                bundle.putString("time",getTime);
 
-                }
+                showPopUp.setArguments(bundle);
+                showPopUp.show(((AppCompatActivity) requireActivity()).getSupportFragmentManager(), "showpopup");
             }
         });
         button6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                getTime = button6.getText().toString().trim();
                 timeslot showPopUp = new timeslot();
-                showPopUp.show(((AppCompatActivity) requireActivity()).getSupportFragmentManager(), "showpopup");
-                if (bundle != null) {
-                    choice  = bundle.getString("choice");
+                Bundle bundle = new Bundle();
+                bundle.putString("name", getName);
+                bundle.putString("number",getNumber);
+                bundle.putString("date",getDate);
+                bundle.putString("time",getTime);
 
-                }
+                showPopUp.setArguments(bundle);
+                showPopUp.show(((AppCompatActivity) requireActivity()).getSupportFragmentManager(), "showpopup");
             }
         });
         button7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                getTime = button7.getText().toString().trim();
                 timeslot showPopUp = new timeslot();
-                showPopUp.show(((AppCompatActivity) requireActivity()).getSupportFragmentManager(), "showpopup");
-                if (bundle != null) {
-                    choice  = bundle.getString("choice");
+                Bundle bundle = new Bundle();
+                bundle.putString("name", getName);
+                bundle.putString("number",getNumber);
+                bundle.putString("date",getDate);
+                bundle.putString("time",getTime);
 
-                }
+                showPopUp.setArguments(bundle);
+                showPopUp.show(((AppCompatActivity) requireActivity()).getSupportFragmentManager(), "showpopup");
             }
         });
         button8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                getTime = button8.getText().toString().trim();
                 timeslot showPopUp = new timeslot();
-                showPopUp.show(((AppCompatActivity) requireActivity()).getSupportFragmentManager(), "showpopup");
-                if (bundle != null) {
-                    choice  = bundle.getString("choice");
+                Bundle bundle = new Bundle();
+                bundle.putString("name", getName);
+                bundle.putString("number",getNumber);
+                bundle.putString("date",getDate);
+                bundle.putString("time",getTime);
 
-                }
+                showPopUp.setArguments(bundle);
+                showPopUp.show(((AppCompatActivity) requireActivity()).getSupportFragmentManager(), "showpopup");
             }
         });
         button9.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                getTime = button9.getText().toString().trim();
                 timeslot showPopUp = new timeslot();
-                showPopUp.show(((AppCompatActivity) requireActivity()).getSupportFragmentManager(), "showpopup");
-                if (bundle != null) {
-                    choice  = bundle.getString("choice");
+                Bundle bundle = new Bundle();
+                bundle.putString("name", getName);
+                bundle.putString("number",getNumber);
+                bundle.putString("date",getDate);
+                bundle.putString("time",getTime);
 
-                }
+                showPopUp.setArguments(bundle);
+                showPopUp.show(((AppCompatActivity) requireActivity()).getSupportFragmentManager(), "showpopup");
+
             }
         });
 
@@ -284,26 +339,48 @@ public class TelemedicineBookingFragment extends Fragment implements android.app
     }
 
     private void enableButton() {
-        String check = Selectdate.getText().toString().trim();
-        button1.setEnabled(!check.equals("Select Date"));
-        button2.setEnabled(!check.equals("Select Date"));
-        button3.setEnabled(!check.equals("Select Date"));
-        button4.setEnabled(!check.equals("Select Date"));
-        button5.setEnabled(!check.equals("Select Date"));
-        button6.setEnabled(!check.equals("Select Date"));
-        button7.setEnabled(!check.equals("Select Date"));
-        button8.setEnabled(!check.equals("Select Date"));
-        button9.setEnabled(!check.equals("Select Date"));
+
+        Calendar calendar = Calendar.getInstance(
+                TimeZone.getTimeZone("Asia/Kuala_Lumpur"));;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy", Locale.getDefault());
+        String todayDateMediumFormat = dateFormat.format(calendar.getTime());
+        int currentHour = calendar.get(Calendar.HOUR_OF_DAY); // 24-hour format
+
+        if (check.equals(todayDateMediumFormat.trim()))
+        {
+            button1.setEnabled(!check.equals("Select Date")&&(9>currentHour));
+            button2.setEnabled(!check.equals("Select Date")&&(10>currentHour));
+            button3.setEnabled(!check.equals("Select Date")&&(11>currentHour));
+            button4.setEnabled(!check.equals("Select Date")&&(12>currentHour));
+            button5.setEnabled(!check.equals("Select Date")&&(14>currentHour));
+            button6.setEnabled(!check.equals("Select Date")&&(15>currentHour));
+            button7.setEnabled(!check.equals("Select Date")&&(16>currentHour));
+            button8.setEnabled(!check.equals("Select Date")&&(17>currentHour));
+            button9.setEnabled(!check.equals("Select Date")&&(18>currentHour));
+        }
+        else {
+            button1.setEnabled(!check.equals("Select Date"));
+            button2.setEnabled(!check.equals("Select Date"));
+            button3.setEnabled(!check.equals("Select Date"));
+            button4.setEnabled(!check.equals("Select Date"));
+            button5.setEnabled(!check.equals("Select Date"));
+            button6.setEnabled(!check.equals("Select Date"));
+            button7.setEnabled(!check.equals("Select Date"));
+            button8.setEnabled(!check.equals("Select Date"));
+            button9.setEnabled(!check.equals("Select Date"));
+        }
+
     }
 
 
-    @Override
-    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        Calendar c = Calendar.getInstance();
-        c.set(Calendar.YEAR, year);
-        c.set(Calendar.MONTH, month);
-        c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-        String currentDataString = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
-        Selectdate.setText(currentDataString);
-    }
+//    @Override
+//    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+//        Calendar c = Calendar.getInstance();
+//        c.set(Calendar.YEAR, year);
+//        c.set(Calendar.MONTH, month);
+//        c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+//        String currentDataString = DateFormat.getDateInstance(DateFormat.SHORT).format(c.getTime());
+//        Selectdate.setText(currentDataString);
+//
+//    }
 }
