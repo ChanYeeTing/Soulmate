@@ -81,7 +81,7 @@ public class main_page extends AppCompatActivity {
             });
         }
 
-        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu ( Menu menu ) {

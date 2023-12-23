@@ -17,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.soulmate.PopUpCallFragment;
 import com.example.soulmate.R;
 import com.example.soulmate.databinding.FragmentHomeBinding;
+import com.google.firebase.database.ValueEventListener;
 
 public class HomeFragment extends Fragment {
 
@@ -53,7 +54,4 @@ public class HomeFragment extends Fragment {
             }
         });
     }
-
-
-
-    }
+}
