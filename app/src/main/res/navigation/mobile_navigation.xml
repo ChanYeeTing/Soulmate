@@ -33,6 +33,15 @@
         android:label="@string/menu_date_tracking"
         tools:layout="@layout/fragment_date_tracking" />
     <fragment
+        android:id="@+id/nav_health_tracking"
+        android:name="com.example.soulmate.ui.healthTracking.HealthTrackingFragment"
+        android:label="@string/menu_healthTracking"
+        tools:layout="@layout/fragment_health_tracking">
+        <action
+            android:id="@+id/action_nav_health_tracking_to_analyzeResultFragment"
+            app:destination="@id/analyzeResultFragment" />
+    </fragment>
+    <fragment
         android:id="@+id/nav_telemedicine"
         android:name="com.example.soulmate.ui.telemedicine.TelemedicineFragment"
         android:label="@string/menu_telemedicine"
@@ -146,4 +155,9 @@
     <action
         android:id="@+id/action_popUpTimeSlot_to_nav_date_tracking"
         app:destination="@id/nav_date_tracking" />
+    <fragment
+        android:id="@+id/analyzeResultFragment"
+        android:name="com.example.soulmate.ui.healthTracking.AnalyzeResultFragment"
+        android:label="fragment_analyze_result"
+        tools:layout="@layout/fragment_analyze_result" />
 </navigation>
