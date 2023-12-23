@@ -1,54 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.medicalHistory.MedicalHistoryFragment">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="364dp"
-        android:layout_height="133dp"
-        android:fontFamily="serif"
-        android:text="Medical History:"
-        android:textSize="20sp"
-        android:textStyle="bold|italic"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.489"
-        app:layout_constraintStart_toStartOf="parent"
+    <!-- View Mode -->
+    <LinearLayout
+        android:id="@+id/viewModeLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.073" />
-
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="364dp"
-        android:layout_height="133dp"
-        android:fontFamily="serif"
-        android:text="Medical History:"
-        android:textSize="20sp"
-        android:textStyle="bold|italic"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.489"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.327" />
+        app:layout_constraintEnd_toEndOf="parent">
 
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="364dp"
-        android:layout_height="133dp"
-        android:fontFamily="serif"
-        android:text="Medical History:"
-        android:textSize="20sp"
-        android:textStyle="bold|italic"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.489"
+        <TextView
+            android:id="@+id/textViewMedicalHistory"
+            android:layout_width="match_parent"
+            android:layout_height="81dp"
+            android:layout_marginBottom="16dp"
+            android:text="Medical History will be displayed here" />
+
+        <Button
+            android:id="@+id/buttonEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Edit Medical History"/>
+    </LinearLayout>
+
+    <!-- Edit Mode -->
+    <LinearLayout
+        android:id="@+id/editModeLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/viewModeLayout"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.575" />
+        app:layout_constraintEnd_toEndOf="parent">
 
+        <EditText
+            android:id="@+id/editTextMedicalHistory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Medical History"
+            android:inputType="textMultiLine"
+            android:lines="5"
+            android:gravity="top"
+            android:layout_marginBottom="16dp"/>
+
+        <Button
+            android:id="@+id/buttonSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Save Medical History"/>
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
