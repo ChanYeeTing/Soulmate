@@ -17,6 +17,10 @@
             android:icon="@drawable/menu_date_icon"
             android:title="@string/menu_date_tracking"/>
         <item
+            android:id="@+id/nav_health_tracking"
+            android:icon="@drawable/menu_health_tracking_icon"
+            android:title="@string/menu_healthTracking" />
+        <item
             android:id="@+id/nav_appointment"
             android:icon="@drawable/menu_appointment_icon"
             android:title="@string/menu_appointment" />

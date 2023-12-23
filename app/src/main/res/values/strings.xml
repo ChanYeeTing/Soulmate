@@ -63,6 +63,7 @@
         \n ( You will receive a reply in 24 hours )
     </string>
     <string name="menu_reminder">Reminder</string>
+    <string name="menu_healthTracking">Health Tracking</string>
     <string name="menu_appointment">Appointment</string>
     <string name="addReminder">Add Reminder</string>
     <string name="map_content_description">Google Map View</string>
@@ -86,6 +87,7 @@
     <string name="has_login_before">An account has been signed in, please sign out first and then sign in</string>
     <string name="sign_in_first">Please sign in first</string>
     <string name="not_find_send_name">Please enter the username who you want to send first!</string>
+    <string name="health_tracking_instruction">Please fill in your health status, we will analyze it and provide a result for you.</string>
 
     <string name="app_key">41117440#383391</string>
 
