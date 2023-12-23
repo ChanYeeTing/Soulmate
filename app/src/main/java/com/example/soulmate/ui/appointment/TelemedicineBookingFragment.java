@@ -101,7 +101,7 @@ public class TelemedicineBookingFragment extends Fragment implements android.app
         if (getActivity() instanceof main_page) {
             ((main_page) getActivity()).getSupportActionBar().setTitle("Telemedicine Booking");
         }
-        
+
         return view;
     }
 
@@ -181,6 +181,94 @@ public class TelemedicineBookingFragment extends Fragment implements android.app
 
         final Bundle bundle = this.getArguments();
         button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                timeslot showPopUp = new timeslot();
+                showPopUp.show(((AppCompatActivity) requireActivity()).getSupportFragmentManager(), "showpopup");
+                if (bundle != null) {
+                    choice  = bundle.getString("choice");
+
+                }
+            }
+        });
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                timeslot showPopUp = new timeslot();
+                showPopUp.show(((AppCompatActivity) requireActivity()).getSupportFragmentManager(), "showpopup");
+                if (bundle != null) {
+                    choice  = bundle.getString("choice");
+
+                }
+            }
+        });
+        button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                timeslot showPopUp = new timeslot();
+                showPopUp.show(((AppCompatActivity) requireActivity()).getSupportFragmentManager(), "showpopup");
+                if (bundle != null) {
+                    choice  = bundle.getString("choice");
+
+                }
+            }
+        });
+        button4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                timeslot showPopUp = new timeslot();
+                showPopUp.show(((AppCompatActivity) requireActivity()).getSupportFragmentManager(), "showpopup");
+                if (bundle != null) {
+                    choice  = bundle.getString("choice");
+
+                }
+            }
+        });
+        button5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                timeslot showPopUp = new timeslot();
+                showPopUp.show(((AppCompatActivity) requireActivity()).getSupportFragmentManager(), "showpopup");
+                if (bundle != null) {
+                    choice  = bundle.getString("choice");
+
+                }
+            }
+        });
+        button6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                timeslot showPopUp = new timeslot();
+                showPopUp.show(((AppCompatActivity) requireActivity()).getSupportFragmentManager(), "showpopup");
+                if (bundle != null) {
+                    choice  = bundle.getString("choice");
+
+                }
+            }
+        });
+        button7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                timeslot showPopUp = new timeslot();
+                showPopUp.show(((AppCompatActivity) requireActivity()).getSupportFragmentManager(), "showpopup");
+                if (bundle != null) {
+                    choice  = bundle.getString("choice");
+
+                }
+            }
+        });
+        button8.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                timeslot showPopUp = new timeslot();
+                showPopUp.show(((AppCompatActivity) requireActivity()).getSupportFragmentManager(), "showpopup");
+                if (bundle != null) {
+                    choice  = bundle.getString("choice");
+
+                }
+            }
+        });
+        button9.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 timeslot showPopUp = new timeslot();

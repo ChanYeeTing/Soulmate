@@ -103,13 +103,13 @@
             android:text="@string/user_gender"
             android:textColor="@color/black"
             android:textSize="20sp"
-            app:layout_constraintEnd_toStartOf="@+id/genderSelector"
+            app:layout_constraintEnd_toStartOf="@+id/timeSelector"
             app:layout_constraintHorizontal_bias="0.88"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline2" />
 
         <RadioGroup
-            android:id="@+id/genderSelector"
+            android:id="@+id/timeSelector"
             android:layout_width="182dp"
             android:layout_height="105dp"
             android:layout_marginTop="320dp"

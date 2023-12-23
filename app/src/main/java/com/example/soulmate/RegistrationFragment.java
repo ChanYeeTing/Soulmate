@@ -164,7 +164,7 @@ public class RegistrationFragment extends Fragment {
                 EditText number = getView().findViewById(R.id.userPhone);
 
 
-                RadioGroup rg = getView().findViewById(R.id.genderSelector);
+                RadioGroup rg = getView().findViewById(R.id.timeSelector );
                 int genid = rg.getCheckedRadioButtonId();
                 RadioButton gender = getView().findViewById(genid);
 //        RadioButton gender = getView().findViewById(rg.getCheckedRadioButtonId())

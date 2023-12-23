@@ -102,6 +102,9 @@
         <action
             android:id="@+id/action_telemedicineBooking_to_timeslot"
             app:destination="@id/timeslot" />
+        <action
+            android:id="@+id/action_popUpTimeSlot_to_telemedicineBooking"
+            app:destination="@id/telemedicineBooking" />
     </fragment>
     <fragment
         android:id="@+id/clinicHospitalBooking"
@@ -139,12 +142,8 @@
         android:id="@+id/timeslot"
         android:name="com.example.soulmate.timeslot"
         android:label="fragment_timeslot"
-        tools:layout="@layout/fragment_timeslot" >
-        <action
-            android:id="@+id/action_timeslot_to_nav_date_tracking"
-            app:destination="@id/nav_date_tracking" />
-        <action
-            android:id="@+id/action_timeslot_to_telemedicineBooking"
-            app:destination="@id/telemedicineBooking" />
-    </fragment>
+        tools:layout="@layout/fragment_timeslot" />
+    <action
+        android:id="@+id/action_popUpTimeSlot_to_nav_date_tracking"
+        app:destination="@id/nav_date_tracking" />
 </navigation>
