@@ -98,7 +98,7 @@
             app:layout_constraintVertical_bias="0.305" />
 
         <Spinner
-            android:id="@+id/vaccine_spinner"
+            android:id="@+id/category_spinner"
             android:layout_width="314dp"
             android:layout_height="41dp"
             android:scrollbarSize="20dp"
