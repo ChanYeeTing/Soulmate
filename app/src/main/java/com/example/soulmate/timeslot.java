@@ -55,8 +55,8 @@ public class timeslot extends DialogFragment {
      * @return A new instance of fragment PopUpCallFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static PopUpCallFragment newInstance ( String param1, String param2 ) {
-        PopUpCallFragment fragment = new PopUpCallFragment ();
+    public static timeslot newInstance ( String param1, String param2 ) {
+        timeslot fragment = new timeslot ();
         Bundle args = new Bundle ();
         args.putString ( ARG_PARAM1, param1 );
         args.putString ( ARG_PARAM2, param2 );
@@ -133,7 +133,7 @@ public class timeslot extends DialogFragment {
 
 
                 // Use the NavController obtained from NavHostFragment
-                navController.navigate(R.id.action_popUpTimeSlot_to_nav_date_tracking);
+                navController.navigate(R.id.action_popUpFragment_to_nav_date_tracking);
                 dismiss();
             }
         });

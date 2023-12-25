@@ -19,13 +19,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
+import java.util.Random;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link BloodPopUpFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class BloodPopUpFragment extends DialogFragment {
+public class ClinicPopUpFragment extends DialogFragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -35,11 +31,13 @@ public class BloodPopUpFragment extends DialogFragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference databaseReference;
+
     String name, number, date, time;
     TextView description;
-    private FirebaseDatabase firebaseDatabase;
 
-    public BloodPopUpFragment() {
+    public ClinicPopUpFragment () {
         // Required empty public constructor
     }
 
@@ -49,25 +47,26 @@ public class BloodPopUpFragment extends DialogFragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment BloodPopUpFragment.
+     * @return A new instance of fragment PopUpCallFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static BloodPopUpFragment newInstance(String param1, String param2) {
-        BloodPopUpFragment fragment = new BloodPopUpFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
+    public static ClinicPopUpFragment newInstance ( String param1, String param2 ) {
+        ClinicPopUpFragment fragment = new ClinicPopUpFragment ();
+        Bundle args = new Bundle ();
+        args.putString ( ARG_PARAM1, param1 );
+        args.putString ( ARG_PARAM2, param2 );
+        fragment.setArguments ( args );
         return fragment;
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate ( Bundle savedInstanceState ) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        //receive data from booking fragment
         Bundle bundle = getArguments();
         if (bundle != null) {
             name = bundle.getString("name");
@@ -76,25 +75,30 @@ public class BloodPopUpFragment extends DialogFragment {
             time = bundle.getString("time");
 
         }
+
+
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView ( LayoutInflater inflater, ViewGroup container,
+                               Bundle savedInstanceState ) {
+
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_blood_pop_up, container, false);
+        return inflater.inflate ( R.layout.fragment_clinic_pop_up, container, false );
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        Button yes = getView().findViewById(R.id.yesButton2);
-        Button cancel = getView().findViewById(R.id.cancelButton2);
-        description = getView().findViewById(R.id.textView3);
+        Button yes = getView().findViewById(R.id.yesButton8);
+        Button cancel = getView().findViewById(R.id.cancelButton8);
+        description = getView().findViewById(R.id.textView4);
         String question = "Please confirm you intent to schedule your appointment for \n"+ date + " "+time;
         description.setText(question);
 
+//        String roomId = generateRandomId();
 
         // Use requireView() to get the View associated with the Fragment
         View fragmentView = requireView();
@@ -113,12 +117,13 @@ public class BloodPopUpFragment extends DialogFragment {
                 Toast.makeText(getActivity(), "Booking Successful", Toast.LENGTH_SHORT).show();
                 String user_id = auth.getCurrentUser().getUid();
                 String dateTime=date+" "+time;
-                DatabaseReference userRef = ref.child("Activity").child(user_id).child("Donation").child(dateTime);
+                DatabaseReference userRef = ref.child("Activity").child(user_id).child("Clinic/Hospital").child(dateTime);
                 HashMap<String, Object> hashMap = new HashMap<>();
                 hashMap.put("name", name);
                 hashMap.put("number", number);
                 hashMap.put("date", date);
                 hashMap.put("time", time);
+//                hashMap.put("RoomId", roomId);
                 userRef.setValue(hashMap);
 
 
@@ -132,10 +137,21 @@ public class BloodPopUpFragment extends DialogFragment {
             @Override
             public void onClick(View v) {
                 // Use the NavController obtained from NavHostFragment
-                navController.navigate(R.id.action_popUpTimeSlot_to_telemedicineBooking);
+                navController.navigate(R.id.action_popUpClinic_to_clinicBooking);
                 dismiss ();
             }
         });
 
     }
+/*    private String generateRandomId() {
+        Random random = new Random();
+        StringBuilder stringBuilder = new StringBuilder();
+        String allowedChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        for (int i = 0; i < 10; i++) {
+            int randomIndex = random.nextInt(allowedChars.length());
+            char randomChar = allowedChars.charAt(randomIndex);
+            stringBuilder.append(randomChar);
+        }
+        return stringBuilder.toString();
+    }*/
 }

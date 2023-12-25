@@ -122,7 +122,14 @@
         android:id="@+id/clinicHospitalBooking"
         android:name="com.example.soulmate.ui.appointment.ClinicBookingFragment"
         android:label="fragment_clinic_booking"
-        tools:layout="@layout/fragment_clinic_booking"/>
+        tools:layout="@layout/fragment_clinic_booking">
+        <action
+            android:id="@+id/action_clinicBooking_to_popUpClinic"
+            app:destination="@id/clinicPopUpFragment" />
+        <action
+            android:id="@+id/action_popUpClinic_to_clinicBooking"
+            app:destination="@id/clinicHospitalBooking" />
+    </fragment>
     <fragment
         android:id="@+id/bloodDonationBooking"
         android:name="com.example.soulmate.ui.appointment.BloodDonationFragment"
@@ -156,11 +163,16 @@
         android:label="fragment_timeslot"
         tools:layout="@layout/fragment_timeslot" />
     <action
-        android:id="@+id/action_popUpTimeSlot_to_nav_date_tracking"
+        android:id="@+id/action_popUpFragment_to_nav_date_tracking"
         app:destination="@id/nav_date_tracking" />
     <fragment
         android:id="@+id/analyzeResultFragment"
         android:name="com.example.soulmate.ui.healthTracking.AnalyzeResultFragment"
         android:label="fragment_analyze_result"
         tools:layout="@layout/fragment_analyze_result" />
+    <dialog
+        android:id="@+id/clinicPopUpFragment"
+        android:name="com.example.soulmate.ClinicPopUpFragment"
+        android:label="fragment_clinic_pop_up"
+        tools:layout="@layout/fragment_clinic_pop_up" />
 </navigation>

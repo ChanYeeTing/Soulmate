@@ -21,6 +21,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.soulmate.ClinicPopUpFragment;
 import com.example.soulmate.DatePickerFragment;
 import com.example.soulmate.R;
 import com.example.soulmate.main_page;
@@ -163,7 +164,7 @@ public class ClinicBookingFragment extends Fragment {
         hospitalInfo.put("Clinic Dr. Dashindar Singh", List.of("General Medicine"));
         hospitalInfo.put("Medivici Clinic & Surgery", List.of("General Medicine", "Health Check", "Home Visit"));
         hospitalInfo.put("Clinic Putra Simpang Ampat", List.of("Internal & Family Medicine", "Home Visit", "Medical Check Up", "Chronic illnesses"));
-        hospitalInfo.put("Clinik Lim", List.of("Medical & Dental Surgery"));
+        hospitalInfo.put("Clinic Lim", List.of("Medical & Dental Surgery"));
         hospitalInfo.put("House Call Doctor", List.of("Medical Check Up", "Home Consultation", "Diabetes Care"));
         hospitalInfo.put("Clinic Medilife", List.of("Physiotherapy and Rehab Centre", "Hemodialysis"));
     }
@@ -245,12 +246,13 @@ public class ClinicBookingFragment extends Fragment {
 
         FragmentManager fm = getActivity().getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        timeslot showPopUp = new timeslot();
+
 
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getTime = button1.getText().toString().trim();
+                ClinicPopUpFragment showPopUp = new ClinicPopUpFragment ();
                 Bundle bundle = new Bundle();
                 bundle.putString("name", getName);
                 bundle.putString("number",getNumber);
@@ -268,6 +270,7 @@ public class ClinicBookingFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 getTime = button2.getText().toString().trim();
+                ClinicPopUpFragment showPopUp = new ClinicPopUpFragment ();
                 Bundle bundle = new Bundle();
                 bundle.putString("name", getName);
                 bundle.putString("number",getNumber);
@@ -282,6 +285,7 @@ public class ClinicBookingFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 getTime = button3.getText().toString().trim();
+                ClinicPopUpFragment showPopUp = new ClinicPopUpFragment ();
                 Bundle bundle = new Bundle();
                 bundle.putString("name", getName);
                 bundle.putString("number",getNumber);
@@ -296,6 +300,7 @@ public class ClinicBookingFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 getTime = button4.getText().toString().trim();
+                ClinicPopUpFragment showPopUp = new ClinicPopUpFragment ();
                 Bundle bundle = new Bundle();
                 bundle.putString("name", getName);
                 bundle.putString("number",getNumber);
@@ -310,6 +315,7 @@ public class ClinicBookingFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 getTime = button5.getText().toString().trim();
+                ClinicPopUpFragment showPopUp = new ClinicPopUpFragment ();
                 Bundle bundle = new Bundle();
                 bundle.putString("name", getName);
                 bundle.putString("number",getNumber);
@@ -324,6 +330,7 @@ public class ClinicBookingFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 getTime = button6.getText().toString().trim();
+                ClinicPopUpFragment showPopUp = new ClinicPopUpFragment ();
                 Bundle bundle = new Bundle();
                 bundle.putString("name", getName);
                 bundle.putString("number",getNumber);
@@ -338,6 +345,7 @@ public class ClinicBookingFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 getTime = button7.getText().toString().trim();
+                ClinicPopUpFragment showPopUp = new ClinicPopUpFragment ();
                 Bundle bundle = new Bundle();
                 bundle.putString("name", getName);
                 bundle.putString("number",getNumber);
@@ -352,6 +360,7 @@ public class ClinicBookingFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 getTime = button8.getText().toString().trim();
+                ClinicPopUpFragment showPopUp = new ClinicPopUpFragment ();
                 Bundle bundle = new Bundle();
                 bundle.putString("name", getName);
                 bundle.putString("number",getNumber);
@@ -366,6 +375,7 @@ public class ClinicBookingFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 getTime = button9.getText().toString().trim();
+                ClinicPopUpFragment showPopUp = new ClinicPopUpFragment ();
                 Bundle bundle = new Bundle();
                 bundle.putString("name", getName);
                 bundle.putString("number",getNumber);
