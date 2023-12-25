@@ -2,6 +2,15 @@ package com.example.soulmate.ui.appointment;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -11,15 +20,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
-
-import com.example.soulmate.ClinicPopUpFragment;
 import com.example.soulmate.DatePickerFragment;
 import com.example.soulmate.R;
 import com.example.soulmate.VaccinationPopUpFragment;
@@ -102,16 +102,35 @@ public class VaccinationFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView ( LayoutInflater inflater, ViewGroup container,
-                               Bundle savedInstanceState ) {
-        View view = inflater.inflate ( R.layout.fragment_vaccination, container, false );
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_vaccination, container, false);
 
         if (getActivity() instanceof main_page) {
             ((main_page) getActivity()).getSupportActionBar().setTitle("Vaccination Booking");
         }
 
+        String[] hospitalNames = {"Island Hospital", "Clinic Medicris", "Hospital Lam Wah Ee", "Clinic Dr. Dashindar Singh",
+                "Medivici Clinic & Surgery", "Clinic Putra Simpang Ampat", "Clinic Lim", "House Call Doctor", "Clinic Medilife"};
+
+        Spinner hospitalSpinner = view.findViewById(R.id.hospital_spinner);
+
+        ArrayAdapter<String> hospitalAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, hospitalNames);
+        hospitalAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        hospitalSpinner.setAdapter(hospitalAdapter);
+
+        String[] vaccineNames = {"Chickenpox", "Dengue", "Diphtheria", "Flu(Influenza)", "Hepatitis A", "Hepatitis B"};
+
+        Spinner vaccineSpinner = view.findViewById(R.id.vaccine_spinner);
+
+        ArrayAdapter<String> vaccineAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, vaccineNames);
+        vaccineAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        vaccineSpinner.setAdapter(vaccineAdapter);
+
         return view;
     }
+
 
     @Override
     public void onActivityCreated ( @Nullable Bundle savedInstanceState ) {
