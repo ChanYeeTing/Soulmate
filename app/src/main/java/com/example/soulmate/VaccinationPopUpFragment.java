@@ -21,7 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.HashMap;
 import java.util.Random;
 
-public class BloodPopUpFragment extends DialogFragment {
+public class VaccinationPopUpFragment extends DialogFragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -37,7 +37,7 @@ public class BloodPopUpFragment extends DialogFragment {
     String name, number, date, time;
     TextView description;
 
-    public BloodPopUpFragment () {
+    public VaccinationPopUpFragment () {
         // Required empty public constructor
     }
 
@@ -50,8 +50,8 @@ public class BloodPopUpFragment extends DialogFragment {
      * @return A new instance of fragment PopUpCallFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static BloodPopUpFragment newInstance ( String param1, String param2 ) {
-        BloodPopUpFragment fragment = new BloodPopUpFragment ();
+    public static VaccinationPopUpFragment newInstance ( String param1, String param2 ) {
+        VaccinationPopUpFragment fragment = new VaccinationPopUpFragment ();
         Bundle args = new Bundle ();
         args.putString ( ARG_PARAM1, param1 );
         args.putString ( ARG_PARAM2, param2 );
@@ -85,16 +85,16 @@ public class BloodPopUpFragment extends DialogFragment {
 
 
         // Inflate the layout for this fragment
-        return inflater.inflate ( R.layout.fragment_blood_pop_up, container, false );
+        return inflater.inflate ( R.layout.fragment_vaccination_pop_up, container, false );
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        Button yes = getView().findViewById(R.id.yesButton10);
-        Button cancel = getView().findViewById(R.id.cancelButton10);
-        description = getView().findViewById(R.id.textView10);
+        Button yes = getView().findViewById(R.id.yesButton20);
+        Button cancel = getView().findViewById(R.id.cancelButton20);
+        description = getView().findViewById(R.id.textView20);
         String question = "Please confirm you intent to schedule your appointment for \n"+ date + " "+time;
         description.setText(question);
 
@@ -117,7 +117,7 @@ public class BloodPopUpFragment extends DialogFragment {
                 Toast.makeText(getActivity(), "Booking Successful", Toast.LENGTH_SHORT).show();
                 String user_id = auth.getCurrentUser().getUid();
                 String dateTime=date+" "+time;
-                DatabaseReference userRef = ref.child("Activity").child(user_id).child("Blood Donation").child(dateTime);
+                DatabaseReference userRef = ref.child("Activity").child(user_id).child("Vaccination").child(dateTime);
                 HashMap<String, Object> hashMap = new HashMap<>();
                 hashMap.put("name", name);
                 hashMap.put("number", number);
@@ -137,7 +137,7 @@ public class BloodPopUpFragment extends DialogFragment {
             @Override
             public void onClick(View v) {
                 // Use the NavController obtained from NavHostFragment
-                navController.navigate(R.id.action_popUpBlood_to_bloodDonationBooking);
+                navController.navigate(R.id.action_popUpVaccination_to_vaccinationBooking);
                 dismiss ();
             }
         });

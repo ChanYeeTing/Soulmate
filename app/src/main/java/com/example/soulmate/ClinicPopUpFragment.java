@@ -117,7 +117,7 @@ public class ClinicPopUpFragment extends DialogFragment {
                 Toast.makeText(getActivity(), "Booking Successful", Toast.LENGTH_SHORT).show();
                 String user_id = auth.getCurrentUser().getUid();
                 String dateTime=date+" "+time;
-                DatabaseReference userRef = ref.child("Activity").child(user_id).child("Clinic/Hospital").child(dateTime);
+                DatabaseReference userRef = ref.child("Activity").child(user_id).child("Clinic and Hospital").child(dateTime);
                 HashMap<String, Object> hashMap = new HashMap<>();
                 hashMap.put("name", name);
                 hashMap.put("number", number);

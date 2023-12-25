@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BloodPopUpFragment">
+    tools:context=".VaccinationPopUpFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="300dp"
         android:layout_height="200dp">
 
         <Button
-            android:id="@+id/yesButton10"
+            android:id="@+id/yesButton20"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="#00BCD4"
@@ -26,7 +26,7 @@
             app:layout_constraintVertical_bias="0.776" />
 
         <TextView
-            android:id="@+id/textView10"
+            android:id="@+id/textView20"
             android:layout_width="251dp"
             android:layout_height="92dp"
             android:fontFamily="serif"
@@ -42,12 +42,12 @@
             app:layout_constraintVertical_bias="0.148" />
 
         <Button
-            android:id="@+id/cancelButton10"
+            android:id="@+id/cancelButton20"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/material_dynamic_neutral80"
             android:text="@string/cancel"
-            android:textColor="#000000"
+            android:textColor="#4CAF50"
             android:textSize="20sp"
             app:backgroundTint="@color/material_dynamic_neutral80"
             app:layout_constraintBottom_toBottomOf="parent"

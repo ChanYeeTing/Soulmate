@@ -20,6 +20,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.soulmate.BloodPopUpFragment;
+import com.example.soulmate.ClinicPopUpFragment;
 import com.example.soulmate.DatePickerFragment;
 import com.example.soulmate.R;
 import com.example.soulmate.main_page;
@@ -200,12 +202,12 @@ public class BloodDonationFragment extends Fragment {
 
         FragmentManager fm = getActivity().getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        timeslot showPopUp = new timeslot();
 
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getTime = button1.getText().toString().trim();
+                BloodPopUpFragment showPopUp = new BloodPopUpFragment ();
                 Bundle bundle = new Bundle();
                 bundle.putString("name", getName);
                 bundle.putString("number",getNumber);
@@ -223,6 +225,7 @@ public class BloodDonationFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 getTime = button2.getText().toString().trim();
+                BloodPopUpFragment showPopUp = new BloodPopUpFragment ();
                 Bundle bundle = new Bundle();
                 bundle.putString("name", getName);
                 bundle.putString("number",getNumber);
@@ -237,6 +240,7 @@ public class BloodDonationFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 getTime = button3.getText().toString().trim();
+                BloodPopUpFragment showPopUp = new BloodPopUpFragment ();
                 Bundle bundle = new Bundle();
                 bundle.putString("name", getName);
                 bundle.putString("number",getNumber);
@@ -251,6 +255,7 @@ public class BloodDonationFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 getTime = button4.getText().toString().trim();
+                BloodPopUpFragment showPopUp = new BloodPopUpFragment ();
                 Bundle bundle = new Bundle();
                 bundle.putString("name", getName);
                 bundle.putString("number",getNumber);
@@ -265,6 +270,7 @@ public class BloodDonationFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 getTime = button5.getText().toString().trim();
+                BloodPopUpFragment showPopUp = new BloodPopUpFragment ();
                 Bundle bundle = new Bundle();
                 bundle.putString("name", getName);
                 bundle.putString("number",getNumber);
@@ -279,6 +285,7 @@ public class BloodDonationFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 getTime = button6.getText().toString().trim();
+                BloodPopUpFragment showPopUp = new BloodPopUpFragment ();
                 Bundle bundle = new Bundle();
                 bundle.putString("name", getName);
                 bundle.putString("number",getNumber);
@@ -293,6 +300,7 @@ public class BloodDonationFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 getTime = button7.getText().toString().trim();
+                BloodPopUpFragment showPopUp = new BloodPopUpFragment ();
                 Bundle bundle = new Bundle();
                 bundle.putString("name", getName);
                 bundle.putString("number",getNumber);
@@ -307,6 +315,7 @@ public class BloodDonationFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 getTime = button8.getText().toString().trim();
+                BloodPopUpFragment showPopUp = new BloodPopUpFragment ();
                 Bundle bundle = new Bundle();
                 bundle.putString("name", getName);
                 bundle.putString("number",getNumber);
@@ -321,6 +330,7 @@ public class BloodDonationFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 getTime = button9.getText().toString().trim();
+                BloodPopUpFragment showPopUp = new BloodPopUpFragment ();
                 Bundle bundle = new Bundle();
                 bundle.putString("name", getName);
                 bundle.putString("number",getNumber);

@@ -134,12 +134,26 @@
         android:id="@+id/bloodDonationBooking"
         android:name="com.example.soulmate.ui.appointment.BloodDonationFragment"
         android:label="fragment_blood_donation"
-        tools:layout="@layout/fragment_blood_donation"/>
+        tools:layout="@layout/fragment_blood_donation">
+        <action
+            android:id="@+id/action_bloodDonationBooking_to_popUpBlood"
+            app:destination="@id/bloodPopUpFragment" />
+        <action
+            android:id="@+id/action_popUpBlood_to_bloodDonationBooking"
+            app:destination="@id/bloodDonationBooking" />
+    </fragment>
     <fragment
         android:id="@+id/vaccinationBooking"
         android:name="com.example.soulmate.ui.appointment.VaccinationFragment"
         android:label="fragment_vaccination"
-        tools:layout="@layout/fragment_vaccination"/>
+        tools:layout="@layout/fragment_vaccination">
+        <action
+            android:id="@+id/action_vaccinationBooking_to_popUpVaccination"
+            app:destination="@id/vaccinationPopUpFragment" />
+        <action
+            android:id="@+id/action_popUpVaccination_to_vaccinationBooking"
+            app:destination="@id/vaccinationBooking" />
+    </fragment>
     <fragment
         android:id="@+id/updateProfile"
         android:name="com.example.soulmate.ui.settings.UpdateProfileFragment"
@@ -175,4 +189,14 @@
         android:name="com.example.soulmate.ClinicPopUpFragment"
         android:label="fragment_clinic_pop_up"
         tools:layout="@layout/fragment_clinic_pop_up" />
+    <dialog
+        android:id="@+id/bloodPopUpFragment"
+        android:name="com.example.soulmate.BloodPopUpFragment"
+        android:label="fragment_blood_pop_up"
+        tools:layout="@layout/fragment_blood_pop_up" />
+    <dialog
+        android:id="@+id/vaccinationPopUpFragment"
+        android:name="com.example.soulmate.VaccinationPopUpFragment"
+        android:label="fragment_vaccination_pop_up"
+        tools:layout="@layout/fragment_vaccination_pop_up" />
 </navigation>
