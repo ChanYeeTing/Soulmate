@@ -71,8 +71,8 @@ public class main_page extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<DataSnapshot> task) {
                     if (task.isSuccessful()) {
-                        if (task.getResult().exists()) {
-                            DataSnapshot dataSnapshot = task.getResult();
+                        DataSnapshot dataSnapshot = task.getResult();
+                        if (dataSnapshot != null && dataSnapshot.exists()) {
                             String name = String.valueOf(dataSnapshot.child("name").getValue());
                             username.setText(name);
                         }
@@ -121,4 +121,9 @@ public class main_page extends AppCompatActivity {
         // Navigate to the login destination
         navController.navigate(R.id.action_global_login);
     }
+
+    public String getUsername() {
+        return username.getText().toString();
+    }
+
 }
