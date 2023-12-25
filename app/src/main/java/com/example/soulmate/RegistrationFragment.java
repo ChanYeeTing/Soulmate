@@ -179,64 +179,63 @@ public class RegistrationFragment extends Fragment {
                         && !getpassword.isEmpty() && !getCpassword.isEmpty()) {
                     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
-                    if (!getEmail.matches(emailPattern)) {
-                        email.setError("Invalid email address");
-                        email.requestFocus();
-                    }
+                    if (getEmail.matches(emailPattern)) {
 
-                    if (getpassword.length() >= 6 && getCpassword.length() >= 6) {
 
-                        if (getpassword.equals(getCpassword)) {
-                            FirebaseAuth auth = FirebaseAuth.getInstance();
-                            auth.createUserWithEmailAndPassword(getEmail, getpassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if(task.isSuccessful())
-                                    {
-                                        String getGender = gender.getText().toString();
-                                        FirebaseAuth.getInstance().getCurrentUser().sendEmailVerification();
-                                        Toast.makeText(getActivity(), "Verification Link Sent", Toast.LENGTH_SHORT).show();
-                                        String user_id = auth.getCurrentUser().getUid();
-                                        DatabaseReference userRef = ref.child("Users").child(user_id);
-                                        HashMap<String, Object> hashMap = new HashMap<>();
-                                        hashMap.put("name", getName);
-                                        hashMap.put("email", getEmail);
-                                        hashMap.put("Mobile Number", getNumber);
-                                        hashMap.put("Date of Birth", getDOB);
-                                        hashMap.put("Gender", getGender);
-                                        hashMap.put("Password", getpassword);
-                                        userRef.setValue(hashMap);
-                                        NavController controller = Navigation.findNavController(v);
-                                        controller.navigate(R.id.action_registrationFragment_to_emailVerificationFragment);
 
+                        if (getpassword.length() >= 6 && getCpassword.length() >= 6) {
+
+                            if (getpassword.equals(getCpassword)) {
+                                FirebaseAuth auth = FirebaseAuth.getInstance();
+                                auth.createUserWithEmailAndPassword(getEmail, getpassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<AuthResult> task) {
+                                        if (task.isSuccessful()) {
+                                            String getGender = gender.getText().toString();
+                                            FirebaseAuth.getInstance().getCurrentUser().sendEmailVerification();
+                                            Toast.makeText(getActivity(), "Verification Link Sent", Toast.LENGTH_SHORT).show();
+                                            String user_id = auth.getCurrentUser().getUid();
+                                            DatabaseReference userRef = ref.child("Users").child(user_id);
+                                            HashMap<String, Object> hashMap = new HashMap<>();
+                                            hashMap.put("name", getName);
+                                            hashMap.put("email", getEmail);
+                                            hashMap.put("Mobile Number", getNumber);
+                                            hashMap.put("Date of Birth", getDOB);
+                                            hashMap.put("Gender", getGender);
+                                            hashMap.put("Password", getpassword);
+                                            userRef.setValue(hashMap);
+                                            NavController controller = Navigation.findNavController(v);
+                                            controller.navigate(R.id.action_registrationFragment_to_emailVerificationFragment);
+
+                                        } else {
+                                            Toast.makeText(getActivity(), "Error! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                        }
                                     }
-                                    else {
-                                        Toast.makeText(getActivity(), "Error! "+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        if (e instanceof FirebaseAuthUserCollisionException) {
+                                            email.setError("Email Already Registered");
+                                            email.requestFocus();
+                                        }
                                     }
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    if(e instanceof FirebaseAuthUserCollisionException)
-                                    {
-                                        email.setError("Email Already Registered");
-                                        email.requestFocus();
-                                    }
-                                }
-                            });
+                                });
 
 
-
-
+                            } else {
+                                Cpassword.setError("Password not matched");
+                                Cpassword.requestFocus();
+                                Cpassword.setText("");
+                                //                        Toast.makeText(getActivity(),"Password Not Same", Toast.LENGTH_SHORT).show();
+                            }
                         } else {
-                            Cpassword.setError("Password not matched");
-                            Cpassword.requestFocus();
-                            Cpassword.setText("");
-                            //                        Toast.makeText(getActivity(),"Password Not Same", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Password should be >= 6 characters", Toast.LENGTH_SHORT).show();
                         }
+
                     }
                     else {
-                        Toast.makeText(getActivity(), "Password should be >= 6 characters", Toast.LENGTH_SHORT).show();
+                        email.setError("Invalid email address");
+                        email.requestFocus();
                     }
 
                     }
