@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_login_fragment_to_main_page"
             app:destination="@id/main_page" />
+        <action
+            android:id="@+id/action_login_fragment_to_adminLoginFragment"
+            app:destination="@id/adminLoginFragment" />
     </fragment>
     <fragment
         android:id="@+id/registrationFragment"
@@ -43,4 +46,18 @@
         android:name="com.example.soulmate.main_page"
         android:label="app_bar_main_page"
         tools:layout="@layout/app_bar_main_page" />
+    <fragment
+        android:id="@+id/adminLoginFragment"
+        android:name="com.example.soulmate.AdminLoginFragment"
+        android:label="fragment_admin_login"
+        tools:layout="@layout/fragment_admin_login">
+        <action
+            android:id="@+id/action_adminLoginFragment_to_adminMainPage"
+            app:destination="@id/adminMainPage" />
+    </fragment>
+    <activity
+        android:id="@+id/adminMainPage"
+        android:name="com.example.soulmate.AdminMainPage"
+        android:label="activity_admin_main_page"
+        tools:layout="@layout/activity_admin_main_page" />
 </navigation>

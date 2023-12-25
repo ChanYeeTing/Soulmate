@@ -194,7 +194,7 @@
             android:id="@+id/loginButton"
             android:layout_width="97dp"
             android:layout_height="42dp"
-            android:layout_marginTop="592dp"
+            android:layout_marginTop="600dp"
             android:background="@color/cardview_shadow_end_color"
             android:fontFamily="serif"
             android:text="@string/button_login"

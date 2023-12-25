@@ -38,7 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.95" />
+            app:layout_constraintGuide_percent="0.97" />
 
         <TextView
             android:id="@+id/LoginAppName"
@@ -118,7 +118,7 @@
             app:layout_constraintHorizontal_bias="0.487"
             app:layout_constraintStart_toStartOf="@+id/guideline9"
             app:layout_constraintTop_toTopOf="@+id/guideline1"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintVertical_bias="0.98" />
 
         <Button
             android:id="@+id/RegisterButton"
@@ -135,7 +135,26 @@
             app:layout_constraintHorizontal_bias="0.487"
             app:layout_constraintStart_toStartOf="@+id/guideline9"
             app:layout_constraintTop_toTopOf="@+id/guideline1"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintVertical_bias="0.977" />
+
+        <Button
+            android:id="@+id/adminLoginButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#00FFFFFF"
+            android:fontFamily="serif"
+            android:text="Login as Admin"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="#007368"
+            android:textSize="14dp"
+            android:textStyle="bold|italic"
+            app:layout_constraintBottom_toTopOf="@+id/guideline6"
+            app:layout_constraintEnd_toStartOf="@+id/guideline10"
+            app:layout_constraintHorizontal_bias="0.493"
+            app:layout_constraintStart_toStartOf="@+id/guideline9"
+            app:layout_constraintTop_toTopOf="@+id/guideline5"
+            app:layout_constraintVertical_bias="0.939" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
