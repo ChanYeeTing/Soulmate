@@ -7,11 +7,11 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.AdapterView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,7 +25,6 @@ import com.example.soulmate.ClinicPopUpFragment;
 import com.example.soulmate.DatePickerFragment;
 import com.example.soulmate.R;
 import com.example.soulmate.main_page;
-import com.example.soulmate.timeslot;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,11 +35,11 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Locale;
-import java.util.TimeZone;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.TimeZone;
 
 
 /**
@@ -76,6 +75,7 @@ public class ClinicBookingFragment extends Fragment {
     public static String getDate ;
     public static String check;
     String getTime;
+    public static String getHospital, getCategory;
 
     public ClinicBookingFragment () {
         // Required empty public constructor
@@ -145,6 +145,8 @@ public class ClinicBookingFragment extends Fragment {
                 ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, categoriesAndDoctors);
                 categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 categorySpinner.setAdapter(categoryAdapter);
+                getHospital= hospitalSpinner.getSelectedItem().toString();
+                getCategory= categorySpinner.getSelectedItem().toString();
             }
 
             @Override
@@ -152,6 +154,7 @@ public class ClinicBookingFragment extends Fragment {
                 // Do nothing here
             }
         });
+
         return view;
     }
 
@@ -256,6 +259,8 @@ public class ClinicBookingFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putString("name", getName);
                 bundle.putString("number",getNumber);
+                bundle.putString("hospital",getHospital);
+                bundle.putString("category", getCategory);
                 bundle.putString("date",getDate);
                 bundle.putString("time",getTime);
 
@@ -274,6 +279,8 @@ public class ClinicBookingFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putString("name", getName);
                 bundle.putString("number",getNumber);
+                bundle.putString("hospital",getHospital);
+                bundle.putString("category", getCategory);
                 bundle.putString("date",getDate);
                 bundle.putString("time",getTime);
 
@@ -289,6 +296,8 @@ public class ClinicBookingFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putString("name", getName);
                 bundle.putString("number",getNumber);
+                bundle.putString("hospital",getHospital);
+                bundle.putString("category", getCategory);
                 bundle.putString("date",getDate);
                 bundle.putString("time",getTime);
 
@@ -304,6 +313,8 @@ public class ClinicBookingFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putString("name", getName);
                 bundle.putString("number",getNumber);
+                bundle.putString("hospital",getHospital);
+                bundle.putString("category", getCategory);
                 bundle.putString("date",getDate);
                 bundle.putString("time",getTime);
 
@@ -319,6 +330,8 @@ public class ClinicBookingFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putString("name", getName);
                 bundle.putString("number",getNumber);
+                bundle.putString("hospital",getHospital);
+                bundle.putString("category", getCategory);
                 bundle.putString("date",getDate);
                 bundle.putString("time",getTime);
 
@@ -334,6 +347,8 @@ public class ClinicBookingFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putString("name", getName);
                 bundle.putString("number",getNumber);
+                bundle.putString("hospital",getHospital);
+                bundle.putString("category", getCategory);
                 bundle.putString("date",getDate);
                 bundle.putString("time",getTime);
 
@@ -349,6 +364,8 @@ public class ClinicBookingFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putString("name", getName);
                 bundle.putString("number",getNumber);
+                bundle.putString("hospital",getHospital);
+                bundle.putString("category", getCategory);
                 bundle.putString("date",getDate);
                 bundle.putString("time",getTime);
 
@@ -364,6 +381,8 @@ public class ClinicBookingFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putString("name", getName);
                 bundle.putString("number",getNumber);
+                bundle.putString("hospital",getHospital);
+                bundle.putString("category", getCategory);
                 bundle.putString("date",getDate);
                 bundle.putString("time",getTime);
 
@@ -379,6 +398,8 @@ public class ClinicBookingFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putString("name", getName);
                 bundle.putString("number",getNumber);
+                bundle.putString("hospital",getHospital);
+                bundle.putString("category", getCategory);
                 bundle.putString("date",getDate);
                 bundle.putString("time",getTime);
 

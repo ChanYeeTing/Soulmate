@@ -10,7 +10,6 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
@@ -19,7 +18,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
-import java.util.Random;
 
 public class ClinicPopUpFragment extends DialogFragment {
 
@@ -34,7 +32,7 @@ public class ClinicPopUpFragment extends DialogFragment {
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
 
-    String name, number, date, time;
+    String name, number,hospital,category, date, time;
     TextView description;
 
     public ClinicPopUpFragment () {
@@ -71,6 +69,8 @@ public class ClinicPopUpFragment extends DialogFragment {
         if (bundle != null) {
             name = bundle.getString("name");
             number = bundle.getString("number");
+            hospital = bundle.getString("hospital");
+            category = bundle.getString("category");
             date = bundle.getString("date");
             time = bundle.getString("time");
 
@@ -121,6 +121,8 @@ public class ClinicPopUpFragment extends DialogFragment {
                 HashMap<String, Object> hashMap = new HashMap<>();
                 hashMap.put("name", name);
                 hashMap.put("number", number);
+                hashMap.put("hospital", hospital);
+                hashMap.put("category", category);
                 hashMap.put("date", date);
                 hashMap.put("time", time);
 //                hashMap.put("RoomId", roomId);

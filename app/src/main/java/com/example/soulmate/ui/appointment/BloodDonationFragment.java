@@ -21,11 +21,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.soulmate.BloodPopUpFragment;
-import com.example.soulmate.ClinicPopUpFragment;
 import com.example.soulmate.DatePickerFragment;
 import com.example.soulmate.R;
 import com.example.soulmate.main_page;
-import com.example.soulmate.timeslot;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -70,6 +68,7 @@ public class BloodDonationFragment extends Fragment {
     String getName,getNumber;
     public static String getDate ;
     public static String check;
+    public static String getHospital;
     String getTime;
 
     public BloodDonationFragment () {
@@ -121,6 +120,7 @@ public class BloodDonationFragment extends Fragment {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         hospitalSpinner.setAdapter(adapter);
+        getHospital= hospitalSpinner.getSelectedItem().toString();
 
         return view;
     }
@@ -211,6 +211,7 @@ public class BloodDonationFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putString("name", getName);
                 bundle.putString("number",getNumber);
+                bundle.putString("hospital",getHospital);
                 bundle.putString("date",getDate);
                 bundle.putString("time",getTime);
 
@@ -229,6 +230,7 @@ public class BloodDonationFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putString("name", getName);
                 bundle.putString("number",getNumber);
+                bundle.putString("hospital",getHospital);
                 bundle.putString("date",getDate);
                 bundle.putString("time",getTime);
 
@@ -244,6 +246,7 @@ public class BloodDonationFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putString("name", getName);
                 bundle.putString("number",getNumber);
+                bundle.putString("hospital",getHospital);
                 bundle.putString("date",getDate);
                 bundle.putString("time",getTime);
 
@@ -259,6 +262,7 @@ public class BloodDonationFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putString("name", getName);
                 bundle.putString("number",getNumber);
+                bundle.putString("hospital",getHospital);
                 bundle.putString("date",getDate);
                 bundle.putString("time",getTime);
 
@@ -274,6 +278,7 @@ public class BloodDonationFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putString("name", getName);
                 bundle.putString("number",getNumber);
+                bundle.putString("hospital",getHospital);
                 bundle.putString("date",getDate);
                 bundle.putString("time",getTime);
 
@@ -289,6 +294,7 @@ public class BloodDonationFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putString("name", getName);
                 bundle.putString("number",getNumber);
+                bundle.putString("hospital",getHospital);
                 bundle.putString("date",getDate);
                 bundle.putString("time",getTime);
 
@@ -304,6 +310,7 @@ public class BloodDonationFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putString("name", getName);
                 bundle.putString("number",getNumber);
+                bundle.putString("hospital",getHospital);
                 bundle.putString("date",getDate);
                 bundle.putString("time",getTime);
 
@@ -319,6 +326,7 @@ public class BloodDonationFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putString("name", getName);
                 bundle.putString("number",getNumber);
+                bundle.putString("hospital",getHospital);
                 bundle.putString("date",getDate);
                 bundle.putString("time",getTime);
 
@@ -334,6 +342,7 @@ public class BloodDonationFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putString("name", getName);
                 bundle.putString("number",getNumber);
+                bundle.putString("hospital",getHospital);
                 bundle.putString("date",getDate);
                 bundle.putString("time",getTime);
 

@@ -68,6 +68,7 @@ public class VaccinationFragment extends Fragment {
     String getName,getNumber;
     public static String getDate ;
     public static String check;
+    public static String getHospital, getVaccine;
     String getTime;
 
     public VaccinationFragment () {
@@ -127,6 +128,8 @@ public class VaccinationFragment extends Fragment {
         vaccineAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         vaccineSpinner.setAdapter(vaccineAdapter);
+        getHospital = hospitalSpinner.getSelectedItem().toString();
+        getVaccine = vaccineSpinner.getSelectedItem().toString();
 
         return view;
     }
@@ -220,6 +223,8 @@ public class VaccinationFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putString("name", getName);
                 bundle.putString("number",getNumber);
+                bundle.putString("hospital",getHospital);
+                bundle.putString("vaccine", getVaccine);
                 bundle.putString("date",getDate);
                 bundle.putString("time",getTime);
 
@@ -238,6 +243,8 @@ public class VaccinationFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putString("name", getName);
                 bundle.putString("number",getNumber);
+                bundle.putString("hospital",getHospital);
+                bundle.putString("vaccine", getVaccine);
                 bundle.putString("date",getDate);
                 bundle.putString("time",getTime);
 
@@ -253,6 +260,8 @@ public class VaccinationFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putString("name", getName);
                 bundle.putString("number",getNumber);
+                bundle.putString("hospital",getHospital);
+                bundle.putString("vaccine", getVaccine);
                 bundle.putString("date",getDate);
                 bundle.putString("time",getTime);
 
@@ -268,6 +277,8 @@ public class VaccinationFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putString("name", getName);
                 bundle.putString("number",getNumber);
+                bundle.putString("hospital",getHospital);
+                bundle.putString("vaccine", getVaccine);
                 bundle.putString("date",getDate);
                 bundle.putString("time",getTime);
 
@@ -283,6 +294,8 @@ public class VaccinationFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putString("name", getName);
                 bundle.putString("number",getNumber);
+                bundle.putString("hospital",getHospital);
+                bundle.putString("vaccine", getVaccine);
                 bundle.putString("date",getDate);
                 bundle.putString("time",getTime);
 
@@ -298,6 +311,8 @@ public class VaccinationFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putString("name", getName);
                 bundle.putString("number",getNumber);
+                bundle.putString("hospital",getHospital);
+                bundle.putString("vaccine", getVaccine);
                 bundle.putString("date",getDate);
                 bundle.putString("time",getTime);
 
@@ -313,6 +328,8 @@ public class VaccinationFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putString("name", getName);
                 bundle.putString("number",getNumber);
+                bundle.putString("hospital",getHospital);
+                bundle.putString("vaccine", getVaccine);
                 bundle.putString("date",getDate);
                 bundle.putString("time",getTime);
 
@@ -328,6 +345,8 @@ public class VaccinationFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putString("name", getName);
                 bundle.putString("number",getNumber);
+                bundle.putString("hospital",getHospital);
+                bundle.putString("vaccine", getVaccine);
                 bundle.putString("date",getDate);
                 bundle.putString("time",getTime);
 
@@ -343,6 +362,8 @@ public class VaccinationFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putString("name", getName);
                 bundle.putString("number",getNumber);
+                bundle.putString("hospital",getHospital);
+                bundle.putString("vaccine", getVaccine);
                 bundle.putString("date",getDate);
                 bundle.putString("time",getTime);
 
