@@ -67,6 +67,8 @@ public class TelemedicineBookingFragment extends Fragment {
     public static String getDate ;
     public static String check;
     String getTime;
+    String [] checkTime = {"09:00 AM", "10:00 AM", "11:00 AM", "12:00 PM", "14:00 PM",
+    "15:00 PM", "16:00 PM", "17:00 PM", "18:00 PM"};
 
     public TelemedicineBookingFragment () {
         // Required empty public constructor
@@ -178,6 +180,51 @@ public class TelemedicineBookingFragment extends Fragment {
                 check = Selectdate.getText().toString().trim();
                 enableButton();
                 getDate = Selectdate.getText().toString().trim();
+
+                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Appointment").child("Telemedicine").child(getDate);
+                for(int i=0; i<9;i++)
+                {
+                    int finalI = i;
+                    reference.child(checkTime[i]).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DataSnapshot> task) {
+                            if (task.isSuccessful()) {
+                                if (task.getResult().exists()) {
+                                    switch (finalI) {
+                                        case 0:
+                                            button1.setEnabled(finalI != 0);
+                                            break;
+                                        case 1:
+                                            button2.setEnabled(finalI != 1);
+                                            break;
+                                        case 2:
+                                            button3.setEnabled(finalI != 2);
+                                            break;
+                                        case 3:
+                                            button4.setEnabled(finalI != 3);
+                                            break;
+                                        case 4:
+                                            button5.setEnabled(finalI != 4);
+                                            break;
+                                        case 5:
+                                            button6.setEnabled(finalI != 5);
+                                            break;
+                                        case 6:
+                                            button7.setEnabled(finalI != 6);
+                                            break;
+                                        case 7:
+                                            button8.setEnabled(finalI != 7);
+                                            break;
+                                        case 8:
+                                            button9.setEnabled(finalI != 8);
+                                            break;
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+
 
             }
         };
@@ -335,6 +382,10 @@ public class TelemedicineBookingFragment extends Fragment {
             }
         });
 
+
+    }
+    private void checkAppointment(String [] time)
+    {
 
     }
 
