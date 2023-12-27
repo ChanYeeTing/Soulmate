@@ -125,9 +125,13 @@ public class VaccinationPopUpFragment extends DialogFragment {
                 hashMap.put("vaccine",vaccine);
                 hashMap.put("date", date);
                 hashMap.put("time", time);
-//                hashMap.put("RoomId", roomId);
                 userRef.setValue(hashMap);
 
+                DatabaseReference check = ref.child("Appointment").child("Vaccination").child(date).child(time);
+                HashMap<String, Object> hash = new HashMap<>();
+                hash.put("name", name);
+                hash.put("number", number);
+                check.setValue(hash);
 
                 // Use the NavController obtained from NavHostFragment
                 navController.navigate(R.id.action_popUpFragment_to_nav_date_tracking);

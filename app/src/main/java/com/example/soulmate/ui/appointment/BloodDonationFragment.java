@@ -7,6 +7,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -69,6 +70,8 @@ public class BloodDonationFragment extends Fragment {
     public static String getDate ;
     public static String check;
     public static String getHospital;
+    String [] checkTime = {"09:00 AM", "10:00 AM", "11:00 AM", "12:00 PM", "14:00 PM",
+            "15:00 PM", "16:00 PM", "17:00 PM", "18:00 PM"};
     String getTime;
 
     public BloodDonationFragment () {
@@ -120,7 +123,22 @@ public class BloodDonationFragment extends Fragment {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         hospitalSpinner.setAdapter(adapter);
-        getHospital= hospitalSpinner.getSelectedItem().toString();
+        hospitalSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                // This method is called when an item in the spinner is selected
+                getHospital = parent.getItemAtPosition(position).toString();
+                // Now, getHospital contains the selected hospital
+                // You can perform any actions with getHospital here or pass it to other methods
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
 
         return view;
     }
@@ -169,7 +187,7 @@ public class BloodDonationFragment extends Fragment {
         check = Selectdate.getText().toString().trim();
         enableButton();
 
-
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Appointment").child("Blood Donation");
         TextWatcher textWatcher = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -185,6 +203,50 @@ public class BloodDonationFragment extends Fragment {
                 check = Selectdate.getText().toString().trim();
                 enableButton();
                 getDate = Selectdate.getText().toString().trim();
+
+
+                for(int i=0; i<9;i++)
+                {
+                    int finalI = i;
+                    reference.child(getDate).child(checkTime[i]).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DataSnapshot> task) {
+                            if (task.isSuccessful()) {
+                                if (task.getResult().exists()) {
+                                    switch (finalI) {
+                                        case 0:
+                                            button1.setEnabled(finalI != 0);
+                                            break;
+                                        case 1:
+                                            button2.setEnabled(finalI != 1);
+                                            break;
+                                        case 2:
+                                            button3.setEnabled(finalI != 2);
+                                            break;
+                                        case 3:
+                                            button4.setEnabled(finalI != 3);
+                                            break;
+                                        case 4:
+                                            button5.setEnabled(finalI != 4);
+                                            break;
+                                        case 5:
+                                            button6.setEnabled(finalI != 5);
+                                            break;
+                                        case 6:
+                                            button7.setEnabled(finalI != 6);
+                                            break;
+                                        case 7:
+                                            button8.setEnabled(finalI != 7);
+                                            break;
+                                        case 8:
+                                            button9.setEnabled(finalI != 8);
+                                            break;
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
 
             }
         };
