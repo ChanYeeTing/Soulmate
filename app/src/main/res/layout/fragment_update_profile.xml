@@ -11,7 +11,7 @@
         android:layout_height="match_parent">
 
         <EditText
-            android:id="@+id/username2"
+            android:id="@+id/editName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -25,24 +25,7 @@
             app:layout_constraintHorizontal_bias="0.488"
             app:layout_constraintStart_toStartOf="@+id/guideline56"
             app:layout_constraintTop_toTopOf="@+id/guideline55"
-            app:layout_constraintVertical_bias="0.105" />
-
-        <EditText
-            android:id="@+id/nameEmergency"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:fontFamily="serif"
-            android:hint="@string/username"
-            android:inputType="text"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@+id/guideline58"
-            app:layout_constraintEnd_toStartOf="@+id/guideline57"
-            app:layout_constraintHorizontal_bias="0.488"
-            app:layout_constraintStart_toStartOf="@+id/guideline56"
-            app:layout_constraintTop_toTopOf="@+id/guideline55"
-            app:layout_constraintVertical_bias="0.775" />
+            app:layout_constraintVertical_bias="0.116" />
 
         <TextView
             android:id="@+id/updateTitlte"
@@ -88,8 +71,23 @@
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.02" />
 
+        <!--        <EditText-->
+        <!--            android:id="@+id/gender2"-->
+        <!--            android:layout_width="78dp"-->
+        <!--            android:layout_height="25dp"-->
+        <!--            android:fontFamily="serif"-->
+        <!--            android:Text = "@String/Gender"-->
+        <!--            android:textColor="@color/black"-->
+        <!--            android:textSize="20sp"-->
+        <!--            app:layout_constraintBottom_toTopOf="@+id/guideline58"-->
+        <!--            app:layout_constraintEnd_toStartOf="@+id/guideline57"-->
+        <!--            app:layout_constraintHorizontal_bias="0.225"-->
+        <!--            app:layout_constraintStart_toStartOf="@+id/guideline56"-->
+        <!--            app:layout_constraintTop_toTopOf="@+id/guideline55"-->
+        <!--            app:layout_constraintVertical_bias="0.271" />-->
+
         <EditText
-            android:id="@+id/dateOfBirth"
+            android:id="@+id/editDOB"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -99,32 +97,82 @@
             android:textSize="20sp"
             app:layout_constraintBottom_toTopOf="@+id/guideline58"
             app:layout_constraintEnd_toStartOf="@+id/guideline57"
+            app:layout_constraintHorizontal_bias="0.488"
             app:layout_constraintStart_toStartOf="@+id/guideline56"
             app:layout_constraintTop_toTopOf="@+id/guideline55"
             app:layout_constraintVertical_bias="0.192" />
 
-        <TextView
-            android:id="@+id/gender2"
-            android:layout_width="78dp"
-            android:layout_height="25dp"
+        <EditText
+            android:id="@+id/editGender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
             android:fontFamily="serif"
-            android:text="@string/user_gender"
+            android:hint="Male/Female/Other"
+            android:inputType="date"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/guideline58"
+            app:layout_constraintEnd_toStartOf="@+id/guideline57"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="@+id/guideline56"
+            app:layout_constraintTop_toTopOf="@+id/guideline55"
+            app:layout_constraintVertical_bias="0.268" />
+
+        <EditText
+            android:id="@+id/nameEmergency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:fontFamily="serif"
+            android:hint="@string/username"
+            android:inputType="text"
             android:textColor="@color/black"
             android:textSize="20sp"
             app:layout_constraintBottom_toTopOf="@+id/guideline58"
             app:layout_constraintEnd_toStartOf="@+id/guideline57"
-            app:layout_constraintHorizontal_bias="0.225"
+            app:layout_constraintHorizontal_bias="0.488"
             app:layout_constraintStart_toStartOf="@+id/guideline56"
             app:layout_constraintTop_toTopOf="@+id/guideline55"
-            app:layout_constraintVertical_bias="0.271" />
+            app:layout_constraintVertical_bias="0.775" />
+
+        <!--        <RadioGroup-->
+        <!--            android:id="@+id/timeSelector"-->
+        <!--            android:layout_width="182dp"-->
+        <!--            android:layout_height="105dp"-->
+        <!--            app:layout_constraintBottom_toTopOf="@+id/guideline58"-->
+        <!--            app:layout_constraintEnd_toStartOf="@+id/guideline57"-->
+        <!--            app:layout_constraintHorizontal_bias="0.783"-->
+        <!--            app:layout_constraintStart_toStartOf="@+id/guideline56"-->
+        <!--            app:layout_constraintTop_toTopOf="@+id/guideline55"-->
+        <!--            app:layout_constraintVertical_bias="0.295">-->
+
+        <!--            <RadioButton-->
+        <!--                android:id="@+id/radioButton4"-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:fontFamily="serif"-->
+        <!--                android:text="@string/gender_male"-->
+        <!--                android:textColor="@color/black"-->
+        <!--                android:textSize="20sp" />-->
+
+        <!--            <RadioButton-->
+        <!--                android:id="@+id/radioButton3"-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="48dp"-->
+        <!--                android:fontFamily="serif"-->
+        <!--                android:text="@string/gender_female"-->
+        <!--                android:textColor="@color/black"-->
+        <!--                android:textSize="20sp" />-->
+
+        <!--        </RadioGroup>-->
 
         <TextView
             android:id="@+id/Emergencycontact"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="#ABDEF4"
             android:fontFamily="serif"
             android:text="   Emergency Contact   "
-            android:background="#ABDEF4"
             android:textColor="@color/black"
             android:textSize="20sp"
             app:layout_constraintBottom_toTopOf="@+id/guideline58"
@@ -132,41 +180,10 @@
             app:layout_constraintHorizontal_bias="0.379"
             app:layout_constraintStart_toStartOf="@+id/guideline56"
             app:layout_constraintTop_toTopOf="@+id/guideline55"
-            app:layout_constraintVertical_bias="0.698" />
-
-        <RadioGroup
-            android:id="@+id/timeSelector"
-            android:layout_width="182dp"
-            android:layout_height="105dp"
-            app:layout_constraintBottom_toTopOf="@+id/guideline58"
-            app:layout_constraintEnd_toStartOf="@+id/guideline57"
-            app:layout_constraintHorizontal_bias="0.783"
-            app:layout_constraintStart_toStartOf="@+id/guideline56"
-            app:layout_constraintTop_toTopOf="@+id/guideline55"
-            app:layout_constraintVertical_bias="0.295">
-
-            <RadioButton
-                android:id="@+id/radioButton4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="serif"
-                android:text="@string/gender_male"
-                android:textColor="@color/black"
-                android:textSize="20sp" />
-
-            <RadioButton
-                android:id="@+id/radioButton3"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:fontFamily="serif"
-                android:text="@string/gender_female"
-                android:textColor="@color/black"
-                android:textSize="20sp" />
-
-        </RadioGroup>
+            app:layout_constraintVertical_bias="0.68" />
 
         <EditText
-            android:id="@+id/emailAddress3"
+            android:id="@+id/editEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -180,10 +197,10 @@
             app:layout_constraintHorizontal_bias="0.488"
             app:layout_constraintStart_toStartOf="@+id/guideline56"
             app:layout_constraintTop_toTopOf="@+id/guideline55"
-            app:layout_constraintVertical_bias="0.454" />
+            app:layout_constraintVertical_bias="0.344" />
 
         <EditText
-            android:id="@+id/userPhone2"
+            android:id="@+id/editPhone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -197,7 +214,7 @@
             app:layout_constraintHorizontal_bias="0.488"
             app:layout_constraintStart_toStartOf="@+id/guideline56"
             app:layout_constraintTop_toTopOf="@+id/guideline55"
-            app:layout_constraintVertical_bias="0.543" />
+            app:layout_constraintVertical_bias="0.42" />
 
         <EditText
             android:id="@+id/contactEmergency"
@@ -217,7 +234,7 @@
             app:layout_constraintVertical_bias="0.868" />
 
         <EditText
-            android:id="@+id/editTextText"
+            android:id="@+id/editAddress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -227,10 +244,26 @@
             android:textSize="20sp"
             app:layout_constraintBottom_toTopOf="@+id/guideline58"
             app:layout_constraintEnd_toStartOf="@+id/guideline57"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="@+id/guideline56"
+            app:layout_constraintTop_toTopOf="@+id/guideline55"
+            app:layout_constraintVertical_bias="0.496" />
+
+        <EditText
+            android:id="@+id/editPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:fontFamily="serif"
+            android:hint="Password"
+            android:inputType="text"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/guideline58"
+            app:layout_constraintEnd_toStartOf="@+id/guideline57"
             app:layout_constraintHorizontal_bias="0.488"
             app:layout_constraintStart_toStartOf="@+id/guideline56"
             app:layout_constraintTop_toTopOf="@+id/guideline55"
-            app:layout_constraintVertical_bias="0.619" />
+            app:layout_constraintVertical_bias="0.608" />
 
         <Button
             android:id="@+id/submitButton"

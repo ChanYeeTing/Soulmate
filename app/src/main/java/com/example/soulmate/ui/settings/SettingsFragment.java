@@ -116,7 +116,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.soulmate.R;
 import com.example.soulmate.databinding.FragmentSettingsBinding;
@@ -134,7 +133,7 @@ public class SettingsFragment extends Fragment {
 
     private FragmentSettingsBinding binding;
     private DatabaseReference userReference;
-    private FirebaseUser currentUser;
+    private FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -145,7 +144,6 @@ public class SettingsFragment extends Fragment {
         binding = FragmentSettingsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
             String userId = currentUser.getUid();
             userReference = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
@@ -163,7 +161,7 @@ public class SettingsFragment extends Fragment {
                 Map<String, Object> userData = (Map<String, Object>) dataSnapshot.getValue();
 
                 // Display user information
-                displayUserInfo(userData);
+                showAllUserData(userData);
             }
 
             @Override
@@ -174,16 +172,19 @@ public class SettingsFragment extends Fragment {
         });
     }
 
-    private void displayUserInfo(Map<String, Object> userData) {
+    public void showAllUserData(Map<String, Object> userData) {
         if (userData != null) {
-            setTextOrPlaceholder(R.id.nameProfile, "Name : ", userData.get("name"));
-            setTextOrPlaceholder(R.id.birthProfile, "Date of Birth : ", userData.get("Date of Birth"));
-            setTextOrPlaceholder(R.id.gender3, "Gender : ", userData.get("Gender"));
-            setTextOrPlaceholder(R.id.email, "Email Address : ", userData.get("email"));
-            setTextOrPlaceholder(R.id.birthProfile4, "Mobile No : ", userData.get("Mobile Number"));
-            setTextOrPlaceholder(R.id.birthProfile5, "Address : ", userData.get("Address"));
-            setTextOrPlaceholder(R.id.birthProfile8, "Name : ", userData.get("emergencyContactName"));
-            setTextOrPlaceholder(R.id.birthProfile9, "Phone No : ", userData.get("emergencyContactPhone"));
+            setTextOrPlaceholder(R.id.nameProfile, "Name: ", (String) userData.get("name"));
+            setTextOrPlaceholder(R.id.birthProfile, "Date Of Birth: ", (String) userData.get("Date Of Birth"));
+            setTextOrPlaceholder(R.id.genderProfile, "Gender: ", (String) userData.get("Gender"));
+            setTextOrPlaceholder(R.id.emailProfile, "Email: ", (String) userData.get("email"));
+            setTextOrPlaceholder(R.id.phoneProfile, "Phone: ", (String) userData.get("Mobile Number"));
+            setTextOrPlaceholder(R.id.addressProfile, "Address: ", (String) userData.get("Address"));
+            setTextOrPlaceholder(R.id.emergencyProfile, "Name: ", (String) userData.get("nameEmergency"));
+            setTextOrPlaceholder(R.id.phoneEmergency, "Contact: ", (String) userData.get("contactEmergency"));
+        } else {
+            // Data is not available, display placeholders
+            displayError();
         }
     }
 
@@ -221,4 +222,3 @@ public class SettingsFragment extends Fragment {
         });
     }
 }
-
