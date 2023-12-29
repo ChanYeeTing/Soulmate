@@ -23,7 +23,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
+import java.util.TimeZone;
 
 public class SecondFragment extends Fragment {
 
@@ -46,6 +53,16 @@ public class SecondFragment extends Fragment {
         TextView emptyView = binding.textviewSecond;
         HistoryList = new ArrayList<>();
 
+        TimeZone specificTimeZone = TimeZone.getTimeZone("Asia/Kuala_Lumpur");
+        Calendar calendar = Calendar.getInstance(specificTimeZone);;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+        String todayDateFormat = dateFormat.format(calendar.getTime());
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
+
+        dateFormat.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
+        timeFormat.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
+
+        String currentHour = timeFormat.format(calendar.getTime());
 
 
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
@@ -77,10 +94,40 @@ public class SecondFragment extends Fragment {
                             i++;
 
                         }
-//                        Toast.makeText(getActivity(), "testing", Toast.LENGTH_SHORT).show();
-                        DataModel dataModel = new DataModel(value[0], value[1],value[5],value[2],value[6]);
-                        HistoryList.add(dataModel);
-                        Log.d("DataModel", "Added DataModel: " + dataModel.toString()); // Log for debugging
+
+                        // Current date
+                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                            LocalDate currentDate = LocalDate.now();
+                            LocalDate dateFromString = LocalDate.parse(value[1], formatter);
+
+                            // Date from the string "22-12-2023"
+                            if (dateFromString.isBefore(currentDate)) {
+                                DataModel dataModel = new DataModel(value[0], value[1],value[5],value[2],value[6]);
+                                HistoryList.add(dataModel);
+                                Log.d("DataModel", "Added DataModel: " + dataModel.toString()); // Log for debugging
+                            }
+                            else if(value[1].equals(todayDateFormat))
+                            {
+                                try {
+                                    if(timeFormat.parse(value[5]).before(timeFormat.parse(currentHour)))
+                                    {
+                                        DataModel dataModel = new DataModel(value[0], value[1],value[5],value[2],value[6]);
+                                        HistoryList.add(dataModel);
+                                        Log.d("DataModel", "Added DataModel: " + dataModel.toString()); // Log for debugging
+                                    }
+                                    else
+                                    {
+
+                                    }
+                                } catch (ParseException e) {
+                                    throw new RuntimeException(e);
+                                }
+                            }
+                        }
+//                        DataModel dataModel = new DataModel(value[0], value[1],value[5],value[2],value[6]);
+//                        HistoryList.add(dataModel);
+//                        Log.d("DataModel", "Added DataModel: " + dataModel.toString()); // Log for debugging
 
                     }
                     else

@@ -140,15 +140,30 @@ public class ClinicBookingFragment extends Fragment {
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 String selectedHospital = hospitalNames[position];
                 List<String> categoriesAndDoctors = hospitalInfo.get(selectedHospital);
-
+                getHospital= hospitalSpinner.getSelectedItem().toString();
                 // Now you can use the categoriesAndDoctors list to populate the category_spinner
                 // You need to set up the category_spinner in your XML layout and reference it here
                 Spinner categorySpinner = view.findViewById(R.id.category_spinner);
                 ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, categoriesAndDoctors);
                 categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 categorySpinner.setAdapter(categoryAdapter);
-                getHospital= hospitalSpinner.getSelectedItem().toString();
-                getCategory= categorySpinner.getSelectedItem().toString();
+
+                categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        // This method is called when an item in the spinner is selected
+                        getCategory= categorySpinner.getSelectedItem().toString();
+                        // Now, getHospital contains the selected hospital
+                        // You can perform any actions with getHospital here or pass it to other methods
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                });
+
+
             }
 
             @Override

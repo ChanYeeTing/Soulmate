@@ -1,5 +1,6 @@
 package com.example.soulmate.ui.dateTracking;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -53,14 +54,17 @@ public class FirstFragment extends Fragment {
         TextView emptyView = binding.textviewFirst;
         Telemedicine = new ArrayList<>();
 
-        Calendar calendar = Calendar.getInstance(
-                TimeZone.getTimeZone("Asia/Kuala_Lumpur"));;
+        TimeZone specificTimeZone = TimeZone.getTimeZone("Asia/Kuala_Lumpur");
+        Calendar calendar = Calendar.getInstance(specificTimeZone);;
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
         String todayDateFormat = dateFormat.format(calendar.getTime());
-        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm a");
-        String currentHour = timeFormat.format(calendar.get(Calendar.HOUR_OF_DAY));
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
 
+        dateFormat.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
+        timeFormat.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
 
+        String currentHour = timeFormat.format(calendar.getTime());
+//        Toast.makeText(getActivity(), currentHour, Toast.LENGTH_SHORT).show();
 
 
 
@@ -96,7 +100,7 @@ public class FirstFragment extends Fragment {
 
                         }
                         // Current date
-                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
                             LocalDate currentDate = LocalDate.now();
                             LocalDate dateFromString = LocalDate.parse(value[1], formatter);
@@ -110,7 +114,11 @@ public class FirstFragment extends Fragment {
                             else if(value[1].equals(todayDateFormat))
                             {
                                 try {
-                                    if(timeFormat.parse(value[5]).after(timeFormat.parse(currentHour)))
+                                    if(timeFormat.parse(value[5]).before(timeFormat.parse(currentHour)))
+                                    {
+
+                                    }
+                                    else
                                     {
                                         DataModel dataModel = new DataModel(value[0], value[1],value[5],value[2],value[6]);
                                         Telemedicine.add(dataModel);

@@ -7,6 +7,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -121,6 +122,20 @@ public class VaccinationFragment extends Fragment {
         hospitalAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         hospitalSpinner.setAdapter(hospitalAdapter);
+        hospitalSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                // This method is called when an item in the spinner is selected
+                getHospital = parent.getItemAtPosition(position).toString();
+                // Now, getHospital contains the selected hospital
+                // You can perform any actions with getHospital here or pass it to other methods
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         String[] vaccineNames = {"Chickenpox", "Dengue", "Diphtheria", "Flu(Influenza)", "Hepatitis A", "Hepatitis B"};
 
@@ -130,6 +145,21 @@ public class VaccinationFragment extends Fragment {
         vaccineAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         vaccineSpinner.setAdapter(vaccineAdapter);
+        vaccineSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                // This method is called when an item in the spinner is selected
+                getVaccine = parent.getItemAtPosition(position).toString();
+                // Now, getHospital contains the selected hospital
+                // You can perform any actions with getHospital here or pass it to other methods
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
         getHospital = hospitalSpinner.getSelectedItem().toString();
         getVaccine = vaccineSpinner.getSelectedItem().toString();
 
