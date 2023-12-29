@@ -122,20 +122,28 @@ public class timeslot extends DialogFragment {
                     Toast.makeText(getActivity(), "Booking Successful", Toast.LENGTH_SHORT).show();
                     String user_id = auth.getCurrentUser().getUid();
                     String dateTime=date+" "+time;
-                    DatabaseReference userRef = ref.child("Activity").child(user_id).child("Telemedicine").child(dateTime);
+                    DatabaseReference userRef = ref.child("Activity").child(user_id);
+
                     HashMap<String, Object> hashMap = new HashMap<>();
+                    hashMap.put("Appointment", "Telemedicine");
+                    hashMap.put("date", date);
+                    hashMap.put("hospital","-");
                     hashMap.put("name", name);
                     hashMap.put("number", number);
-                    hashMap.put("date", date);
                     hashMap.put("time", time);
-                    hashMap.put("RoomId", roomId);
-                    userRef.setValue(hashMap);
+                    hashMap.put("zId", roomId);
+
+
+                    userRef.child(dateTime).setValue(hashMap);
+
 
                     DatabaseReference check = ref.child("Appointment").child("Telemedicine").child(date).child(time);
                     HashMap<String, Object> hash = new HashMap<>();
                     hash.put("name", name);
                     hash.put("number", number);
                     check.setValue(hash);
+
+
 
                 // Use the NavController obtained from NavHostFragment
                 navController.navigate(R.id.action_popUpFragment_to_nav_date_tracking);

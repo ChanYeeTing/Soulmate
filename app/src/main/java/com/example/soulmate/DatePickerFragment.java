@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
-import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 /**
@@ -40,7 +40,8 @@ public class DatePickerFragment extends DialogFragment implements android.app.Da
         c.set(Calendar.YEAR, year);
         c.set(Calendar.MONTH, month);
         c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-        String currentDataString = DateFormat.getDateInstance(DateFormat.MEDIUM).format(c.getTime());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        String currentDataString = dateFormat.format(c.getTime());
         ((TextView) getActivity().findViewById(R.id.date)).setText(currentDataString);
 
     }

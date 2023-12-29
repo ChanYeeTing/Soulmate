@@ -461,7 +461,7 @@ public class ClinicBookingFragment extends Fragment {
 
         Calendar calendar = Calendar.getInstance(
                 TimeZone.getTimeZone("Asia/Kuala_Lumpur"));;
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy", Locale.getDefault());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
         String todayDateMediumFormat = dateFormat.format(calendar.getTime());
         int currentHour = calendar.get(Calendar.HOUR_OF_DAY); // 24-hour format
 
