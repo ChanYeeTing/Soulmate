@@ -1,6 +1,9 @@
 package com.example.soulmate.ui.reminder;
 
+import static android.app.AlarmManager.RTC_WAKEUP;
+
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -27,6 +30,8 @@ import androidx.fragment.app.Fragment;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.soulmate.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -110,17 +115,33 @@ public class ReminderFragment extends Fragment {
             return;
         }
 
-        // Save data to Firebase
-        Medicine medicineData = new Medicine(medicineName, pillOrDose);
-        databaseReference.push().setValue(medicineData);
+        // Get the current user's UID (Assuming you are using Firebase Authentication)
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        // Optional: Provide user feedback
-        Toast.makeText(getActivity(), "Medicine reminder added successfully", Toast.LENGTH_SHORT).show();
+        if (currentUser != null) {
+            String uid = currentUser.getUid();
 
-        // Clear the input fields after adding a reminder
-        medicineNameEditText.setText("");
-        pillOrDoseEditText.setText("");
+            // Save data to Firebase under "Medicines/uid"
+            DatabaseReference userMedicinesReference = databaseReference.child("Medicines").child(uid);
+
+            // Generate a unique key for each medicine record using push()
+            DatabaseReference newMedicineReference = userMedicinesReference.push();
+
+            // Save medicineName and pillOrDose under the unique key
+            newMedicineReference.child("medicineName").setValue(medicineName);
+            newMedicineReference.child("pillOrDose").setValue(pillOrDose);
+
+            Toast.makeText(getActivity(), "Medicine reminder added successfully", Toast.LENGTH_SHORT).show();
+
+            // Clear the input fields after adding a reminder
+            medicineNameEditText.setText("");
+            pillOrDoseEditText.setText("");
+        } else {
+            // Handle the case where the user is not logged in
+            Toast.makeText(getActivity(), "User not logged in", Toast.LENGTH_SHORT).show();
+        }
     }
+
 
     private String pillOrDoseValidation(String input) {
         // Validate and normalize input for pill/dose
@@ -174,13 +195,14 @@ public class ReminderFragment extends Fragment {
     }
 
 
+    @SuppressLint("ScheduleExactAlarm")
     private void setAlarm(Calendar calendar) {
         alarmManager = (AlarmManager) requireContext().getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(requireContext(), AlarmReceiver.class);
-        pendingIntent = PendingIntent.getBroadcast(requireContext(), 0, intent, 0);
+        pendingIntent = PendingIntent.getBroadcast(requireContext(), 0, intent, PendingIntent.FLAG_IMMUTABLE);
 
         if (alarmManager != null) {
-            alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+            alarmManager.setExactAndAllowWhileIdle(RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
             Toast.makeText(requireContext(), "Alarm Set", Toast.LENGTH_SHORT).show();
         }
     }
@@ -208,16 +230,20 @@ public class ReminderFragment extends Fragment {
     public static class AlarmReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
+            String medicineName = intent.getStringExtra("medicineName");
+            String pillOrDose = intent.getStringExtra("pillOrDose");
             Intent nextActivity = new Intent(context, NotificationActivity.class);
             nextActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, nextActivity, 0);
+            PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, nextActivity, PendingIntent.FLAG_IMMUTABLE);
 
             // Ensure that the notification channel is created
             createNotificationChannel(context);
 
+            String notificationMessage = "It's time to take " + pillOrDose + " " + medicineName;
+
             NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "reminder_channel")
                     .setContentTitle("Medicine Reminder")
-                    .setContentText("It's time for your medication")
+                    .setContentText(notificationMessage)
                     .setAutoCancel(true)
                     .setDefaults(NotificationCompat.DEFAULT_ALL)
                     .setPriority(NotificationCompat.PRIORITY_HIGH)

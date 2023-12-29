@@ -76,7 +76,7 @@
         app:layout_constraintVertical_bias="0.16" />
 
     <TextView
-        android:id="@+id/gender3"
+        android:id="@+id/genderProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="serif"
@@ -88,7 +88,7 @@
         app:layout_constraintVertical_bias="0.214" />
 
     <TextView
-        android:id="@+id/email"
+        android:id="@+id/emailProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="serif"
@@ -100,7 +100,7 @@
         app:layout_constraintVertical_bias="0.272" />
 
     <TextView
-        android:id="@+id/birthProfile4"
+        android:id="@+id/phoneProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="serif"
@@ -112,7 +112,7 @@
         app:layout_constraintVertical_bias="0.33" />
 
     <TextView
-        android:id="@+id/birthProfile5"
+        android:id="@+id/addressProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="serif"
@@ -122,6 +122,22 @@
         app:layout_constraintStart_toStartOf="@+id/guideline52"
         app:layout_constraintTop_toTopOf="@+id/guideline51"
         app:layout_constraintVertical_bias="0.389" />
+
+    <TextView
+        android:id="@+id/instruction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="138dp"
+        android:fontFamily="serif"
+        android:text="Click (Update Profile) button to change the password "
+        android:textColor="@color/amp_blue"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline54"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline52"
+        app:layout_constraintTop_toTopOf="@+id/guideline51"
+        app:layout_constraintVertical_bias="0.766" />
 
     <TextView
         android:id="@+id/birthProfile6"
@@ -137,7 +153,7 @@
         app:layout_constraintVertical_bias="0.544" />
 
     <TextView
-        android:id="@+id/birthProfile8"
+        android:id="@+id/emergencyProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="serif"
@@ -149,7 +165,7 @@
         app:layout_constraintVertical_bias="0.627" />
 
     <TextView
-        android:id="@+id/birthProfile9"
+        android:id="@+id/phoneEmergency"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="serif"
