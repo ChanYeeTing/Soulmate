@@ -98,7 +98,7 @@ public class VaccinationPopUpFragment extends DialogFragment {
         String question = "Please confirm you intent to schedule your appointment for \n"+ date + " "+time;
         description.setText(question);
 
-//        String roomId = generateRandomId();
+
 
         // Use requireView() to get the View associated with the Fragment
         View fragmentView = requireView();
@@ -117,14 +117,16 @@ public class VaccinationPopUpFragment extends DialogFragment {
                 Toast.makeText(getActivity(), "Booking Successful", Toast.LENGTH_SHORT).show();
                 String user_id = auth.getCurrentUser().getUid();
                 String dateTime=date+" "+time;
-                DatabaseReference userRef = ref.child("Activity").child(user_id).child("Vaccination").child(dateTime);
+                DatabaseReference userRef = ref.child("Activity").child(user_id).child(dateTime);
                 HashMap<String, Object> hashMap = new HashMap<>();
+                hashMap.put("Appointment", "Vaccination");
+                hashMap.put("date", date);
+                hashMap.put("hospital",hospital);
                 hashMap.put("name", name);
                 hashMap.put("number", number);
-                hashMap.put("hospital",hospital);
-                hashMap.put("vaccine",vaccine);
-                hashMap.put("date", date);
                 hashMap.put("time", time);
+                hashMap.put("vaccine",vaccine);
+
                 userRef.setValue(hashMap);
 
                 DatabaseReference check = ref.child("Appointment").child("Vaccination").child(date).child(time);
@@ -149,15 +151,5 @@ public class VaccinationPopUpFragment extends DialogFragment {
         });
 
     }
-/*    private String generateRandomId() {
-        Random random = new Random();
-        StringBuilder stringBuilder = new StringBuilder();
-        String allowedChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        for (int i = 0; i < 10; i++) {
-            int randomIndex = random.nextInt(allowedChars.length());
-            char randomChar = allowedChars.charAt(randomIndex);
-            stringBuilder.append(randomChar);
-        }
-        return stringBuilder.toString();
-    }*/
+
 }

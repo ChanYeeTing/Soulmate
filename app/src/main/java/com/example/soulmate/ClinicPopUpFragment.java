@@ -98,7 +98,6 @@ public class ClinicPopUpFragment extends DialogFragment {
         String question = "Please confirm you intent to schedule your appointment for \n"+ date + " "+time;
         description.setText(question);
 
-//        String roomId = generateRandomId();
 
         // Use requireView() to get the View associated with the Fragment
         View fragmentView = requireView();
@@ -153,15 +152,5 @@ public class ClinicPopUpFragment extends DialogFragment {
         });
 
     }
-/*    private String generateRandomId() {
-        Random random = new Random();
-        StringBuilder stringBuilder = new StringBuilder();
-        String allowedChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        for (int i = 0; i < 10; i++) {
-            int randomIndex = random.nextInt(allowedChars.length());
-            char randomChar = allowedChars.charAt(randomIndex);
-            stringBuilder.append(randomChar);
-        }
-        return stringBuilder.toString();
-    }*/
+
 }

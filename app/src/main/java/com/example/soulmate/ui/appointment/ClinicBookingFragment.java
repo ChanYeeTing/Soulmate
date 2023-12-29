@@ -76,8 +76,8 @@ public class ClinicBookingFragment extends Fragment {
     public static String check;
     String getTime;
     public static String getHospital, getCategory;
-    String [] checkTime = {"09:00 AM", "10:00 AM", "11:00 AM", "12:00 PM", "14:00 PM",
-            "15:00 PM", "16:00 PM", "17:00 PM", "18:00 PM"};
+    String [] checkTime = {"09:00", "10:00", "11:00", "12:00", "14:00",
+            "15:00", "16:00", "17:00", "18:00"};
 
     public ClinicBookingFragment () {
         // Required empty public constructor

@@ -89,11 +89,11 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout2"
-            android:layout_width="376dp"
-            android:layout_height="210dp"
+            android:layout_width="324dp"
+            android:layout_height="186dp"
             android:layout_marginTop="16dp"
             app:layout_constraintEnd_toStartOf="@+id/guideline49"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.591"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/date">
 
@@ -102,10 +102,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="28dp"
-                android:text="09:00 AM"
+                android:text="09:00"
                 android:textColorHighlight="#00BCD4"
                 app:layout_constraintEnd_toStartOf="@+id/button2"
-                app:layout_constraintHorizontal_bias="0.772"
+                app:layout_constraintHorizontal_bias="0.897"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -115,7 +115,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:text="14:00 PM"
+                android:text="14:00"
                 app:layout_constraintEnd_toStartOf="@+id/button6"
                 app:layout_constraintTop_toBottomOf="@+id/button2" />
 
@@ -124,7 +124,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
-                android:text="17:00 PM"
+                android:text="17:00"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/button9"
                 app:layout_constraintTop_toBottomOf="@+id/button5"
@@ -136,7 +136,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:text="15:00 PM"
+                android:text="15:00"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/button3" />
 
@@ -145,7 +145,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                android:text="18:00 PM"
+                android:text="18:00"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/button6"
@@ -156,9 +156,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="12:00 PM"
+                android:text="12:00"
                 app:layout_constraintEnd_toStartOf="@+id/button5"
-                app:layout_constraintHorizontal_bias="0.729"
+                app:layout_constraintHorizontal_bias="0.897"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/button1" />
 
@@ -168,7 +168,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="28dp"
                 android:layout_marginEnd="16dp"
-                android:text="11:00 AM"
+                android:text="11:00"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -178,7 +178,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="28dp"
                 android:layout_marginEnd="8dp"
-                android:text="10:00 AM"
+                android:text="10:00"
                 app:layout_constraintEnd_toStartOf="@+id/button3"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -186,13 +186,13 @@
                 android:id="@+id/button7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="16:00 PM"
+                android:text="16:00"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/button8"
-                app:layout_constraintHorizontal_bias="0.717"
+                app:layout_constraintHorizontal_bias="0.897"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/button4"
-                app:layout_constraintVertical_bias="0.113" />
+                app:layout_constraintVertical_bias="0.133" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

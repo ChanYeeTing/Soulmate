@@ -6,10 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
@@ -23,7 +23,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
+import java.util.TimeZone;
 
 public class FirstFragment extends Fragment {
 
@@ -43,8 +50,18 @@ public class FirstFragment extends Fragment {
         View view = binding.getRoot();
 
         ListView updated = binding.activityFirst;
-
+        TextView emptyView = binding.textviewFirst;
         Telemedicine = new ArrayList<>();
+
+        Calendar calendar = Calendar.getInstance(
+                TimeZone.getTimeZone("Asia/Kuala_Lumpur"));;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+        String todayDateFormat = dateFormat.format(calendar.getTime());
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm a");
+        String currentHour = timeFormat.format(calendar.get(Calendar.HOUR_OF_DAY));
+
+
+
 
 
 
@@ -67,6 +84,7 @@ public class FirstFragment extends Fragment {
                 {
                     String childKey = snapshot1.getKey();
 
+
                     DataSnapshot snapshotDate = snapshot.child(childKey);
 
                     if (snapshotDate.exists()) {
@@ -77,17 +95,45 @@ public class FirstFragment extends Fragment {
                             i++;
 
                         }
-//                        Toast.makeText(getActivity(), "testing", Toast.LENGTH_SHORT).show();
-                        DataModel dataModel = new DataModel(value[0], value[1],value[5],value[2],value[6]);
-                        Telemedicine.add(dataModel);
-                        Log.d("DataModel", "Added DataModel: " + dataModel.toString()); // Log for debugging
+                        // Current date
+                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                            LocalDate currentDate = LocalDate.now();
+                            LocalDate dateFromString = LocalDate.parse(value[1], formatter);
 
+                            // Date from the string "22-12-2023"
+                            if (dateFromString.isAfter(currentDate)) {
+                                DataModel dataModel = new DataModel(value[0], value[1],value[5],value[2],value[6]);
+                                Telemedicine.add(dataModel);
+                                Log.d("DataModel", "Added DataModel: " + dataModel.toString()); // Log for debugging
+                            }
+                            else if(value[1].equals(todayDateFormat))
+                            {
+                                try {
+                                    if(timeFormat.parse(value[5]).after(timeFormat.parse(currentHour)))
+                                    {
+                                        DataModel dataModel = new DataModel(value[0], value[1],value[5],value[2],value[6]);
+                                        Telemedicine.add(dataModel);
+                                        Log.d("DataModel", "Added DataModel: " + dataModel.toString()); // Log for debugging
+                                    }
+                                } catch (ParseException e) {
+                                    throw new RuntimeException(e);
+                                }
+                            }
+                        }
                     }
                     else
                         Toast.makeText(getActivity(), "Failed", Toast.LENGTH_SHORT).show();
 
                 }
                 arrayAdapter.notifyDataSetChanged();
+                if (updated.getAdapter() == null || updated.getAdapter().getCount() == 0) {
+                    updated.setVisibility(View.GONE);
+                    emptyView.setVisibility(View.VISIBLE);
+                } else {
+                    updated.setVisibility(View.VISIBLE);
+                    emptyView.setVisibility(View.GONE);
+                }
             }
 
             @Override
@@ -95,6 +141,7 @@ public class FirstFragment extends Fragment {
 
             }
         });
+
 
 
 
@@ -113,54 +160,7 @@ public class FirstFragment extends Fragment {
             }
         } );
     }
-    @Override
-    public void onActivityCreated ( @Nullable Bundle savedInstanceState ) {
-        super.onActivityCreated(savedInstanceState);
 
-//        updated = getView().findViewById(R.id.activity);
-//
-//        Telemedicine = new ArrayList<>();
-//        arrayAdapter = new CustomAdapter(getActivity(), Telemedicine);
-//        updated.setAdapter(arrayAdapter);
-//
-//
-//        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-//        FirebaseUser currentUser = firebaseAuth.getCurrentUser(); // Check for null here
-//        if (currentUser != null) {
-//            uid = currentUser.getUid();
-//        }
-//            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Activity").child(uid);
-//            databaseReference.child("Telemedicine").addValueEventListener(new ValueEventListener() {
-//                @Override
-//                public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                    Telemedicine.clear();
-//
-//                    for(DataSnapshot snapshot1: snapshot.getChildren())
-//                    {
-//                        String data = String.valueOf(snapshot1.getValue(String.class));
-//                        DataSnapshot snapshotDate = snapshot1.child(data);
-//
-//                        for(DataSnapshot snapshotTime: snapshotDate.getChildren())
-//                        {
-//                            DataModel dataModel = snapshot1.getValue(DataModel.class);
-//                            Telemedicine.add(dataModel);
-//                        }
-//                        arrayAdapter = new CustomAdapter(getActivity(),Telemedicine);
-//                        Telemedicine.setAdapter(arrayAdapter);
-//
-//                    }
-//
-//
-//                    arrayAdapter.notifyDataSetChanged();
-//                }
-//
-//                @Override
-//                public void onCancelled(@NonNull DatabaseError error) {
-//
-//                }
-//            });
-
-    }
 
     @Override
     public void onDestroyView () {
