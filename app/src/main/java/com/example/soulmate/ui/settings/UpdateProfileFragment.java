@@ -224,54 +224,54 @@ public class UpdateProfileFragment extends Fragment {
 
                     // Set the initial values in the EditText fields
 
-                        if((String.valueOf(genid)).equals("-1")){
-                            newGender = getGender;
-                        }
-                        else {
+//                        if((String.valueOf(genid)).equals("-1")){
+//                            newGender = getGender;
+//                        }
+//                        else {
                             newGender = gender.getText().toString();
-                         }
+//                         }
 
-                        String Name = editName.getText().toString();
-                        if(Name.equals(""))
-                        {
-                            newName = getName;
-                        }
-                        else
-                        {
+//                        String Name = editName.getText().toString();
+//                        if(Name.equals(""))
+//                        {
+//                            newName = getName;
+//                        }
+//                        else
+//                        {
                             newName = editName.getText().toString();
-                        }
+//                        }
 
-                        String DOB = editDOB.getText().toString();
-                        if(DOB.equals(""))
-                        {
-                            newDOB = getDOB;
-                        }
-                        else
-                        {
+//                        String DOB = editDOB.getText().toString();
+//                        if(DOB.equals(""))
+//                        {
+//                            newDOB = getDOB;
+//                        }
+//                        else
+//                        {
                             newDOB = editDOB.getText().toString();
-                        }
+//                        }
 
                         newEmail = emailView.getText().toString();
 
-                        String Mobile = editMobile.getText().toString();
-                        if(Mobile.equals(""))
-                        {
-                            newMobile = getMobile;
-                        }
-                        else
-                        {
+//                        String Mobile = editMobile.getText().toString();
+//                        if(Mobile.equals(""))
+//                        {
+//                            newMobile = getMobile;
+//                        }
+//                        else
+//                        {
                             newMobile = editMobile.getText().toString();
-                        }
+//                        }
 
-                        String Address = editAddress.getText().toString();
-                        if(Address.equals(""))
-                        {
-                            newAddress = getAddress;
-                        }
-                        else
-                        {
+//                        String Address = editAddress.getText().toString();
+//                        if(Address.equals(""))
+//                        {
+//                            newAddress = getAddress;
+//                        }
+//                        else
+//                        {
                             newAddress = editAddress.getText().toString();
-                        }
+//                        }
                         newNameEmergency = editNameEmergency.getText().toString();
                         newContactEmergency = editContactEmergency.getText().toString();
 
