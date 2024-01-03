@@ -131,8 +131,10 @@ import java.util.Map;
 
 public class SettingsFragment extends Fragment {
 
-    private FragmentSettingsBinding binding;
+    private static FragmentSettingsBinding binding;
     private DatabaseReference userReference;
+    private static Map<String, Object> userData;
+    private static String name, DOB, gender, email, number, address, nameE, numberE;
     private FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
     @Override
@@ -141,61 +143,115 @@ public class SettingsFragment extends Fragment {
         SettingsViewModel settingsViewModel =
                 new ViewModelProvider(this).get(SettingsViewModel.class);
 
+
         binding = FragmentSettingsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+        TextView textView1 = binding.nameProfile;
+        TextView textView2 = binding.birthProfile;
+        TextView textView3 = binding.genderProfile;
+        TextView textView4 = binding.emailProfile;
+        TextView textView5 = binding.phoneProfile;
+        TextView textView6 = binding.addressProfile;
+        TextView textView7 = binding.emergencyProfile;
+        TextView textView8 = binding.phoneEmergency;
 
         if (currentUser != null) {
             String userId = currentUser.getUid();
             userReference = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
-            fetchUserData();
+
+            userReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    // Assuming your data structure is a Map<String, Object>
+                    userData = (Map<String, Object>) dataSnapshot.getValue();
+                    if (userData != null) {
+
+                        name = (String) userData.get("name");
+                        DOB = (String) userData.get("Date Of Birth");
+                        gender = (String) userData.get("Gender");
+                        email = (String) userData.get("email");
+                        number = (String) userData.get("Mobile Number");
+                        address = (String) userData.get("Address");
+                        nameE = (String) userData.get("nameEmergency");
+                        numberE = (String) userData.get("contactEmergency");
+
+                        if(name!=null)
+                        {
+                            textView1.setText("Name: \t" + name.toString());
+                        }
+                        else {
+                            textView1.setText("Name: \t" +  " - ");
+                        }
+                        if(DOB!=null)
+                        {
+                            textView2.setText("Date of Birth: \t" + DOB.toString());
+                        }
+                        else {
+                            textView2.setText("Date of Birth: \t" +  " - ");
+                        }
+                        if(gender!=null)
+                        {
+                            textView3.setText("Gender: \t" + gender.toString());
+                        }
+                        else {
+                            textView3.setText("Gender: \t" +  " - ");
+                        }
+                        if(email!=null)
+                        {
+                            textView4.setText("Email: \t" + email.toString());
+                        }
+                        else {
+                            textView4.setText("Email: \t" +  " - ");
+                        }
+                        if(number!=null)
+                        {
+                            textView5.setText("Phone: \t" + number.toString());
+                        }
+                        else {
+                            textView5.setText("Phone: \t" +  " - ");
+                        }
+                        if(address!=null)
+                        {
+                            textView6.setText("Address: \t" + address.toString());
+                        }
+                        else {
+                            textView6.setText("Address: \t" +  " - ");
+                        }
+                        if(nameE!=null)
+                        {
+                            textView7.setText("Name: \t" + nameE.toString());
+                        }
+                        else {
+                            textView7.setText("Name: \t" +  " - ");
+                        }
+                        if(numberE!=null)
+                        {
+                            textView8.setText("Contact: \t" + numberE.toString());
+                        }
+                        else {
+                            textView8.setText("Contact: \t" +  " - ");
+                        }
+
+                    } else {
+                        // Data is not available, display placeholders
+                        displayError();
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    // Handle error
+                    displayError();
+                }
+            });
         }
+
+
 
         return root;
     }
 
-    private void fetchUserData() {
-        userReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                // Assuming your data structure is a Map<String, Object>
-                Map<String, Object> userData = (Map<String, Object>) dataSnapshot.getValue();
-
-                // Display user information
-                showAllUserData(userData);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                // Handle error
-                displayError();
-            }
-        });
-    }
-
-    public void showAllUserData(Map<String, Object> userData) {
-        if (userData != null) {
-            setTextOrPlaceholder(R.id.nameProfile, "Name: ", (String) userData.get("name"));
-            setTextOrPlaceholder(R.id.birthProfile, "Date Of Birth: ", (String) userData.get("Date Of Birth"));
-            setTextOrPlaceholder(R.id.genderProfile, "Gender: ", (String) userData.get("Gender"));
-            setTextOrPlaceholder(R.id.emailProfile, "Email: ", (String) userData.get("email"));
-            setTextOrPlaceholder(R.id.phoneProfile, "Phone: ", (String) userData.get("Mobile Number"));
-            setTextOrPlaceholder(R.id.addressProfile, "Address: ", (String) userData.get("Address"));
-            setTextOrPlaceholder(R.id.emergencyProfile, "Name: ", (String) userData.get("nameEmergency"));
-            setTextOrPlaceholder(R.id.phoneEmergency, "Contact: ", (String) userData.get("contactEmergency"));
-        } else {
-            // Data is not available, display placeholders
-            displayError();
-        }
-    }
-
-    private void setTextOrPlaceholder(int textViewId, String prefix, Object value) {
-        TextView textView = getView().findViewById(textViewId);
-        if (value != null) {
-            textView.setText(prefix + value.toString());
-        } else {
-            textView.setText(prefix + " - ");
-        }
-    }
 
     private void displayError() {
         // Handle error, for example, display "Error fetching data"

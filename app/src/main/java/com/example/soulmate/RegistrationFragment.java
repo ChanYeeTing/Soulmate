@@ -127,6 +127,7 @@ public class RegistrationFragment extends Fragment {
                                 year, month, day
                         );
 
+                        dialog.getDatePicker().setMaxDate(System.currentTimeMillis());
                         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                         dialog.show();
 

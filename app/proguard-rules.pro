@@ -115,3 +115,6 @@
 -keep public class com.facebook.imageutils.** {
    public *;
 }
+-keepclassmembers class com.example.soulmate.ui.settings.UpdateProfileFragment$User {
+    public <init>();
+}

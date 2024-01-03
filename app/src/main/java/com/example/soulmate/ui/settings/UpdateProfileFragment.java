@@ -1,15 +1,29 @@
 package com.example.soulmate.ui.settings;
 
+import static androidx.fragment.app.FragmentManager.TAG;
+
+import android.app.DatePickerDialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.example.soulmate.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -21,16 +35,23 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
 public class UpdateProfileFragment extends Fragment {
 
-    private EditText editName, editDOB, editGender, editEmail, editMobile, editAddress, editPassword, editNameEmergency, editContactEmergency;
+    private EditText editName, editMobile, editAddress, editNameEmergency, editContactEmergency;
+    private TextView editDOB;
+    private TextView emailView;
     private Button submit;
-
+    private  RadioButton gender;
+    private String newGender,newName ,newDOB, newEmail,newMobile,newAddress,newNameEmergency ,newContactEmergency;
+    private static String getName, getDOB,getGender,getMobile,getAddress;
     private DatabaseReference userReference;
     private FirebaseUser currentUser;
+    private DatePickerDialog.OnDateSetListener DateSetListener;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -40,18 +61,86 @@ public class UpdateProfileFragment extends Fragment {
         // Initialize your EditText fields
         editName = view.findViewById(R.id.editName);
         editDOB = view.findViewById(R.id.editDOB);
-        editGender = view.findViewById(R.id.editGender);
-        editEmail = view.findViewById(R.id.editEmail);
+        emailView = view.findViewById(R.id.editEmail);
         editMobile = view.findViewById(R.id.editPhone);
         editAddress = view.findViewById(R.id.editAddress);
-        editPassword = view.findViewById(R.id.editPassword);
         editNameEmergency = view.findViewById(R.id.nameEmergency);
         editContactEmergency = view.findViewById(R.id.contactEmergency);
+        RadioGroup rg = view.findViewById(R.id.editGender);
 
         submit = view.findViewById(R.id.submitButton);
 
         // Fetch the current user data and set the initial values
         fetchCurrentUserData();
+
+
+        TextWatcher submitTextWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                int genid = rg.getCheckedRadioButtonId();
+
+                String name = editName.getText().toString().trim();
+                String DOB = editDOB.getText().toString().trim();
+                String email = emailView.getText().toString().trim();
+                String mobile= editMobile.getText().toString().trim();
+                String address = editAddress.getText().toString().trim();
+                String E = editNameEmergency.getText().toString().trim();
+                String numE = editContactEmergency.getText().toString().trim();
+
+                submit.setEnabled(!name.isEmpty() && !DOB.isEmpty() && !email.isEmpty() && !mobile.isEmpty() && !address.isEmpty()
+                && !E.isEmpty() && !numE.isEmpty() && (genid!=-1));
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        };
+        editName.addTextChangedListener(submitTextWatcher);
+        editDOB.addTextChangedListener(submitTextWatcher);
+        emailView.addTextChangedListener(submitTextWatcher);
+        editMobile.addTextChangedListener(submitTextWatcher);
+        editAddress.addTextChangedListener(submitTextWatcher);
+        editNameEmergency.addTextChangedListener(submitTextWatcher);
+        editContactEmergency.addTextChangedListener(submitTextWatcher);
+
+        editDOB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar cal = Calendar.getInstance();
+                int year = cal.get(Calendar.YEAR);
+                int month = cal.get(Calendar.MONTH);
+                int day = cal.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog dialog = new DatePickerDialog(
+                        getActivity(),
+                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                        DateSetListener,
+                        year, month, day
+                );
+                dialog.getDatePicker().setMaxDate(System.currentTimeMillis());
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
+
+            }
+        });
+        DateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int day) {
+                month = month + 1;
+                Log.d(TAG, "onDateSet: dd/mm/yyyy: " + day + "/" + month + "/" + year);
+                String date = day + "/" + month + "/" + year;
+                editDOB.setText(date);
+            }
+
+        };
+
 
         // Set onClickListener for the submit button
         submit.setOnClickListener(new View.OnClickListener() {
@@ -59,6 +148,9 @@ public class UpdateProfileFragment extends Fragment {
             public void onClick(View v) {
                 // Update user information in the database
                 updateUserInfo();
+                NavController controller = Navigation.findNavController(v);
+                controller.navigate(R.id.action_updateProfile_to_nav_settings);
+
             }
         });
 
@@ -82,13 +174,15 @@ public class UpdateProfileFragment extends Fragment {
                     if (currentUserData != null) {
                         editName.setText(currentUserData.getName());
                         editDOB.setText(currentUserData.getDateOfBirth());
-                        editGender.setText(currentUserData.getGender());
-                        editEmail.setText(currentUserData.getEmail());
+//                        editGender.setText(currentUserData.getGender());
+                        emailView.setText(currentUserData.getEmail());
                         editMobile.setText(currentUserData.getMobile());
                         editAddress.setText(currentUserData.getAddress());
-                        editPassword.setText(currentUserData.getPassword());
                         editNameEmergency.setText(currentUserData.getNameEmergency());
                         editContactEmergency.setText(currentUserData.getContactEmergency());
+                        getGender = String.valueOf(dataSnapshot.child("gender").getValue());
+                        User user = new User();
+                        user.setPassword(currentUserData.getPassword());
                     }
                 }
 
@@ -101,34 +195,107 @@ public class UpdateProfileFragment extends Fragment {
     }
 
     private void updateUserInfo() {
-        // Get the new values from the EditText fields
-        String newName = editName.getText().toString();
-        String newDOB = editDOB.getText().toString();
-        String newGender = editGender.getText().toString();
-        String newEmail = editEmail.getText().toString();
-        String newMobile = editMobile.getText().toString();
-        String newAddress = editAddress.getText().toString();
-        String newPassword = editPassword.getText().toString();
-        String newNameEmergency = editNameEmergency.getText().toString();
-        String newContactEmergency = editContactEmergency.getText().toString();
+        RadioGroup rg = getView().findViewById(R.id.editGender);
+        int genid = rg.getCheckedRadioButtonId();
+        gender = getView().findViewById(genid);
 
-        // Create a User object with the new values
-        User updatedUser = new User(newName, newDOB, newGender, newEmail, newMobile, newAddress, newPassword, newNameEmergency, newContactEmergency);
+        currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            String userId = currentUser.getUid();
+            userReference = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
+            userReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull com.google.firebase.database.DataSnapshot dataSnapshot) {
+                    // Assuming your data structure is a Map<String, Object>
+                    getGender = String.valueOf(dataSnapshot.child("gender").getValue());
+                    getName = String.valueOf(dataSnapshot.child("name").getValue());
+                    getDOB = String.valueOf(dataSnapshot.child("Date Of Birth").getValue());
+                    getMobile = String.valueOf(dataSnapshot.child("Mobile Number").getValue());
+                    getAddress = String.valueOf(dataSnapshot.child("Address").getValue());
 
-        // Update the user information in the database using userReference
-        userReference.setValue(updatedUser.toMap())
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            // Show a toast message
-                            Toast.makeText(getContext(), "Profile updated successfully", Toast.LENGTH_SHORT).show();
-                        } else {
-                            // Handle the error
-                            Toast.makeText(getContext(), "Failed to update profile", Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    // Handle error
+                 }
+            });
+
+
+                    // Set the initial values in the EditText fields
+
+                        if((String.valueOf(genid)).equals("-1")){
+                            newGender = getGender;
                         }
-                    }
-                });
+                        else {
+                            newGender = gender.getText().toString();
+                         }
+
+                        String Name = editName.getText().toString();
+                        if(Name.equals(""))
+                        {
+                            newName = getName;
+                        }
+                        else
+                        {
+                            newName = editName.getText().toString();
+                        }
+
+                        String DOB = editDOB.getText().toString();
+                        if(DOB.equals(""))
+                        {
+                            newDOB = getDOB;
+                        }
+                        else
+                        {
+                            newDOB = editDOB.getText().toString();
+                        }
+
+                        newEmail = emailView.getText().toString();
+
+                        String Mobile = editMobile.getText().toString();
+                        if(Mobile.equals(""))
+                        {
+                            newMobile = getMobile;
+                        }
+                        else
+                        {
+                            newMobile = editMobile.getText().toString();
+                        }
+
+                        String Address = editAddress.getText().toString();
+                        if(Address.equals(""))
+                        {
+                            newAddress = getAddress;
+                        }
+                        else
+                        {
+                            newAddress = editAddress.getText().toString();
+                        }
+                        newNameEmergency = editNameEmergency.getText().toString();
+                        newContactEmergency = editContactEmergency.getText().toString();
+
+                        // Create a User object with the new values
+                        User updatedUser = new User(newName, newDOB, newGender, newEmail, newMobile, newAddress, newNameEmergency, newContactEmergency);
+
+                        // Update the user information in the database using userReference
+                        userReference.setValue(updatedUser.toMap())
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                            // Show a toast message
+                                            Toast.makeText(getContext(), "Profile updated successfully", Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            // Handle the error
+                                            Toast.makeText(getContext(), "Failed to update profile", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
+
+
+        }
+
     }
 
     public static class User {
@@ -144,17 +311,17 @@ public class UpdateProfileFragment extends Fragment {
         private String contactEmergency;
 
         public User() {
-            // Default constructor required for calls to DataSnapshot.getValue(User.class)
+            this.name = "";
         }
 
-        public User(String name, String dateOfBirth, String gender, String email, String mobile, String address, String password, String nameEmergency, String contactEmergency) {
+        public User(String name, String dateOfBirth, String gender, String email, String mobile, String address, String nameEmergency, String contactEmergency) {
             this.name = name;
             this.dateOfBirth = dateOfBirth;
             this.gender = gender;
             this.email = email;
             this.mobile = mobile;
             this.address = address;
-            this.password = password;
+//            this.password = password;
             this.nameEmergency = nameEmergency;
             this.contactEmergency = contactEmergency;
         }
