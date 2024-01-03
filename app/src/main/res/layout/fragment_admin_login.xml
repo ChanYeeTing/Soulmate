@@ -24,7 +24,7 @@
             app:layout_constraintHorizontal_bias="0.487"
             app:layout_constraintStart_toStartOf="@+id/guideline35"
             app:layout_constraintTop_toTopOf="@+id/guideline32"
-            app:layout_constraintVertical_bias="0.815" />
+            app:layout_constraintVertical_bias="0.887" />
 
         <ImageView
             android:id="@+id/loginIcon"
@@ -38,7 +38,8 @@
             app:layout_constraintEnd_toStartOf="@+id/guideline36"
             app:layout_constraintHorizontal_bias="0.62"
             app:layout_constraintStart_toStartOf="@+id/guideline35"
-            app:layout_constraintTop_toTopOf="@+id/guideline1" />
+            app:layout_constraintTop_toTopOf="@+id/guideline1"
+            tools:ignore="UnknownIdInLayout" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline37"
@@ -96,10 +97,24 @@
             app:layout_constraintHorizontal_bias="0.487"
             app:layout_constraintStart_toStartOf="@+id/guideline35"
             app:layout_constraintTop_toTopOf="@+id/guideline32"
-            app:layout_constraintVertical_bias="0.57" />
+            app:layout_constraintVertical_bias="0.642" />
 
         <EditText
-            android:id="@+id/editTextTextPassword"
+            android:id="@+id/editTextname"
+            android:layout_width="250dp"
+            android:layout_height="48dp"
+            android:ems="10"
+            android:hint="Name"
+            android:inputType="textEmailAddress"
+            app:layout_constraintBottom_toTopOf="@+id/guideline37"
+            app:layout_constraintEnd_toStartOf="@+id/guideline36"
+            app:layout_constraintHorizontal_bias="0.487"
+            app:layout_constraintStart_toStartOf="@+id/guideline35"
+            app:layout_constraintTop_toTopOf="@+id/guideline32"
+            app:layout_constraintVertical_bias="0.546" />
+
+        <EditText
+            android:id="@+id/editTextPassword"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -110,6 +125,6 @@
             app:layout_constraintHorizontal_bias="0.487"
             app:layout_constraintStart_toStartOf="@+id/guideline35"
             app:layout_constraintTop_toTopOf="@+id/guideline32"
-            app:layout_constraintVertical_bias="0.673" />
+            app:layout_constraintVertical_bias="0.732" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
