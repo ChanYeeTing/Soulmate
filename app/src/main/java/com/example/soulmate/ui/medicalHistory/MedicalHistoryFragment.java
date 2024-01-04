@@ -62,7 +62,7 @@ public class MedicalHistoryFragment extends Fragment {
 
         if (currentUser != null) {
             String userId = currentUser.getUid();
-            databaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child("MedicalHistory");
+            databaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child("Medical History").child("medicalHistory");
         }
 
         buttonEdit.setOnClickListener(new View.OnClickListener() {
