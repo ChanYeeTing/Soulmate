@@ -180,7 +180,7 @@ public class VaccinationFragment extends Fragment {
             name = getView().findViewById(R.id.name);
             number = getView().findViewById(R.id.number);
             DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
-            reference.child(uid).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot> () {
+            reference.child(uid).child("User Info").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot> () {
                 @Override
                 public void onComplete(@NonNull Task<DataSnapshot> task) {
                     if (task.isSuccessful()) {

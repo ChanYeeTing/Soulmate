@@ -196,7 +196,7 @@ public class RegistrationFragment extends Fragment {
                                             FirebaseAuth.getInstance().getCurrentUser().sendEmailVerification();
                                             Toast.makeText(getActivity(), "Verification Link Sent", Toast.LENGTH_SHORT).show();
                                             String user_id = auth.getCurrentUser().getUid();
-                                            DatabaseReference userRef = ref.child("Users").child(user_id);
+                                            DatabaseReference userRef = ref.child("Users").child(user_id).child("User Info");
                                             HashMap<String, Object> hashMap = new HashMap<>();
                                             hashMap.put("name", getName);
                                             hashMap.put("email", getEmail);

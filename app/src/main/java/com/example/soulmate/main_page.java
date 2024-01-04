@@ -67,7 +67,7 @@ public class main_page extends AppCompatActivity {
             //set username
             username = headerView.findViewById(R.id.username);
             DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
-            reference.child(uid).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            reference.child(uid).child("User Info").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DataSnapshot> task) {
                     if (task.isSuccessful()) {
