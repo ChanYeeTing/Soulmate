@@ -30,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.75" />
+            app:layout_constraintGuide_percent="1.0" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline25"
@@ -80,7 +80,7 @@
         <TextView
             android:id="@+id/textView5"
             android:layout_width="349dp"
-            android:layout_height="148dp"
+            android:layout_height="124dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="104dp"
             android:fontFamily="serif"
@@ -89,10 +89,10 @@
             android:textStyle="bold|italic"
             app:layout_constraintBottom_toTopOf="@+id/guideline25"
             app:layout_constraintEnd_toStartOf="@+id/guideline24"
-            app:layout_constraintHorizontal_bias="0.363"
+            app:layout_constraintHorizontal_bias="0.529"
             app:layout_constraintStart_toStartOf="@+id/guideline23"
             app:layout_constraintTop_toTopOf="@+id/guideline22"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.003" />
 
         <com.google.android.gms.maps.MapView
             android:id="@+id/mapView"

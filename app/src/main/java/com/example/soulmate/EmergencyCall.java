@@ -24,6 +24,10 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.IOException;
 import java.util.List;
@@ -140,6 +144,8 @@ public class EmergencyCall extends Fragment implements OnMapReadyCallback {
                     // Display the formatted address in the TextView
                     TextView addressTextView = getView().findViewById(R.id.textView5);
                     addressTextView.setText("Address: " + address.getAddressLine(0));
+
+                    saveAddressToFirebase(address.getAddressLine(0));
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -147,6 +153,15 @@ public class EmergencyCall extends Fragment implements OnMapReadyCallback {
         }
     }
 
+    private void saveAddressToFirebase(String address) {
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            String uid = currentUser.getUid();
+
+            DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference().child("Users");
+            usersRef.child(uid).child("Location").child("currentLocation").setValue(address);
+        }
+    }
 
     @Override
     public void onResume() {

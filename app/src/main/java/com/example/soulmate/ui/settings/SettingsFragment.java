@@ -157,7 +157,7 @@ public class SettingsFragment extends Fragment {
 
         if (currentUser != null) {
             String userId = currentUser.getUid();
-            userReference = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
+            userReference = FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child("User Info");
 
             userReference.addValueEventListener(new ValueEventListener() {
                 @Override

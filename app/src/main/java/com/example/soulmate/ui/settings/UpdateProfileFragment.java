@@ -162,7 +162,7 @@ public class UpdateProfileFragment extends Fragment {
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
             String userId = currentUser.getUid();
-            userReference = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
+            userReference = FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child("User Info");
 
             userReference.addValueEventListener(new ValueEventListener() {
                 @Override
@@ -202,7 +202,7 @@ public class UpdateProfileFragment extends Fragment {
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
             String userId = currentUser.getUid();
-            userReference = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
+            userReference = FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child("User Info");
             userReference.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull com.google.firebase.database.DataSnapshot dataSnapshot) {
