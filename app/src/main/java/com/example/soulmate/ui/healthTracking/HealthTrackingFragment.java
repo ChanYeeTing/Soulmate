@@ -25,23 +25,16 @@ import androidx.navigation.Navigation;
 
 import com.example.soulmate.R;
 import com.example.soulmate.databinding.FragmentHealthTrackingBinding;
-//import com.google.firebase.database.DatabaseReference;
-//import com.google.firebase.database.FirebaseDatabase;
 
 public class HealthTrackingFragment extends Fragment {
 
     private FragmentHealthTrackingBinding binding;
-//    private DatabaseReference databaseReference;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         HealthTrackingViewModel healthTrackingViewModel =
                 new ViewModelProvider(this).get(HealthTrackingViewModel.class);
-
-//        // Initialize Firebase
-//        FirebaseDatabase database = FirebaseDatabase.getInstance();
-//        databaseReference = database.getReference("healthTrackingData");
 
         binding = FragmentHealthTrackingBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -106,8 +99,6 @@ public class HealthTrackingFragment extends Fragment {
                             getRadioButtonValue(R.id.smokingHabit)
                     );
                     Log.d("HealthTrackingFragment", "HealthData created: " + healthData.toString());
-//                    FirebaseDatabase database = FirebaseDatabase.getInstance();
-//                    databaseReference.push().setValue(healthData);
 
                     // Display a success message
                     Toast.makeText(requireContext(), "Submit Successful!", Toast.LENGTH_SHORT).show();
@@ -171,13 +162,10 @@ public class HealthTrackingFragment extends Fragment {
         if (!TextUtils.isEmpty(input)) {
             if (editTextId == R.id.weight || editTextId == R.id.height || editTextId == R.id.temperature) {
                 return isDecimalNumber(input)  && Double.parseDouble(input) > 0;
-            } else if (editTextId == R.id.age) {
-                // Validate age (1 to 100)
-                return TextUtils.isDigitsOnly(input) && Integer.parseInt(input) >= 1 && Integer.parseInt(input) <= 100;
             } else if (editTextId == R.id.blood_oxygen) {
                 // Validate blood oxygen level (1 to 100)
                 return isDecimalNumber(input) && Double.parseDouble(input) >= 1 && Double.parseDouble(input) <= 100;
-            } else if (editTextId == R.id.respiration_rate || editTextId == R.id.pulse_rate
+            } else if (editTextId == R.id.age || editTextId == R.id.respiration_rate || editTextId == R.id.pulse_rate
                     || editTextId == R.id.blood_pressure || editTextId == R.id.blood_sugar) {
                 // Validate to avoid input digit 0 only
                 return TextUtils.isDigitsOnly(input) && Integer.parseInt(input) > 0;
@@ -316,14 +304,12 @@ public class HealthTrackingFragment extends Fragment {
             public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
                 // Not needed
             }
-
             @Override
             public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
                 // Enable the submit button when all input is valid
                 Button submit = getView().findViewById(R.id.submitButton2);
                 submit.setEnabled(isInputValid());
             }
-
             @Override
             public void afterTextChanged(Editable editable) {
                 // Not needed
