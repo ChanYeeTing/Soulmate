@@ -1,11 +1,20 @@
 package com.example.soulmate.ui.healthTracking;
 
 import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
+import android.text.TextUtils;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Toast;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,41 +25,309 @@ import androidx.navigation.Navigation;
 
 import com.example.soulmate.R;
 import com.example.soulmate.databinding.FragmentHealthTrackingBinding;
-import com.example.soulmate.ui.settings.HealthTrackingViewModel;
+//import com.google.firebase.database.DatabaseReference;
+//import com.google.firebase.database.FirebaseDatabase;
 
 public class HealthTrackingFragment extends Fragment {
 
     private FragmentHealthTrackingBinding binding;
+//    private DatabaseReference databaseReference;
 
-    public View onCreateView ( @NonNull LayoutInflater inflater,
-                               ViewGroup container, Bundle savedInstanceState ) {
-        HealthTrackingViewModel HealthTrackingViewModel =
-                new ViewModelProvider ( this ).get ( HealthTrackingViewModel.class );
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
+        HealthTrackingViewModel healthTrackingViewModel =
+                new ViewModelProvider(this).get(HealthTrackingViewModel.class);
 
-        binding = FragmentHealthTrackingBinding.inflate ( inflater, container, false );
-        View root = binding.getRoot ();
+//        // Initialize Firebase
+//        FirebaseDatabase database = FirebaseDatabase.getInstance();
+//        databaseReference = database.getReference("healthTrackingData");
+
+        binding = FragmentHealthTrackingBinding.inflate(inflater, container, false);
+        View root = binding.getRoot();
 
         return root;
     }
 
     @Override
-    public void onDestroyView () {
-        super.onDestroyView ();
+    public void onDestroyView() {
+        super.onDestroyView();
         binding = null;
     }
 
     @Override
-    public void onActivityCreated ( @Nullable Bundle savedInstanceState ) {
-        super.onActivityCreated ( savedInstanceState );
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
-        Button submit = getView ().findViewById ( R.id.submitButton2 );
+        Button submit = getView().findViewById(R.id.submitButton2);
 
-        submit.setOnClickListener ( new View.OnClickListener () {
+        // Initially disable the submit button
+        submit.setEnabled(false);
+
+        // Set a TextWatcher on each input field to dynamically enable/disable the submit button
+        addTextChangedListener(R.id.age);
+        addTextChangedListener(R.id.weight);
+        addTextChangedListener(R.id.height);
+        addTextChangedListener(R.id.blood_sugar);
+        addTextChangedListener(R.id.blood_pressure);
+        addTextChangedListener(R.id.temperature);
+        addTextChangedListener(R.id.blood_oxygen);
+        addTextChangedListener(R.id.respiration_rate);
+        addTextChangedListener(R.id.pulse_rate);
+
+        RadioGroup smokingHabitRadioGroup = getView().findViewById(R.id.smokingHabit);
+        smokingHabitRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public void onClick ( View v ) {
-                NavController controller = Navigation.findNavController ( v );
-                controller.navigate ( R.id.action_nav_health_tracking_to_analyzeResultFragment );
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                // Enable the submit button when the smoking habit is selected
+                submit.setEnabled(checkedId != -1 && isInputValid());
             }
-        } );
+        });
+
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Log.d("HealthTrackingFragment", "Before creating HealthData");
+
+
+                if (isInputValid()) {
+
+                    HealthData healthData = new HealthData(
+                            getEditTextValue(R.id.age),
+                            getEditTextValue(R.id.weight),
+                            getEditTextValue(R.id.height),
+                            getEditTextValue(R.id.blood_sugar),
+                            getEditTextValue(R.id.blood_pressure),
+                            getEditTextValue(R.id.temperature),
+                            getEditTextValue(R.id.blood_oxygen),
+                            getEditTextValue(R.id.respiration_rate),
+                            getEditTextValue(R.id.pulse_rate),
+                            getRadioButtonValue(R.id.smokingHabit)
+                    );
+                    Log.d("HealthTrackingFragment", "HealthData created: " + healthData.toString());
+//                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+//                    databaseReference.push().setValue(healthData);
+
+                    // Display a success message
+                    Toast.makeText(requireContext(), "Submit Successful!", Toast.LENGTH_SHORT).show();
+
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelable("healthData", healthData);
+
+                    NavController controller = Navigation.findNavController(v);
+                    controller.navigate(R.id.action_nav_health_tracking_to_analyzeResultFragment, bundle);
+                } else {
+                    Log.d("HealthTrackingFragment", "Input is not valid");
+                    // Display an error message if input is not valid
+                    Toast.makeText(requireContext(), "Please fill in ALL information.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    private boolean isInputValid() {
+        // Check if all EditText fields are not empty and contain valid numbers
+        boolean isAgeValid = isEditTextValid(R.id.age);
+        boolean isWeightValid = isEditTextValid(R.id.weight);
+        boolean isHeightValid = isEditTextValid(R.id.height);
+        boolean isBloodSugarValid = isEditTextValid(R.id.blood_sugar);
+        boolean isBloodPressureValid = isBloodPressureValid(R.id.blood_pressure);
+        boolean isTemperatureValid = isEditTextValid(R.id.temperature);
+        boolean isBloodOxygenValid = isEditTextValid(R.id.blood_oxygen);
+        boolean isRespirationRateValid = isEditTextValid(R.id.respiration_rate);
+        boolean isPulseRateValid = isEditTextValid(R.id.pulse_rate);
+        boolean isSmokingHabitSelected = isSmokingHabitSelected();
+
+        // Log the values for debugging
+        Log.d("Validation", "isAgeValid: " + isAgeValid);
+        Log.d("Validation", "isWeightValid: " + isWeightValid);
+        Log.d("Validation", "isHeightValid: " + isHeightValid);
+        Log.d("Validation", "isBloodSugarValid: " + isBloodSugarValid);
+        Log.d("Validation", "isBloodPressureValid: " + isBloodPressureValid);
+        Log.d("Validation", "isTemperatureValid: " + isTemperatureValid);
+        Log.d("Validation", "isBloodOxygenValid: " + isBloodOxygenValid);
+        Log.d("Validation", "isRespirationRateValid: " + isRespirationRateValid);
+        Log.d("Validation", "isPulseRateValid: " + isPulseRateValid);
+        Log.d("Validation", "isSmokingHabitSelected: " + isSmokingHabitSelected);
+
+        return isAgeValid &&
+                isWeightValid &&
+                isHeightValid &&
+                isBloodSugarValid &&
+                isBloodPressureValid &&
+                isTemperatureValid &&
+                isBloodOxygenValid &&
+                isRespirationRateValid &&
+                isPulseRateValid &&
+                isSmokingHabitSelected;
+    }
+
+
+    private boolean isEditTextValid(int editTextId) {
+        EditText editText = getView().findViewById(editTextId);
+        String input = editText.getText().toString().trim();
+
+        if (!TextUtils.isEmpty(input)) {
+            if (editTextId == R.id.weight || editTextId == R.id.height || editTextId == R.id.temperature) {
+                return isDecimalNumber(input)  && Double.parseDouble(input) > 0;
+            } else if (editTextId == R.id.age) {
+                // Validate age (1 to 100)
+                return TextUtils.isDigitsOnly(input) && Integer.parseInt(input) >= 1 && Integer.parseInt(input) <= 100;
+            } else if (editTextId == R.id.blood_oxygen) {
+                // Validate blood oxygen level (1 to 100)
+                return isDecimalNumber(input) && Double.parseDouble(input) >= 1 && Double.parseDouble(input) <= 100;
+            } else if (editTextId == R.id.respiration_rate || editTextId == R.id.pulse_rate
+                    || editTextId == R.id.blood_pressure || editTextId == R.id.blood_sugar) {
+                // Validate to avoid input digit 0 only
+                return TextUtils.isDigitsOnly(input) && Integer.parseInt(input) > 0;
+            } else {
+                return TextUtils.isDigitsOnly(input);
+            }
+        }
+        return false;
+    }
+
+    private boolean isDecimalNumber(String input) {
+        try {
+            Double.parseDouble(input);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    private boolean isBloodPressureValid(int editTextId) {
+        EditText editText = getView().findViewById(editTextId);
+        String input = editText.getText().toString().trim();
+        
+        // Check if the input matches the format "systolic/diastolic" (e.g., "120/70")
+        if (!TextUtils.isEmpty(input) && input.matches("\\d+/\\d+")) {
+            // Split the input into systolic and diastolic parts
+            String[] parts = input.split("/");
+
+            // Check that both parts are not equal to 0
+            return !parts[0].equals("0") && !parts[1].equals("0");
+        }
+        return false;
+    }
+
+    private boolean isSmokingHabitSelected() {
+        RadioGroup smokingHabitRadioGroup = getView().findViewById(R.id.smokingHabit);
+        return smokingHabitRadioGroup.getCheckedRadioButtonId() != -1;
+    }
+
+    private String getEditTextValue(int editTextId) {
+        EditText editText = getView().findViewById(editTextId);
+        return editText.getText().toString().trim();
+    }
+
+    private String getRadioButtonValue(int radioGroupId) {
+        RadioGroup radioGroup = getView().findViewById(radioGroupId);
+
+        // Get the ID of the selected radio button
+        int selectedRadioButtonId = radioGroup.getCheckedRadioButtonId();
+
+        // If no radio button is selected, return an empty string (or handle accordingly)
+        if (selectedRadioButtonId == -1) {
+            return "";
+        }
+
+        // Find the selected radio button
+        RadioButton selectedRadioButton = getView().findViewById(selectedRadioButtonId);
+
+        // Return the text of the selected radio button
+        return selectedRadioButton.getText().toString().trim();
+    }
+
+
+    public static class HealthData implements Parcelable {
+        public String age;
+        public String weight;
+        public String height;
+        public String blood_sugar;
+        public String blood_pressure;
+        public String temperature;
+        public String blood_oxygen;
+        public String respiration_rate;
+        public String pulse_rate;
+        public String smokingHabit;
+
+        public HealthData(String age, String weight, String height, String blood_sugar, String blood_pressure,
+                          String temperature, String blood_oxygen, String respiration_rate,
+                          String pulse_rate, String smokingHabit) {
+            this.age = age;
+            this.weight = weight;
+            this.height = height;
+            this.blood_sugar = blood_sugar;
+            this.blood_pressure = blood_pressure;
+            this.temperature = temperature;
+            this.blood_oxygen = blood_oxygen;
+            this.respiration_rate = respiration_rate;
+            this.pulse_rate = pulse_rate;
+            this.smokingHabit = smokingHabit;
+        }
+        protected HealthData(Parcel in) {
+            age = in.readString();
+            weight = in.readString();
+            height = in.readString();
+            blood_sugar = in.readString();
+            blood_pressure = in.readString();
+            temperature = in.readString();
+            blood_oxygen = in.readString();
+            respiration_rate = in.readString();
+            pulse_rate = in.readString();
+            smokingHabit = in.readString();
+        }
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeString(age);
+            dest.writeString(weight);
+            dest.writeString(height);
+            dest.writeString(blood_sugar);
+            dest.writeString(blood_pressure);
+            dest.writeString(temperature);
+            dest.writeString(blood_oxygen);
+            dest.writeString(respiration_rate);
+            dest.writeString(pulse_rate);
+            dest.writeString(smokingHabit);
+        }
+
+        public static final Creator<HealthData> CREATOR = new Creator<HealthData>() {
+            @Override
+            public HealthData createFromParcel(Parcel in) {
+                return new HealthData(in);
+            }
+
+            @Override
+            public HealthData[] newArray(int size) {
+                return new HealthData[size];
+            }
+        };
+    }
+    private void addTextChangedListener(int editTextId) {
+        EditText editText = getView().findViewById(editTextId);
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
+                // Not needed
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+                // Enable the submit button when all input is valid
+                Button submit = getView().findViewById(R.id.submitButton2);
+                submit.setEnabled(isInputValid());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                // Not needed
+            }
+        });
     }
 }

@@ -1,4 +1,4 @@
-package com.example.soulmate.ui.settings;
+package com.example.soulmate.ui.healthTracking;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
