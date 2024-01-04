@@ -1,241 +1,290 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.healthTracking.HealthTrackingFragment">
 
-    <EditText
-        android:id="@+id/age"
-        android:layout_width="250dp"
-        android:layout_height="48dp"
-        android:ems="10"
-        android:fontFamily="serif"
-        android:hint="Age [e.g., 21]"
-        android:inputType="phone"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline34"
-        app:layout_constraintEnd_toStartOf="@+id/guideline33"
-        app:layout_constraintHorizontal_bias="0.487"
-        app:layout_constraintStart_toStartOf="@+id/guideline31"
-        app:layout_constraintTop_toTopOf="@+id/guideline30"
-        app:layout_constraintVertical_bias="0.154" />
-
-    <EditText
-        android:id="@+id/weight"
-        android:layout_width="250dp"
-        android:layout_height="48dp"
-        android:ems="10"
-        android:fontFamily="serif"
-        android:hint="Weight (kg) [e.g., 61.2]"
-        android:inputType="phone"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline34"
-        app:layout_constraintEnd_toStartOf="@+id/guideline33"
-        app:layout_constraintHorizontal_bias="0.487"
-        app:layout_constraintStart_toStartOf="@+id/guideline31"
-        app:layout_constraintTop_toTopOf="@+id/guideline30"
-        app:layout_constraintVertical_bias="0.225" />
-
-    <EditText
-        android:id="@+id/height"
-        android:layout_width="250dp"
-        android:layout_height="48dp"
-        android:ems="10"
-        android:fontFamily="serif"
-        android:hint="Height (cm) [e.g., 171.0]"
-        android:inputType="phone"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline34"
-        app:layout_constraintEnd_toStartOf="@+id/guideline33"
-        app:layout_constraintHorizontal_bias="0.487"
-        app:layout_constraintStart_toStartOf="@+id/guideline31"
-        app:layout_constraintTop_toTopOf="@+id/guideline30"
-        app:layout_constraintVertical_bias="0.295" />
-
-    <EditText
-        android:id="@+id/blood_sugar"
-        android:layout_width="250dp"
-        android:layout_height="48dp"
-        android:ems="10"
-        android:fontFamily="serif"
-        android:hint="Blood Sugar Level (mg/dL) [e.g., 100]"
-        android:inputType="phone"
-        android:textColor="@color/black"
-        android:textSize="13sp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline34"
-        app:layout_constraintEnd_toStartOf="@+id/guideline33"
-        app:layout_constraintHorizontal_bias="0.487"
-        app:layout_constraintStart_toStartOf="@+id/guideline31"
-        app:layout_constraintTop_toTopOf="@+id/guideline30"
-        app:layout_constraintVertical_bias="0.366" />
-
-    <EditText
-        android:id="@+id/blood_pressure"
-        android:layout_width="250dp"
-        android:layout_height="48dp"
-        android:ems="10"
-        android:fontFamily="serif"
-        android:hint="Blood Pressure Level (mmHg) [e.g., 120/80]"
-        android:inputType="phone"
-        android:textColor="@color/black"
-        android:textSize="11sp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline34"
-        app:layout_constraintEnd_toStartOf="@+id/guideline33"
-        app:layout_constraintHorizontal_bias="0.487"
-        app:layout_constraintStart_toStartOf="@+id/guideline31"
-        app:layout_constraintTop_toTopOf="@+id/guideline30"
-        app:layout_constraintVertical_bias="0.437" />
-
-    <EditText
-        android:id="@+id/temperature"
-        android:layout_width="250dp"
-        android:layout_height="48dp"
-        android:ems="10"
-        android:fontFamily="serif"
-        android:hint="Temperature (°C) [e.g., 36.1]"
-        android:inputType="phone"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline34"
-        app:layout_constraintEnd_toStartOf="@+id/guideline33"
-        app:layout_constraintHorizontal_bias="0.487"
-        app:layout_constraintStart_toStartOf="@+id/guideline31"
-        app:layout_constraintTop_toTopOf="@+id/guideline30"
-        app:layout_constraintVertical_bias="0.509" />
-
-    <EditText
-        android:id="@+id/blood_oxygen"
-        android:layout_width="250dp"
-        android:layout_height="48dp"
-        android:ems="10"
-        android:fontFamily="serif"
-        android:hint="Blood Oxygen Level (%) [e.g., 95]"
-        android:inputType="phone"
-        android:textColor="@color/black"
-        android:textSize="13sp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline34"
-        app:layout_constraintEnd_toStartOf="@+id/guideline33"
-        app:layout_constraintHorizontal_bias="0.487"
-        app:layout_constraintStart_toStartOf="@+id/guideline31"
-        app:layout_constraintTop_toTopOf="@+id/guideline30"
-        app:layout_constraintVertical_bias="0.581" />
-
-    <EditText
-        android:id="@+id/respiration_rate"
-        android:layout_width="250dp"
-        android:layout_height="48dp"
-        android:ems="10"
-        android:fontFamily="serif"
-        android:hint="Respiration Rate (breaths/min) [e.g., 17]"
-        android:inputType="phone"
-        android:textColor="@color/black"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline34"
-        app:layout_constraintEnd_toStartOf="@+id/guideline33"
-        app:layout_constraintHorizontal_bias="0.487"
-        app:layout_constraintStart_toStartOf="@+id/guideline31"
-        app:layout_constraintTop_toTopOf="@+id/guideline30"
-        app:layout_constraintVertical_bias="0.653" />
-
-    <EditText
-        android:id="@+id/pulse_rate"
-        android:layout_width="250dp"
-        android:layout_height="48dp"
-        android:ems="10"
-        android:fontFamily="serif"
-        android:hint="Pulse Rate (bpm) [e.g., 70]"
-        android:inputType="phone"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline34"
-        app:layout_constraintEnd_toStartOf="@+id/guideline33"
-        app:layout_constraintHorizontal_bias="0.487"
-        app:layout_constraintStart_toStartOf="@+id/guideline31"
-        app:layout_constraintTop_toTopOf="@+id/guideline30"
-        app:layout_constraintVertical_bias="0.724" />
-
+    <!-- Title: Health Tracking -->
     <TextView
-        android:id="@+id/instruction"
-        android:layout_width="347dp"
-        android:layout_height="47dp"
-        android:layout_marginEnd="12dp"
-        android:layout_marginBottom="8dp"
+        android:id="@+id/healthTrackingTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:fontFamily="serif"
-        android:text="@string/health_tracking_instruction"
-        android:textAlignment="center"
-        android:textColor="#6E0E0E"
-        android:textSize="14sp"
-        android:textStyle="italic"
-        app:layout_constraintBottom_toTopOf="@+id/guideline34"
-        app:layout_constraintEnd_toStartOf="@+id/guideline33"
-        app:layout_constraintHorizontal_bias="0.379"
-        app:layout_constraintStart_toStartOf="@+id/guideline56"
-        app:layout_constraintTop_toTopOf="@+id/guideline30"
-        app:layout_constraintVertical_bias="0.081" />
+        android:text="Health Tracking"
+        android:textSize="24sp"
+        android:textColor="#000000"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/guideline30" />
 
-    <TextView
-        android:id="@+id/healthTracking"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="56dp"
-        android:fontFamily="serif"
-        android:text="@string/menu_healthTracking"
-        android:textAlignment="center"
-        android:textColor="@color/material_dynamic_primary10"
-        android:textSize="32sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/guideline54"
-        app:layout_constraintEnd_toStartOf="@+id/guideline33"
-        app:layout_constraintHorizontal_bias="0.117"
-        app:layout_constraintStart_toStartOf="@+id/guideline52"
-        app:layout_constraintTop_toTopOf="@+id/guideline30"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline34"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.98" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline33"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.951983584" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline31"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.051983584" />
-
+    <!-- Guideline for the Title -->
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline30"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.0" />
+        app:layout_constraintGuide_percent="0.1" />
+
+    <!-- Age -->
+
+    <TextView
+        android:id="@+id/ageLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="serif"
+        android:text="Age:"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline33"
+        app:layout_constraintStart_toStartOf="@+id/guideline31"
+        app:layout_constraintTop_toTopOf="@+id/guideline30" />
+
+    <EditText
+        android:id="@+id/age"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:ems="10"
+        android:fontFamily="serif"
+        android:hint="[e.g., 21]"
+        android:inputType="phone"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ageLabel"
+        app:layout_constraintTop_toTopOf="@+id/guideline30" />
+
+    <!-- Weight -->
+
+    <TextView
+        android:id="@+id/weightLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="serif"
+        android:text="Weight (kg):"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline33"
+        app:layout_constraintStart_toStartOf="@+id/guideline31"
+        app:layout_constraintTop_toBottomOf="@+id/age" />
+
+    <EditText
+        android:id="@+id/weight"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:ems="10"
+        android:fontFamily="serif"
+        android:hint="[e.g., 61.2]"
+        android:inputType="phone"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/weightLabel"
+        app:layout_constraintTop_toBottomOf="@+id/age" />
+
+    <!-- Height -->
+    <TextView
+        android:id="@+id/heightLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="serif"
+        android:text="Height (cm):"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline33"
+        app:layout_constraintStart_toStartOf="@+id/guideline31"
+        app:layout_constraintTop_toBottomOf="@+id/weight" />
+
+    <EditText
+        android:id="@+id/height"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:ems="10"
+        android:fontFamily="serif"
+        android:hint="[e.g., 171.0]"
+        android:inputType="phone"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/heightLabel"
+        app:layout_constraintTop_toBottomOf="@+id/weight" />
+
+    <!-- Blood Sugar Level -->
+    <TextView
+        android:id="@+id/bloodSugarLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="serif"
+        android:text="Blood Sugar Level (mg/dL):"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline33"
+        app:layout_constraintStart_toStartOf="@+id/guideline31"
+        app:layout_constraintTop_toBottomOf="@+id/height" />
+
+    <EditText
+        android:id="@+id/blood_sugar"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:ems="10"
+        android:fontFamily="serif"
+        android:hint="[e.g., 100]"
+        android:inputType="phone"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/bloodSugarLabel"
+        app:layout_constraintTop_toBottomOf="@+id/height" />
+
+    <!-- Blood Pressure Level -->
+    <TextView
+        android:id="@+id/bloodPressureLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="serif"
+        android:text="Blood Pressure Level (mmHg):"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline33"
+        app:layout_constraintStart_toStartOf="@+id/guideline31"
+        app:layout_constraintTop_toBottomOf="@+id/blood_sugar" />
+
+    <EditText
+        android:id="@+id/blood_pressure"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:ems="10"
+        android:fontFamily="serif"
+        android:hint="[e.g., 120/80]"
+        android:inputType="phone"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/bloodPressureLabel"
+        app:layout_constraintTop_toBottomOf="@+id/blood_sugar" />
+
+    <!-- Temperature -->
+    <TextView
+        android:id="@+id/temperatureLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="serif"
+        android:text="Temperature (°C):"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline33"
+        app:layout_constraintStart_toStartOf="@+id/guideline31"
+        app:layout_constraintTop_toBottomOf="@+id/blood_pressure" />
+
+    <EditText
+        android:id="@+id/temperature"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:ems="10"
+        android:fontFamily="serif"
+        android:hint="[e.g., 36.1]"
+        android:inputType="phone"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/temperatureLabel"
+        app:layout_constraintTop_toBottomOf="@+id/blood_pressure" />
+
+    <!-- Blood Oxygen Level -->
+    <TextView
+        android:id="@+id/bloodOxygenLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="serif"
+        android:text="Blood Oxygen Level (%):"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline33"
+        app:layout_constraintStart_toStartOf="@+id/guideline31"
+        app:layout_constraintTop_toBottomOf="@+id/temperature" />
+
+    <EditText
+        android:id="@+id/blood_oxygen"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:ems="10"
+        android:fontFamily="serif"
+        android:hint="[e.g., 95]"
+        android:inputType="phone"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/bloodOxygenLabel"
+        app:layout_constraintTop_toBottomOf="@+id/temperature" />
+
+    <!-- Respiration Rate -->
+    <TextView
+        android:id="@+id/respirationRateLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="serif"
+        android:text="Respiration Rate (breaths/min):"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline33"
+        app:layout_constraintStart_toStartOf="@+id/guideline31"
+        app:layout_constraintTop_toBottomOf="@+id/blood_oxygen" />
+
+    <EditText
+        android:id="@+id/respiration_rate"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:ems="10"
+        android:fontFamily="serif"
+        android:hint="[e.g., 17]"
+        android:inputType="phone"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/respirationRateLabel"
+        app:layout_constraintTop_toBottomOf="@+id/blood_oxygen" />
+
+    <!-- Pulse Rate -->
+    <TextView
+        android:id="@+id/pulseRateLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="serif"
+        android:text="Pulse Rate (bpm):"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline33"
+        app:layout_constraintStart_toStartOf="@+id/guideline31"
+        app:layout_constraintTop_toBottomOf="@+id/respiration_rate" />
+
+    <EditText
+        android:id="@+id/pulse_rate"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:ems="10"
+        android:fontFamily="serif"
+        android:hint="[e.g., 70]"
+        android:inputType="phone"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/pulseRateLabel"
+        app:layout_constraintTop_toBottomOf="@+id/respiration_rate" />
+
+    <!-- Smoking Habits -->
+    <TextView
+        android:id="@+id/smokingHabitLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="serif"
+        android:text="Smoking Habits:"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline33"
+        app:layout_constraintStart_toStartOf="@+id/guideline31"
+        app:layout_constraintTop_toBottomOf="@+id/pulse_rate" />
 
     <RadioGroup
         android:id="@+id/smokingHabit"
-        android:layout_width="120dp"
+        android:layout_width="0dp"
         android:layout_height="73dp"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/guideline34"
-        app:layout_constraintEnd_toStartOf="@+id/guideline33"
-        app:layout_constraintHorizontal_bias="0.752"
-        app:layout_constraintStart_toStartOf="@+id/guideline31"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.826">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/smokingHabitLabel"
+        app:layout_constraintTop_toBottomOf="@+id/pulse_rate">
 
         <RadioButton
             android:id="@+id/yesButton"
@@ -243,7 +292,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:fontFamily="serif"
-            android:text="@string/yes" />
+            android:text="Yes" />
 
         <RadioButton
             android:id="@+id/noButton"
@@ -254,36 +303,43 @@
             android:text="No" />
     </RadioGroup>
 
-    <TextView
-        android:id="@+id/textView10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="serif"
-        android:text="Smoking Habits"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline34"
-        app:layout_constraintEnd_toStartOf="@+id/guideline33"
-        app:layout_constraintHorizontal_bias="0.235"
-        app:layout_constraintStart_toStartOf="@+id/guideline31"
-        app:layout_constraintTop_toTopOf="@+id/guideline30"
-        app:layout_constraintVertical_bias="0.781" />
+    <!-- Submit Button -->
 
     <Button
         android:id="@+id/submitButton2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:backgroundTint="#2196F3"
         android:text="Submit"
         android:textAlignment="center"
         android:textSize="18dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline34"
-        app:layout_constraintEnd_toStartOf="@+id/guideline33"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="@+id/guideline31"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.974" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pulse_rate"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline34"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.94" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline33"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.66" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline31"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.051983584" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
