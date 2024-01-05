@@ -30,6 +30,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -41,7 +42,12 @@ import java.util.Map;
 
 public class UpdateProfileFragment extends Fragment {
 
-    private EditText editName, editMobile, editAddress, editNameEmergency, editContactEmergency;
+    private EditText editName;
+    private EditText editMobile;
+    private EditText editAddress;
+    private static String Genderchoice;
+    private EditText editNameEmergency;
+    private EditText editContactEmergency;
     private TextView editDOB;
     private TextView emailView;
     private Button submit;
@@ -68,10 +74,40 @@ public class UpdateProfileFragment extends Fragment {
         editContactEmergency = view.findViewById(R.id.contactEmergency);
         RadioGroup rg = view.findViewById(R.id.editGender);
 
+
+
         submit = view.findViewById(R.id.submitButton);
 
         // Fetch the current user data and set the initial values
         fetchCurrentUserData();
+
+        int option1Id = R.id.radioButton1;
+        int option2Id = R.id.radioButton2;
+
+        currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        String userId = currentUser.getUid();
+        userReference = FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child("User Info");
+
+        userReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Genderchoice = String.valueOf(snapshot.child("Gender").getValue());
+                if(Genderchoice.equals("Male"))
+                {
+                    rg.check(option1Id);
+                }
+                else if(Genderchoice.equals("Female"))
+                    rg.check(option2Id);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
 
 
         TextWatcher submitTextWatcher = new TextWatcher() {
@@ -93,13 +129,37 @@ public class UpdateProfileFragment extends Fragment {
                 String E = editNameEmergency.getText().toString().trim();
                 String numE = editContactEmergency.getText().toString().trim();
 
+                rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(RadioGroup group, int checkedId) {
+                        submit.setEnabled(!name.isEmpty() && !DOB.isEmpty() && !email.isEmpty() && !mobile.isEmpty() && !address.isEmpty()
+                                && !E.isEmpty() && !numE.isEmpty() && (genid!=-1));
+                    }
+                });
+
                 submit.setEnabled(!name.isEmpty() && !DOB.isEmpty() && !email.isEmpty() && !mobile.isEmpty() && !address.isEmpty()
                 && !E.isEmpty() && !numE.isEmpty() && (genid!=-1));
             }
 
             @Override
             public void afterTextChanged(Editable s) {
+                rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(RadioGroup group, int checkedId) {
 
+                        int genid = rg.getCheckedRadioButtonId();
+
+                        String name = editName.getText().toString().trim();
+                        String DOB = editDOB.getText().toString().trim();
+                        String email = emailView.getText().toString().trim();
+                        String mobile = editMobile.getText().toString().trim();
+                        String address = editAddress.getText().toString().trim();
+                        String E = editNameEmergency.getText().toString().trim();
+                        String numE = editContactEmergency.getText().toString().trim();
+                        submit.setEnabled(!name.isEmpty() && !DOB.isEmpty() && !email.isEmpty() && !mobile.isEmpty() && !address.isEmpty()
+                                && !E.isEmpty() && !numE.isEmpty() && (genid != -1));
+                    }
+                });
             }
         };
         editName.addTextChangedListener(submitTextWatcher);
@@ -173,11 +233,16 @@ public class UpdateProfileFragment extends Fragment {
                     // Set the initial values in the EditText fields
                     if (currentUserData != null) {
                         editName.setText(currentUserData.getName());
-                        editDOB.setText(currentUserData.getDateOfBirth());
-//                        editGender.setText(currentUserData.getGender());
+                        editDOB.setText(String.valueOf(dataSnapshot.child("Date Of Birth").getValue()));
+                        Genderchoice = String.valueOf(dataSnapshot.child("Gender").getValue());
                         emailView.setText(currentUserData.getEmail());
-                        editMobile.setText(currentUserData.getMobile());
-                        editAddress.setText(currentUserData.getAddress());
+                        editMobile.setText(String.valueOf(dataSnapshot.child("Mobile Number").getValue()));
+                        if(String.valueOf(dataSnapshot.child("Address").getValue())!="null") {
+                            editAddress.setText(String.valueOf(dataSnapshot.child("Address").getValue()));
+                        }
+                        else {
+                            editAddress.setText("");
+                        }
                         editNameEmergency.setText(currentUserData.getNameEmergency());
                         editContactEmergency.setText(currentUserData.getContactEmergency());
                         getGender = String.valueOf(dataSnapshot.child("gender").getValue());

@@ -176,56 +176,56 @@ public class SettingsFragment extends Fragment {
                         numberE = String.valueOf(dataSnapshot.child("contactEmergency").getValue());
 
 
-                        if(name!="null")
+                        if(name!="null"&&name!="")
                         {
                             textView1.setText("Name: \t" + name.toString());
                         }
                         else {
                             textView1.setText("Name: \t" +  " - ");
                         }
-                        if(DOB!="null")
+                        if(DOB!="null"&&DOB!="")
                         {
                             textView2.setText("Date of Birth: \t" + DOB.toString());
                         }
                         else {
                             textView2.setText("Date of Birth: \t" +  " - ");
                         }
-                        if(gender!="null")
+                        if(gender!="null"&&gender!="")
                         {
                             textView3.setText("Gender: \t" + gender.toString());
                         }
                         else {
                             textView3.setText("Gender: \t" +  " - ");
                         }
-                        if(email!="null")
+                        if(email!="null"&&email!="")
                         {
                             textView4.setText("Email: \t" + email.toString());
                         }
                         else {
                             textView4.setText("Email: \t" +  " - ");
                         }
-                        if(number!="null")
+                        if(number!="null"&&number!="")
                         {
                             textView5.setText("Phone: \t" + number.toString());
                         }
                         else {
                             textView5.setText("Phone: \t" +  " - ");
                         }
-                        if(address!="null")
+                        if(address!="null"&& address!="")
                         {
                             textView6.setText("Address: \t" + address.toString());
                         }
                         else {
                             textView6.setText("Address: \t" +  " - ");
                         }
-                        if(nameE!="null")
+                        if(nameE!="null"&&nameE!="")
                         {
                             textView7.setText("Name: \t" + nameE.toString());
                         }
                         else {
                             textView7.setText("Name: \t" +  " - ");
                         }
-                        if(numberE!="null")
+                        if(numberE!="null"&&numberE!="")
                         {
                             textView8.setText("Contact: \t" + numberE.toString());
                         }

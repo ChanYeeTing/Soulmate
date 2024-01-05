@@ -55,7 +55,7 @@ public class CustomAdapter extends BaseAdapter {
             holder.time = convertView.findViewById(R.id.time1);
             holder.hospital = convertView.findViewById(R.id.hospital1);
             holder.detail = convertView.findViewById(R.id.detail1);
-
+            holder.detail.setTextIsSelectable(true);
 
 
 
