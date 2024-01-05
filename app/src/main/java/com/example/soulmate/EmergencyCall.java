@@ -7,13 +7,17 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -26,8 +30,11 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
 import java.util.List;
@@ -39,6 +46,8 @@ public class EmergencyCall extends Fragment implements OnMapReadyCallback {
     private static final String ARG_PARAM2 = "param2";
     private String mParam1;
     private String mParam2;
+
+    public static boolean isCall;
 
     private FusedLocationProviderClient fusedLocationClient;
     private LocationCallback locationCallback;
@@ -146,6 +155,7 @@ public class EmergencyCall extends Fragment implements OnMapReadyCallback {
                     addressTextView.setText("Address: " + address.getAddressLine(0));
 
                     saveAddressToFirebase(address.getAddressLine(0));
+                    Toast.makeText(getContext(), "Notified admin and will call for help!", Toast.LENGTH_SHORT).show();
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -158,10 +168,34 @@ public class EmergencyCall extends Fragment implements OnMapReadyCallback {
         if (currentUser != null) {
             String uid = currentUser.getUid();
 
-            DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference().child("Users");
-            usersRef.child(uid).child("Location").child("currentLocation").setValue(address);
+            DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference().child("Users").child(uid);
+
+            // Retrieve user information from "UserInfo" node
+            usersRef.child("User Info").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        String name = dataSnapshot.child("name").getValue(String.class);
+                        String nameEmergency = dataSnapshot.child("nameEmergency").getValue(String.class);
+                        String contactEmergency = dataSnapshot.child("contactEmergency").getValue(String.class);
+
+                        // Save user information along with current location
+                        usersRef.child("Location").child("currentLocation").setValue(address);
+                        usersRef.child("Location").child("name").setValue(name);
+                        usersRef.child("Location").child("nameEmergency").setValue(nameEmergency);
+                        usersRef.child("Location").child("contactEmergency").setValue(contactEmergency);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Log.e("Firebase", "Error saving data to Firebase: " + databaseError.getMessage());
+                }
+
+            });
         }
     }
+
 
     @Override
     public void onResume() {

@@ -41,25 +41,7 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.795" />
-
-    <Button
-        android:id="@+id/userInfoButton"
-        android:layout_width="200dp"
-        android:layout_height="48dp"
-        android:backgroundTint="@color/material_dynamic_primary70"
-        android:fontFamily="sans-serif-black"
-        android:insetBottom="0dp"
-        android:text="User Information"
-        android:textAlignment="center"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.878" />
+        app:layout_constraintVertical_bias="0.808" />
 
     <Button
         android:id="@+id/medicalHistoryRecord"
@@ -77,25 +59,44 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.959" />
+        app:layout_constraintVertical_bias="0.972" />
 
-    <HorizontalScrollView
-        android:id="@+id/horizontalScrollView"
-        android:layout_width="411dp"
-        android:layout_height="406dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginEnd="1dp"
+    <Button
+        android:id="@+id/userInfoButton"
+        android:layout_width="200dp"
+        android:layout_height="48dp"
+        android:backgroundTint="@color/material_dynamic_primary70"
+        android:fontFamily="sans-serif-black"
+        android:insetBottom="0dp"
+        android:text="User Information"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.372">
+        app:layout_constraintVertical_bias="0.891" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="vertical" />
-    </HorizontalScrollView>
+    <!-- Use a vertical LinearLayout to hold the checkboxes -->
+
+    <LinearLayout
+        android:id="@+id/checkboxContainer"
+        android:layout_width="384dp"
+        android:layout_height="421dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.592"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.396"
+        tools:ignore="UnknownId">
+
+        <!-- Checkbox for each user will be added here programmatically -->
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/textView6"
