@@ -277,12 +277,17 @@
         app:layout_constraintStart_toStartOf="@+id/guideline31"
         app:layout_constraintTop_toBottomOf="@+id/pulse_rate" />
 
+    <!-- Validation Message -->
+
+    <!-- Submit Button -->
+
     <RadioGroup
         android:id="@+id/smokingHabit"
-        android:layout_width="0dp"
-        android:layout_height="73dp"
+        android:layout_width="139dp"
+        android:layout_height="45dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/smokingHabitLabel"
         app:layout_constraintTop_toBottomOf="@+id/pulse_rate">
 
@@ -303,7 +308,19 @@
             android:text="No" />
     </RadioGroup>
 
-    <!-- Submit Button -->
+    <TextView
+        android:id="@+id/validationMessage"
+        android:layout_width="411dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="4dp"
+        android:fontFamily="serif"
+        android:text=""
+        android:textColor="#FF0000"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/smokingHabit" />
 
     <Button
         android:id="@+id/submitButton2"
@@ -326,7 +343,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.94" />
+        app:layout_constraintGuide_percent="0.98" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline33"

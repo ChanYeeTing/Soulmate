@@ -3,9 +3,10 @@ package com.example.soulmate.ui.healthTracking;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.text.TextUtils;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +14,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -53,7 +54,6 @@ public class HealthTrackingFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         Button submit = getView().findViewById(R.id.submitButton2);
-
         // Initially disable the submit button
         submit.setEnabled(false);
 
@@ -69,11 +69,14 @@ public class HealthTrackingFragment extends Fragment {
         addTextChangedListener(R.id.pulse_rate);
 
         RadioGroup smokingHabitRadioGroup = getView().findViewById(R.id.smokingHabit);
+
         smokingHabitRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 // Enable the submit button when the smoking habit is selected
                 submit.setEnabled(checkedId != -1 && isInputValid());
+                // Update the validation message
+                showInputValidationMessages();
             }
         });
 
@@ -81,8 +84,8 @@ public class HealthTrackingFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                Log.d("HealthTrackingFragment", "Before creating HealthData");
 
+                Log.d("HealthTrackingFragment", "Before creating HealthData");
 
                 if (isInputValid()) {
 
@@ -110,8 +113,10 @@ public class HealthTrackingFragment extends Fragment {
                     controller.navigate(R.id.action_nav_health_tracking_to_analyzeResultFragment, bundle);
                 } else {
                     Log.d("HealthTrackingFragment", "Input is not valid");
+                    // Display the detailed error message
+                    showInputValidationMessages();
                     // Display an error message if input is not valid
-                    Toast.makeText(requireContext(), "Please fill in ALL information.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(requireContext(), "Please fix the errors.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -160,23 +165,27 @@ public class HealthTrackingFragment extends Fragment {
         String input = editText.getText().toString().trim();
 
         if (!TextUtils.isEmpty(input)) {
-            if (editTextId == R.id.weight || editTextId == R.id.height || editTextId == R.id.temperature) {
-                return isDecimalNumber(input)  && Double.parseDouble(input) > 0;
-            } else if (editTextId == R.id.blood_oxygen) {
-                // Validate blood oxygen level (1 to 100)
-                return isDecimalNumber(input) && Double.parseDouble(input) >= 1 && Double.parseDouble(input) <= 100;
-            } else if (editTextId == R.id.age || editTextId == R.id.respiration_rate || editTextId == R.id.pulse_rate
-                    || editTextId == R.id.blood_pressure || editTextId == R.id.blood_sugar) {
+            if (editTextId == R.id.age){
                 // Validate to avoid input digit 0 only
                 return TextUtils.isDigitsOnly(input) && Integer.parseInt(input) > 0;
+            } else if (editTextId == R.id.weight || editTextId == R.id.height || editTextId == R.id.temperature) {
+                return isValidDecimalNumber(input) && Double.parseDouble(input) > 0;
+            } else if (editTextId == R.id.blood_oxygen) {
+                // Validate blood oxygen level (1 to 100)
+                return isValidDecimalNumber(input) && Double.parseDouble(input) >= 1 && Double.parseDouble(input) <= 100;
+            } else if (editTextId == R.id.blood_sugar || editTextId == R.id.blood_pressure
+                    || editTextId == R.id.pulse_rate || editTextId == R.id.respiration_rate) {
+                return TextUtils.isDigitsOnly(input) && Integer.parseInt(input) > 0;
             } else {
-                return TextUtils.isDigitsOnly(input);
+                return isValidDecimalNumber(input);
             }
+        } else{
+            return false;
         }
-        return false;
+
     }
 
-    private boolean isDecimalNumber(String input) {
+    private boolean isValidDecimalNumber(String input) {
         try {
             Double.parseDouble(input);
             return true;
@@ -227,6 +236,53 @@ public class HealthTrackingFragment extends Fragment {
         // Return the text of the selected radio button
         return selectedRadioButton.getText().toString().trim();
     }
+
+    private void showInputValidationMessages() {
+        StringBuilder errorMessage = new StringBuilder("Invalid input in:");
+
+        if (!isEditTextValid(R.id.age)) {
+            errorMessage.append("- Age(Greater than 0) ");
+        }
+        if (!isEditTextValid(R.id.weight)) {
+            errorMessage.append("- Weight(Greater than 0) ");
+        }
+        if (!isEditTextValid(R.id.height)) {
+            errorMessage.append("- Height(Greater than 0) ");
+        }
+        if (!isEditTextValid(R.id.blood_sugar)) {
+            errorMessage.append("- Blood Sugar(Greater than 0) ");
+        }
+        if (!isBloodPressureValid(R.id.blood_pressure)) {
+            errorMessage.append("- Blood Pressure(Must systolic/diastolic) ");
+        }
+        if (!isEditTextValid(R.id.temperature)) {
+            errorMessage.append("- Temperature(Greater than 0) ");
+        }
+        if (!isEditTextValid(R.id.blood_oxygen)) {
+            errorMessage.append("- Blood Oxygen(1-100 only) ");
+        }
+        if (!isEditTextValid(R.id.respiration_rate)) {
+            errorMessage.append("- Respiration Rate(Greater than 0) ");
+        }
+        if (!isEditTextValid(R.id.pulse_rate)) {
+            errorMessage.append("- Pulse Rate(Greater than 0) ");
+        }
+
+        // Check if smoking habit is selected
+        RadioGroup smokingHabitRadioGroup = getView().findViewById(R.id.smokingHabit);
+        if (smokingHabitRadioGroup.getCheckedRadioButtonId() == -1) {
+            errorMessage.append("- Smoking Habit");
+        }
+
+        // Show the detailed error message
+        TextView validationMessageTextView = getView().findViewById(R.id.validationMessage);
+        validationMessageTextView.setText(errorMessage.toString());
+
+        // Disable the submit button
+        Button submitButton = getView().findViewById(R.id.submitButton2);
+        submitButton.setEnabled(false);
+    }
+
 
 
     public static class HealthData implements Parcelable {
@@ -299,16 +355,31 @@ public class HealthTrackingFragment extends Fragment {
     }
     private void addTextChangedListener(int editTextId) {
         EditText editText = getView().findViewById(editTextId);
+        TextView validationMessageTextView = getView().findViewById(R.id.validationMessage);
+        Button submitButton = getView().findViewById(R.id.submitButton2);
+
+        // Array to hold the flag value
+        final boolean[] validationMessageShown = {false};
         editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
-                // Not needed
+                // Clear the validation message when the user starts editing
+                if (validationMessageShown[0]) {
+                    validationMessageTextView.setText("");
+                    validationMessageShown[0] = false;
+                }
             }
             @Override
             public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
-                // Enable the submit button when all input is valid
-                Button submit = getView().findViewById(R.id.submitButton2);
-                submit.setEnabled(isInputValid());
+                // Check if the input is valid, and show the validation message if not
+                if (!isEditTextValid(editTextId)) {
+                    showInputValidationMessages();
+                    validationMessageShown[0] = true;
+                    submitButton.setEnabled(false);
+                } else {
+                    // Enable the submit button when all input is valid
+                    submitButton.setEnabled(isInputValid());
+                }
             }
             @Override
             public void afterTextChanged(Editable editable) {
