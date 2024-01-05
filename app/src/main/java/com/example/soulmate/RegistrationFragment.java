@@ -6,6 +6,8 @@ import android.app.DatePickerDialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -161,7 +163,7 @@ public class RegistrationFragment extends Fragment {
                 RadioGroup rg = getView().findViewById(R.id.timeSelector );
                 int genid = rg.getCheckedRadioButtonId();
                 RadioButton gender = getView().findViewById(genid);
-//        RadioButton gender = getView().findViewById(rg.getCheckedRadioButtonId())
+
 
 
                 EditText password = getView().findViewById(R.id.password);
@@ -176,12 +178,19 @@ public class RegistrationFragment extends Fragment {
 
 
 
+
+
+
                 if (!getName.isEmpty() && !getEmail.isEmpty() && !getNumber.isEmpty() && !getDOB.equals("Date of Birth") && genid!=-1
                         && !getpassword.isEmpty() && !getCpassword.isEmpty()) {
-                    String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
+                    String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
                     if (getEmail.matches(emailPattern)) {
 
+                        // Check if the entered text matches the phone number pattern
+                        String phonePattern = "^01\\d\\d{7,8}$";
+                        if(getNumber.matches(phonePattern))
+                        {
 
 
                         if (getpassword.length() >= 6 && getCpassword.length() >= 6) {
@@ -233,14 +242,17 @@ public class RegistrationFragment extends Fragment {
                             Toast.makeText(getActivity(), "Password should be >= 6 characters", Toast.LENGTH_SHORT).show();
                         }
 
+                    } else {
+                        number.setError("Invalid phone number format");
+                        number.requestFocus();
+                        number.setText("");
                     }
-                    else {
+                    } else {
                         email.setError("Invalid email address");
                         email.requestFocus();
                     }
 
-                    }
-                else {
+                    } else {
                     Toast.makeText(getActivity(), "Not Empty Field Allowed", Toast.LENGTH_SHORT).show();
                 }
 
