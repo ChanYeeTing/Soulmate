@@ -10,36 +10,38 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/name"
-        android:layout_width="323dp"
-        android:layout_height="48dp"
-        android:layout_marginBottom="12dp"
-        android:background="@drawable/border"
-        android:padding="10dp"
-        android:text="Name"
-        android:textColor="#676767"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/number"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.516"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline47"
-        app:layout_constraintVertical_bias="0.934" />
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="323dp"
+            android:layout_height="48dp"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/border"
+            android:fontFamily="serif"
+            android:padding="10dp"
+            android:text="Name"
+            android:textColor="#676767"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/number"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.516"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline47"
+            app:layout_constraintVertical_bias="0.934" />
 
-    <TextView
-        android:id="@+id/number"
-        android:layout_width="323dp"
-        android:layout_height="48dp"
-        android:layout_marginBottom="536dp"
-        android:background="@drawable/border"
-        android:padding="10dp"
-        android:text="Contact Number"
-        android:textColor="#676767"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline50"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        <TextView
+            android:id="@+id/number"
+            android:layout_width="323dp"
+            android:layout_height="48dp"
+            android:layout_marginBottom="536dp"
+            android:background="@drawable/border"
+            android:fontFamily="serif"
+            android:padding="10dp"
+            android:text="Contact Number"
+            android:textColor="#676767"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/guideline50"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/date"

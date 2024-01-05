@@ -52,12 +52,49 @@
         android:label="fragment_admin_login"
         tools:layout="@layout/fragment_admin_login">
         <action
-            android:id="@+id/action_adminLoginFragment_to_adminMainPage"
-            app:destination="@id/adminMainPage" />
+            android:id="@+id/action_adminLoginFragment_to_adminMainPageFragment"
+            app:destination="@id/adminMainPageFragment" />
     </fragment>
-    <activity
-        android:id="@+id/adminMainPage"
-        android:name="com.example.soulmate.AdminMainPage"
-        android:label="activity_admin_main_page"
-        tools:layout="@layout/activity_admin_main_page" />
+    <fragment
+        android:id="@+id/adminMainPageFragment"
+        android:name="com.example.soulmate.AdminMainPageFragment"
+        android:label="fragment_admin_main_page"
+        tools:layout="@layout/fragment_admin_main_page" >
+        <action
+            android:id="@+id/action_adminMainPageFragment_to_adminAppointmentFragment"
+            app:destination="@id/adminAppointmentFragment" />
+        <action
+            android:id="@+id/action_adminMainPageFragment_to_adminUserInfoFragment"
+            app:destination="@id/adminUserInfoFragment" />
+        <action
+            android:id="@+id/action_adminMainPageFragment_to_adminMedicalHistoryFragment"
+            app:destination="@id/adminMedicalHistoryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/adminAppointmentFragment"
+        android:name="com.example.soulmate.AdminAppointmentFragment"
+        android:label="fragment_admin_appointment"
+        tools:layout="@layout/fragment_admin_appointment" >
+        <action
+            android:id="@+id/action_adminAppointmentFragment_to_adminMainPageFragment"
+            app:destination="@id/adminMainPageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/adminUserInfoFragment"
+        android:name="com.example.soulmate.AdminUserInfoFragment"
+        android:label="fragment_admin_user_info"
+        tools:layout="@layout/fragment_admin_user_info" >
+        <action
+            android:id="@+id/action_adminUserInfoFragment_to_adminMainPageFragment"
+            app:destination="@id/adminMainPageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/adminMedicalHistoryFragment"
+        android:name="com.example.soulmate.AdminMedicalHistoryFragment"
+        android:label="fragment_admin_medical_history"
+        tools:layout="@layout/fragment_admin_medical_history" >
+        <action
+            android:id="@+id/action_adminMedicalHistoryFragment_to_adminMainPageFragment"
+            app:destination="@id/adminMainPageFragment" />
+    </fragment>
 </navigation>

@@ -23,13 +23,20 @@
             android:layout_width="match_parent"
             android:layout_height="81dp"
             android:layout_marginBottom="16dp"
-            android:text="Medical History will be displayed here" />
+            android:fontFamily="serif"
+            android:text="Medical History will be displayed here"
+            android:textSize="18dp" />
 
         <Button
             android:id="@+id/buttonEdit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Edit Medical History" />
+            android:backgroundTint="@color/material_dynamic_primary70"
+            android:fontFamily="sans-serif-black"
+            android:text="Edit Medical History"
+            android:textAlignment="center"
+            android:textSize="18dp"
+            android:textStyle="bold" />
     </LinearLayout>
 
     <!-- Edit Mode -->
@@ -47,17 +54,23 @@
             android:id="@+id/editTextMedicalHistory"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="serif"
+            android:gravity="top"
             android:hint="Enter Medical History"
             android:inputType="textMultiLine"
             android:lines="5"
-            android:gravity="top"
-            android:layout_marginBottom="16dp"/>
+            android:textSize="18dp" />
 
         <Button
             android:id="@+id/buttonSave"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Save Medical History"/>
+            android:backgroundTint="@color/material_dynamic_primary70"
+            android:fontFamily="sans-serif-black"
+            android:text="Save Medical History"
+            android:textAlignment="center"
+            android:textStyle="bold" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
 

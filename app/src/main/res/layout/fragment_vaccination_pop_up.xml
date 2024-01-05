@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:background="@color/material_dynamic_neutral80"
             android:text="@string/cancel"
-            android:textColor="#4CAF50"
+            android:textColor="#000000"
             android:textSize="20sp"
             app:backgroundTint="@color/material_dynamic_neutral80"
             app:layout_constraintBottom_toBottomOf="parent"

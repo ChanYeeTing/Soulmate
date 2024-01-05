@@ -23,6 +23,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:fontFamily="serif"
                 android:text="Age:"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -32,6 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:fontFamily="serif"
                 android:text="Weight (kg):"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -41,6 +43,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:fontFamily="serif"
                 android:text="Height (cm):"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -50,6 +53,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:fontFamily="serif"
                 android:text="BMI:"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -58,64 +62,71 @@
                 android:id="@+id/textViewBloodPressure"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="serif"
                 android:text="Blood Pressure Level (mmHg):"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_marginTop="16dp" />
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textViewBodyTemperature"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="serif"
                 android:text="Temperature (°C)"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_marginTop="16dp" />
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textViewPulseRate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="serif"
                 android:text="Pulse Rate (bpm):"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_marginTop="16dp" />
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textViewRespiratoryRate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="serif"
                 android:text="Respiration Rate (breaths/min):"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_marginTop="16dp" />
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textViewBloodOxygen"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="serif"
                 android:text="Blood Oxygen Level (%):"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_marginTop="16dp" />
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textViewBloodSugar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="serif"
                 android:text="Blood Sugar Level (mg/dL):"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_marginTop="16dp" />
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textViewSmokingHabit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="serif"
                 android:text="Smoking Habit:"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_marginTop="16dp" />
+                android:textStyle="bold" />
 
         </LinearLayout>
     </ScrollView>
