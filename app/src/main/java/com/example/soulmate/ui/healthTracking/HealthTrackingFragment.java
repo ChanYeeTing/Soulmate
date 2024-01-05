@@ -115,8 +115,8 @@ public class HealthTrackingFragment extends Fragment {
                     Log.d("HealthTrackingFragment", "Input is not valid");
                     // Display the detailed error message
                     showInputValidationMessages();
-                    // Display an error message if input is not valid
-                    Toast.makeText(requireContext(), "Please fix the errors.", Toast.LENGTH_SHORT).show();
+//                    // Display an error message if input is not valid
+//                    Toast.makeText(requireContext(), "Please fix the errors.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -165,27 +165,23 @@ public class HealthTrackingFragment extends Fragment {
         String input = editText.getText().toString().trim();
 
         if (!TextUtils.isEmpty(input)) {
-            if (editTextId == R.id.age){
-                // Validate to avoid input digit 0 only
-                return TextUtils.isDigitsOnly(input) && Integer.parseInt(input) > 0;
-            } else if (editTextId == R.id.weight || editTextId == R.id.height || editTextId == R.id.temperature) {
-                return isValidDecimalNumber(input) && Double.parseDouble(input) > 0;
+            if (editTextId == R.id.weight || editTextId == R.id.height || editTextId == R.id.temperature) {
+                return isDecimalNumber(input)  && Double.parseDouble(input) > 0;
             } else if (editTextId == R.id.blood_oxygen) {
                 // Validate blood oxygen level (1 to 100)
-                return isValidDecimalNumber(input) && Double.parseDouble(input) >= 1 && Double.parseDouble(input) <= 100;
-            } else if (editTextId == R.id.blood_sugar || editTextId == R.id.blood_pressure
-                    || editTextId == R.id.pulse_rate || editTextId == R.id.respiration_rate) {
+                return isDecimalNumber(input) && Double.parseDouble(input) >= 1 && Double.parseDouble(input) <= 100;
+            } else if (editTextId == R.id.age || editTextId == R.id.respiration_rate || editTextId == R.id.pulse_rate
+                    || editTextId == R.id.blood_pressure || editTextId == R.id.blood_sugar) {
+                // Validate to avoid input digit 0 only
                 return TextUtils.isDigitsOnly(input) && Integer.parseInt(input) > 0;
             } else {
-                return isValidDecimalNumber(input);
+                return TextUtils.isDigitsOnly(input);
             }
-        } else{
-            return false;
         }
-
+        return false;
     }
 
-    private boolean isValidDecimalNumber(String input) {
+    private boolean isDecimalNumber(String input) {
         try {
             Double.parseDouble(input);
             return true;
@@ -193,6 +189,7 @@ public class HealthTrackingFragment extends Fragment {
             return false;
         }
     }
+
 
     private boolean isBloodPressureValid(int editTextId) {
         EditText editText = getView().findViewById(editTextId);
@@ -238,7 +235,7 @@ public class HealthTrackingFragment extends Fragment {
     }
 
     private void showInputValidationMessages() {
-        StringBuilder errorMessage = new StringBuilder("Invalid input in:");
+        StringBuilder errorMessage = new StringBuilder("");
 
         if (!isEditTextValid(R.id.age)) {
             errorMessage.append("- Age(Greater than 0) ");
@@ -278,9 +275,9 @@ public class HealthTrackingFragment extends Fragment {
         TextView validationMessageTextView = getView().findViewById(R.id.validationMessage);
         validationMessageTextView.setText(errorMessage.toString());
 
-        // Disable the submit button
-        Button submitButton = getView().findViewById(R.id.submitButton2);
-        submitButton.setEnabled(false);
+//        // Disable the submit button
+//        Button submitButton = getView().findViewById(R.id.submitButton2);
+//        submitButton.setEnabled(false);
     }
 
 
