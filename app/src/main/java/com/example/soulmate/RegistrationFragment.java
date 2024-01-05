@@ -6,8 +6,6 @@ import android.app.DatePickerDialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -164,8 +162,6 @@ public class RegistrationFragment extends Fragment {
                 int genid = rg.getCheckedRadioButtonId();
                 RadioButton gender = getView().findViewById(genid);
 
-
-
                 EditText password = getView().findViewById(R.id.password);
                 EditText Cpassword = getView().findViewById(R.id.confirmPassword);
                 String getName = name.getText().toString().trim();
@@ -174,12 +170,6 @@ public class RegistrationFragment extends Fragment {
                 String getDOB = DOB.getText().toString();
                 String getpassword = password.getText().toString().trim();
                 String getCpassword = Cpassword.getText().toString().trim();
-
-
-
-
-
-
 
                 if (!getName.isEmpty() && !getEmail.isEmpty() && !getNumber.isEmpty() && !getDOB.equals("Date of Birth") && genid!=-1
                         && !getpassword.isEmpty() && !getCpassword.isEmpty()) {
@@ -276,11 +266,4 @@ public class RegistrationFragment extends Fragment {
             });
         }
     }
-
-
-
-
-
-
-
 }

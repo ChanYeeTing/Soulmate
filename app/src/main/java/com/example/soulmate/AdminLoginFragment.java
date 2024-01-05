@@ -188,7 +188,7 @@ public class AdminLoginFragment extends Fragment {
                         Toast.makeText(getActivity(), "Admin login successful.", Toast.LENGTH_SHORT).show();
                         // Add your navigation logic here
                         NavController controller = Navigation.findNavController(v);
-                        controller.navigate(R.id.action_adminLoginFragment_to_adminMainPage);
+                        controller.navigate(R.id.action_adminLoginFragment_to_adminMainPageFragment);
                     } else {
                         Toast.makeText(getActivity(), "Incorrect email or password.", Toast.LENGTH_SHORT).show();
                     }

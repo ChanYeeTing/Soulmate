@@ -26,6 +26,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.example.soulmate.R;
+import com.example.soulmate.main_page;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -63,6 +64,10 @@ public class UpdateProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_update_profile, container, false);
+
+        if (getActivity() instanceof main_page) {
+            ((main_page) getActivity()).getSupportActionBar().setTitle("Update Profile");
+        }
 
         // Initialize your EditText fields
         editName = view.findViewById(R.id.editName);

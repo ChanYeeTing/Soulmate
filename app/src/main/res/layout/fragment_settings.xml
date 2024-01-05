@@ -128,10 +128,11 @@
         android:id="@+id/birthProfile6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#ABDEF4"
+        android:background="#AFF1FA"
         android:fontFamily="serif"
         android:text="   Emergency Call    "
         android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/guideline54"
         app:layout_constraintStart_toStartOf="@+id/guideline52"
         app:layout_constraintTop_toTopOf="@+id/guideline51"
@@ -147,7 +148,7 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline54"
         app:layout_constraintStart_toStartOf="@+id/guideline52"
         app:layout_constraintTop_toTopOf="@+id/guideline51"
-        app:layout_constraintVertical_bias="0.627" />
+        app:layout_constraintVertical_bias="0.611" />
 
     <TextView
         android:id="@+id/phoneEmergency"
@@ -159,7 +160,7 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline54"
         app:layout_constraintStart_toStartOf="@+id/guideline52"
         app:layout_constraintTop_toTopOf="@+id/guideline51"
-        app:layout_constraintVertical_bias="0.686" />
+        app:layout_constraintVertical_bias="0.669" />
 
     <Button
         android:id="@+id/updateProfileButton"
@@ -168,7 +169,7 @@
         android:fontFamily="sans-serif-black"
         android:text="Update Profile"
         android:textStyle="bold"
-        app:backgroundTint="#33A0F6"
+        app:backgroundTint="@color/material_dynamic_primary70"
         app:layout_constraintBottom_toTopOf="@+id/guideline54"
         app:layout_constraintEnd_toStartOf="@+id/guideline53"
         app:layout_constraintHorizontal_bias="0.942"
