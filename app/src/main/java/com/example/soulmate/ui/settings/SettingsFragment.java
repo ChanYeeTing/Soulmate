@@ -166,65 +166,66 @@ public class SettingsFragment extends Fragment {
                     userData = (Map<String, Object>) dataSnapshot.getValue();
                     if (userData != null) {
 
-                        name = (String) userData.get("name");
-                        DOB = (String) userData.get("Date Of Birth");
-                        gender = (String) userData.get("Gender");
-                        email = (String) userData.get("email");
-                        number = (String) userData.get("Mobile Number");
-                        address = (String) userData.get("Address");
-                        nameE = (String) userData.get("nameEmergency");
-                        numberE = (String) userData.get("contactEmergency");
+                        DOB = String.valueOf(dataSnapshot.child("Date Of Birth").getValue());
+                        name = String.valueOf(dataSnapshot.child("name").getValue());
+                        gender = String.valueOf(dataSnapshot.child("Gender").getValue());
+                        email = String.valueOf(dataSnapshot.child("email").getValue());
+                        number = String.valueOf(dataSnapshot.child("Mobile Number").getValue());
+                        address = String.valueOf(dataSnapshot.child("Address").getValue());
+                        nameE = String.valueOf(dataSnapshot.child("nameEmergency").getValue());
+                        numberE = String.valueOf(dataSnapshot.child("contactEmergency").getValue());
 
-                        if(name!=null)
+
+                        if(name!="null")
                         {
                             textView1.setText("Name: \t" + name.toString());
                         }
                         else {
                             textView1.setText("Name: \t" +  " - ");
                         }
-                        if(DOB!=null)
+                        if(DOB!="null")
                         {
                             textView2.setText("Date of Birth: \t" + DOB.toString());
                         }
                         else {
                             textView2.setText("Date of Birth: \t" +  " - ");
                         }
-                        if(gender!=null)
+                        if(gender!="null")
                         {
                             textView3.setText("Gender: \t" + gender.toString());
                         }
                         else {
                             textView3.setText("Gender: \t" +  " - ");
                         }
-                        if(email!=null)
+                        if(email!="null")
                         {
                             textView4.setText("Email: \t" + email.toString());
                         }
                         else {
                             textView4.setText("Email: \t" +  " - ");
                         }
-                        if(number!=null)
+                        if(number!="null")
                         {
                             textView5.setText("Phone: \t" + number.toString());
                         }
                         else {
                             textView5.setText("Phone: \t" +  " - ");
                         }
-                        if(address!=null)
+                        if(address!="null")
                         {
                             textView6.setText("Address: \t" + address.toString());
                         }
                         else {
                             textView6.setText("Address: \t" +  " - ");
                         }
-                        if(nameE!=null)
+                        if(nameE!="null")
                         {
                             textView7.setText("Name: \t" + nameE.toString());
                         }
                         else {
                             textView7.setText("Name: \t" +  " - ");
                         }
-                        if(numberE!=null)
+                        if(numberE!="null")
                         {
                             textView8.setText("Contact: \t" + numberE.toString());
                         }
