@@ -29,7 +29,7 @@
             android:id="@+id/buttonEdit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Edit Medical History"/>
+            android:text="Edit Medical History" />
     </LinearLayout>
 
     <!-- Edit Mode -->

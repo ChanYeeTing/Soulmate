@@ -66,7 +66,7 @@ public class HomeFragment extends Fragment {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
             DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users")
-                    .child(currentUser.getUid());
+                    .child(currentUser.getUid()).child("User Info");
 
             databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
