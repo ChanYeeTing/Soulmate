@@ -43,6 +43,7 @@ public class AdminMainPageFragment extends Fragment {
                 checkboxContainer.removeAllViews(); // Clear existing checkboxes
 
                 for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+                    String uid = userSnapshot.getKey();
                     Map<String, Object> userData = (Map<String, Object>) userSnapshot.child("Location").getValue();
 
                     if (userData != null) {
@@ -54,7 +55,7 @@ public class AdminMainPageFragment extends Fragment {
                         if (location != null) {
                             // Create a CheckBox for each user and add it to the checkboxContainer
                             CheckBox checkBox = new CheckBox(requireContext());
-                            checkBox.setText("\n" + "Name: " + username + "\nCurrent Location: " + location + "\n\nEmergency Contact: " + nameEmergency + " (" + contactEmergency + ") " + "\n");
+                            checkBox.setText("\n" + "User ID:" + uid + "\nName: " + username + "\n\nCurrent Location: " + location + "\n\nEmergency Contact: " + nameEmergency + " (" + contactEmergency + ") " + "\n");
                             checkBox.setTag(userSnapshot.getKey()); // Set a tag to identify the user
                             checkBox.setOnClickListener(new View.OnClickListener() {
                                 @Override

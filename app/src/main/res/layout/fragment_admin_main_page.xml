@@ -41,25 +41,7 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.808" />
-
-    <Button
-        android:id="@+id/medicalHistoryRecord"
-        android:layout_width="200dp"
-        android:layout_height="48dp"
-        android:backgroundTint="@color/material_dynamic_primary70"
-        android:fontFamily="sans-serif-black"
-        android:insetBottom="0dp"
-        android:text="Medical History"
-        android:textAlignment="center"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.972" />
+        app:layout_constraintVertical_bias="0.818" />
 
     <Button
         android:id="@+id/userInfoButton"
@@ -77,22 +59,40 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.891" />
+        app:layout_constraintVertical_bias="0.901" />
+
+    <Button
+        android:id="@+id/medicalHistoryRecord"
+        android:layout_width="200dp"
+        android:layout_height="48dp"
+        android:backgroundTint="@color/material_dynamic_primary70"
+        android:fontFamily="sans-serif-black"
+        android:insetBottom="0dp"
+        android:text="Medical History"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.981" />
 
     <!-- Use a vertical LinearLayout to hold the checkboxes -->
 
     <LinearLayout
         android:id="@+id/checkboxContainer"
-        android:layout_width="384dp"
-        android:layout_height="421dp"
+        android:layout_width="383dp"
+        android:layout_height="476dp"
         android:background="#D3EEFA"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.592"
+        app:layout_constraintHorizontal_bias="0.48"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.396"
+        app:layout_constraintVertical_bias="0.397"
         tools:ignore="UnknownId">
 
         <!-- Checkbox for each user will be added here programmatically -->

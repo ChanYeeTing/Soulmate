@@ -57,6 +57,7 @@ public class AdminUserInfoFragment extends Fragment {
         List<String> userList = new ArrayList<>();
 
         for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+            String uid = userSnapshot.getKey();
             Map<String, Object> userData = (Map<String, Object>) userSnapshot.child("User Info").getValue();
 
             if (userData != null) {
@@ -68,7 +69,7 @@ public class AdminUserInfoFragment extends Fragment {
                 String address = String.valueOf(userData.get("Address"));
 
                     // Build a string with user information
-                String userInfo = "\nName: " + username + "\nGender: " + gender + "\nDate of Birth: " + dob
+                String userInfo = "\nUser ID:\n" + uid + "\nName: " + username + "\nGender: " + gender + "\nDate of Birth: " + dob
                         + "\nMobile Number: " + phone + "\nEmail: " + email + "\nAddress: " + address + "\n";
 
                 userList.add(userInfo);
