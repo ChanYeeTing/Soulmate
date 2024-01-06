@@ -1,4 +1,5 @@
 package com.example.soulmate.ui.medicalHistory;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,8 +18,11 @@ import com.example.soulmate.databinding.FragmentMedicalHistoryBinding;
 import com.example.soulmate.main_page;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class MedicalHistoryFragment extends Fragment {
 
@@ -108,22 +112,53 @@ public class MedicalHistoryFragment extends Fragment {
 
         if (!medicalHistory.isEmpty()) {
             // Save the data to Firebase
-            if (databaseReference != null) {
-                databaseReference.setValue(medicalHistory);
+            if (firebaseAuth != null) {
+                FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+
+                if (currentUser != null) {
+                    String userId = currentUser.getUid();
+
+                    // Reference to the user's specific "MedicalHistory" node
+                    DatabaseReference userMedicalHistoryReference = FirebaseDatabase.getInstance().getReference()
+                            .child("Users").child(userId).child("Medical History");
+
+                    // Retrieve the user's name from the "Users" node
+                    DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child("User Info");
+                    usersRef.child("name").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.exists()) {
+                                String name = dataSnapshot.getValue(String.class);
+
+                                // Save the user's name under "Name"
+                                userMedicalHistoryReference.child("Name").setValue(name);
+
+                                // Save the medical history under "medicalHistory" under the user's UID
+                                userMedicalHistoryReference.child("medicalHistory").setValue(medicalHistory);
+
+                                // Display the saved medical history in view mode
+                                textViewMedicalHistory.setText(medicalHistory);
+
+                                // Switch back to view mode
+                                viewModeLayout.setVisibility(View.VISIBLE);
+                                editModeLayout.setVisibility(View.GONE);
+
+                                Toast.makeText(getContext(), "Medical history saved successfully", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            // Handle error
+                            Toast.makeText(getContext(), "Error retrieving user's name", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
             }
-
-            // Display the saved medical history in view mode
-            textViewMedicalHistory.setText(medicalHistory);
-
-            // Switch back to view mode
-            viewModeLayout.setVisibility(View.VISIBLE);
-            editModeLayout.setVisibility(View.GONE);
-
-            Toast.makeText(getContext(), "Medical history saved successfully", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(getContext(), "Please enter medical history", Toast.LENGTH_SHORT).show();
         }
     }
+
 
     @Override
     public void onDestroyView() {
