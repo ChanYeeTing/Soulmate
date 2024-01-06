@@ -78,6 +78,18 @@
         <action
             android:id="@+id/action_adminAppointmentFragment_to_adminMainPageFragment"
             app:destination="@id/adminMainPageFragment" />
+        <action
+            android:id="@+id/action_adminAppointmentFragment_to_adminBloodDonationFragment"
+            app:destination="@id/adminBloodDonationFragment" />
+        <action
+            android:id="@+id/action_adminAppointmentFragment_to_adminTelemedicineFragment"
+            app:destination="@id/adminTelemedicineFragment" />
+        <action
+            android:id="@+id/action_adminAppointmentFragment_to_adminClinicHospitalFragment"
+            app:destination="@id/adminClinicHospitalFragment" />
+        <action
+            android:id="@+id/action_adminAppointmentFragment_to_adminVaccinationFragment"
+            app:destination="@id/adminVaccinationFragment" />
     </fragment>
     <fragment
         android:id="@+id/adminUserInfoFragment"
@@ -96,5 +108,41 @@
         <action
             android:id="@+id/action_adminMedicalHistoryFragment_to_adminMainPageFragment"
             app:destination="@id/adminMainPageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/adminBloodDonationFragment"
+        android:name="com.example.soulmate.AdminBloodDonationFragment"
+        android:label="fragment_admin_blood_donation"
+        tools:layout="@layout/fragment_admin_blood_donation" >
+        <action
+            android:id="@+id/action_adminBloodDonationFragment_to_adminAppointmentFragment"
+            app:destination="@id/adminAppointmentFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/adminTelemedicineFragment"
+        android:name="com.example.soulmate.AdminTelemedicineFragment"
+        android:label="fragment_admin_telemedicine"
+        tools:layout="@layout/fragment_admin_telemedicine" >
+        <action
+            android:id="@+id/action_adminTelemedicineFragment_to_adminAppointmentFragment"
+            app:destination="@id/adminAppointmentFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/adminClinicHospitalFragment"
+        android:name="com.example.soulmate.AdminClinicHospitalFragment"
+        android:label="fragment_admin_clinic_hospital"
+        tools:layout="@layout/fragment_admin_clinic_hospital" >
+        <action
+            android:id="@+id/action_adminClinicHospitalFragment_to_adminAppointmentFragment"
+            app:destination="@id/adminAppointmentFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/adminVaccinationFragment"
+        android:name="com.example.soulmate.AdminVaccinationFragment"
+        android:label="fragment_admin_vaccination"
+        tools:layout="@layout/fragment_admin_vaccination" >
+        <action
+            android:id="@+id/action_adminVaccinationFragment_to_adminAppointmentFragment"
+            app:destination="@id/adminAppointmentFragment" />
     </fragment>
 </navigation>

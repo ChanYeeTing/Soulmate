@@ -87,7 +87,7 @@ public class AdminAppointmentFragment extends Fragment {
             @Override
             public void onClick ( View v ) {
                 NavController controller = Navigation.findNavController ( v );
-                controller.navigate ( R.id.action_nav_appointment_to_telemedicineBooking );
+                controller.navigate ( R.id.action_adminAppointmentFragment_to_adminTelemedicineFragment );
             }
         } );
 
@@ -95,7 +95,7 @@ public class AdminAppointmentFragment extends Fragment {
             @Override
             public void onClick ( View v ) {
                 NavController controller = Navigation.findNavController ( v );
-                controller.navigate ( R.id.action_nav_appointment_to_clinicHospitalBooking );
+                controller.navigate ( R.id.action_adminAppointmentFragment_to_adminClinicHospitalFragment );
             }
         } );
 
@@ -103,7 +103,7 @@ public class AdminAppointmentFragment extends Fragment {
             @Override
             public void onClick ( View v ) {
                 NavController controller = Navigation.findNavController ( v );
-                controller.navigate ( R.id.action_nav_appointment_to_vaccinationBooking );
+                controller.navigate ( R.id.action_adminAppointmentFragment_to_adminVaccinationFragment );
             }
         } );
 
@@ -111,7 +111,7 @@ public class AdminAppointmentFragment extends Fragment {
             @Override
             public void onClick ( View v ) {
                 NavController controller = Navigation.findNavController ( v );
-                controller.navigate ( R.id.action_nav_appointment_to_bloodDonationBooking );
+                controller.navigate ( R.id.action_adminAppointmentFragment_to_adminBloodDonationFragment );
             }
         });
     }
