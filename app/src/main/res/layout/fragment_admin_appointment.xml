@@ -10,6 +10,74 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <Button
+            android:id="@+id/telemedicineButton1"
+            android:layout_width="300dp"
+            android:layout_height="100dp"
+            android:fontFamily="sans-serif-black"
+            android:text="@string/menu_telemedicine"
+            android:textAlignment="center"
+            android:textSize="28dp"
+            android:textStyle="bold"
+            app:backgroundTint="#55B1FA"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.337" />
+
+        <Button
+            android:id="@+id/clinicButton1"
+            android:layout_width="300dp"
+            android:layout_height="100dp"
+            android:fontFamily="sans-serif-black"
+            android:text="@string/clinic_hospitals"
+            android:textAlignment="center"
+            android:textSize="28dp"
+            android:textStyle="bold"
+            app:backgroundTint="#4EC7FF"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.142" />
+
+        <Button
+            android:id="@+id/vaccinationButton1"
+            android:layout_width="300dp"
+            android:layout_height="100dp"
+            android:fontFamily="sans-serif-black"
+            android:text="@string/vaccination_button"
+            android:textAlignment="center"
+            android:textSize="28dp"
+            android:textStyle="bold"
+            app:backgroundTint="#3FE9FF"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.535" />
+
+        <Button
+            android:id="@+id/bloodButton1"
+            android:layout_width="300dp"
+            android:layout_height="100dp"
+            android:fontFamily="sans-serif-black"
+            android:text="@string/blood_donation"
+            android:textAlignment="center"
+            android:textSize="28dp"
+            android:textStyle="bold"
+            app:backgroundTint="#00D8C4"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.736" />
+
         <TextView
             android:id="@+id/textView16"
             android:layout_width="wrap_content"

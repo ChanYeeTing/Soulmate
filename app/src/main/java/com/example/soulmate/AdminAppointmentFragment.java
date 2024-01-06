@@ -1,17 +1,16 @@
 package com.example.soulmate;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -72,12 +71,47 @@ public class AdminAppointmentFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         Button backButton = getView().findViewById(R.id.backButton);
+        Button telemedicine = getView ().findViewById ( R.id.telemedicineButton1);
+        Button clinic = getView ().findViewById ( R.id.clinicButton1);
+        Button vaccination = getView ().findViewById ( R.id.vaccinationButton1);
+        Button blood = getView ().findViewById ( R.id.bloodButton1);
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 NavController controller = Navigation.findNavController(v);
                 controller.navigate(R.id.action_adminAppointmentFragment_to_adminMainPageFragment);
+            }
+        } );
+        telemedicine.setOnClickListener( new View.OnClickListener () {
+            @Override
+            public void onClick ( View v ) {
+                NavController controller = Navigation.findNavController ( v );
+                controller.navigate ( R.id.action_nav_appointment_to_telemedicineBooking );
+            }
+        } );
+
+        clinic.setOnClickListener( new View.OnClickListener () {
+            @Override
+            public void onClick ( View v ) {
+                NavController controller = Navigation.findNavController ( v );
+                controller.navigate ( R.id.action_nav_appointment_to_clinicHospitalBooking );
+            }
+        } );
+
+        vaccination.setOnClickListener( new View.OnClickListener () {
+            @Override
+            public void onClick ( View v ) {
+                NavController controller = Navigation.findNavController ( v );
+                controller.navigate ( R.id.action_nav_appointment_to_vaccinationBooking );
+            }
+        } );
+
+        blood.setOnClickListener( new View.OnClickListener () {
+            @Override
+            public void onClick ( View v ) {
+                NavController controller = Navigation.findNavController ( v );
+                controller.navigate ( R.id.action_nav_appointment_to_bloodDonationBooking );
             }
         });
     }

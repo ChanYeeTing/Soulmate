@@ -81,16 +81,6 @@ public class AdminUserInfoFragment extends Fragment {
                 android.R.layout.simple_list_item_1, userList);
 
         userListView.setAdapter(adapter);
-
-//        // Handle item click in the ListView
-//        userListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                // Handle the item click, e.g., display more details
-//                String name = userList.get(position);
-//                Toast.makeText(requireContext(),name, Toast.LENGTH_SHORT).show();
-//            }
-//        });
     }
 
     @Override
