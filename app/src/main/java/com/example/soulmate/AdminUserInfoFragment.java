@@ -1,6 +1,12 @@
 package com.example.soulmate;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -8,63 +14,82 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link AdminUserInfoFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 public class AdminUserInfoFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public AdminUserInfoFragment () {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment AdminUserInfoFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static AdminUserInfoFragment newInstance ( String param1, String param2 ) {
-        AdminUserInfoFragment fragment = new AdminUserInfoFragment ();
-        Bundle args = new Bundle ();
-        args.putString ( ARG_PARAM1, param1 );
-        args.putString ( ARG_PARAM2, param2 );
-        fragment.setArguments ( args );
-        return fragment;
-    }
+    private ListView userListView;
+    private DatabaseReference usersReference;
 
     @Override
-    public void onCreate ( Bundle savedInstanceState ) {
-        super.onCreate ( savedInstanceState );
-        if (getArguments () != null) {
-            mParam1 = getArguments ().getString ( ARG_PARAM1 );
-            mParam2 = getArguments ().getString ( ARG_PARAM2 );
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_admin_user_info, container, false);
+
+        userListView = view.findViewById(R.id.userInfoListView);
+        usersReference = FirebaseDatabase.getInstance().getReference().child("Users");
+
+        // Add a ValueEventListener to fetch user information
+        usersReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                updateListView(dataSnapshot);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Handle error
+            }
+        });
+
+        return view;
+    }
+
+    private void updateListView(DataSnapshot dataSnapshot) {
+        // Create a list to store user information
+        List<String> userList = new ArrayList<>();
+
+        for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+            Map<String, Object> userData = (Map<String, Object>) userSnapshot.child("User Info").getValue();
+
+            if (userData != null) {
+                String username = String.valueOf(userData.get("name"));
+                String dob = String.valueOf(userData.get("Date Of Birth"));
+                String gender = String.valueOf(userData.get("Gender"));
+                String phone = String.valueOf(userData.get("Mobile Number"));
+                String email = String.valueOf(userData.get("email"));
+                String address = String.valueOf(userData.get("Address"));
+
+                    // Build a string with user information
+                String userInfo = "\nName: " + username + "\nGender: " + gender + "\nDate of Birth: " + dob
+                        + "\nMobile Number: " + phone + "\nEmail: " + email + "\nAddress: " + address + "\n";
+
+                userList.add(userInfo);
+            }
         }
-    }
 
-    @Override
-    public View onCreateView ( LayoutInflater inflater, ViewGroup container,
-                               Bundle savedInstanceState ) {
-        // Inflate the layout for this fragment
-        return inflater.inflate ( R.layout.fragment_admin_user_info, container, false );
+        // Create an adapter to populate the ListView
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(),
+                android.R.layout.simple_list_item_1, userList);
+
+        userListView.setAdapter(adapter);
+
+//        // Handle item click in the ListView
+//        userListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                // Handle the item click, e.g., display more details
+//                String name = userList.get(position);
+//                Toast.makeText(requireContext(),name, Toast.LENGTH_SHORT).show();
+//            }
+//        });
     }
 
     @Override

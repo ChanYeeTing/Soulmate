@@ -85,6 +85,7 @@
         android:id="@+id/checkboxContainer"
         android:layout_width="384dp"
         android:layout_height="421dp"
+        android:background="#D3EEFA"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
