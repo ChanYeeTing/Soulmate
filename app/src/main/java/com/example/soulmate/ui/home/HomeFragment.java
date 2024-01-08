@@ -74,7 +74,7 @@ public class HomeFragment extends Fragment {
                     if (dataSnapshot.exists()) {
                         String username = dataSnapshot.child("name").getValue(String.class);
                         if (username != null) {
-                            String welcomeMessage = "Welcome to Soulmate, " + username + "!";
+                            String welcomeMessage = "Welcome to Soulmate, \n" + username + "!";
                             welcomeTextView.setText(welcomeMessage);
                         }
                     }

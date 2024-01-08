@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF">
+    android:background="#FFFFFF"
+    android:textAlignment="center">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -21,8 +22,8 @@
 
             <ImageView
                 android:id="@+id/healthInfoImage"
-                android:layout_width="163dp"
-                android:layout_height="169dp"
+                android:layout_width="367dp"
+                android:layout_height="370dp"
                 android:layout_marginStart="130dp"
                 android:layout_marginTop="3dp"
                 android:layout_marginEnd="130dp"
@@ -38,18 +39,17 @@
                 android:id="@+id/healthInfoTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="6dp"
+                android:layout_marginTop="448dp"
                 android:background="#74F3E7"
                 android:fontFamily="serif"
                 android:padding="16dp"
                 android:text="Ways to Maintain a Healthy Lifestyle"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/healthInfoImage"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView12" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <LinearLayout
                 android:id="@+id/linearLayout3"
@@ -62,10 +62,25 @@
                 android:orientation="horizontal"
                 app:layout_constraintBottom_toTopOf="@+id/healthInfoTextView"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"></LinearLayout>
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.494">
+
+                <TextView
+                    android:id="@+id/textView15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="74dp"
+                    android:layout_marginBottom="36dp"
+                    android:fontFamily="serif"
+                    android:text="Welcome To Soulmate!"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/linearLayout"
                 android:layout_width="352dp"
                 android:layout_height="201dp"
                 android:layout_marginStart="30dp"
@@ -75,125 +90,104 @@
                 android:orientation="horizontal"
                 app:layout_constraintBottom_toTopOf="@+id/healthInfoTextView"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"></LinearLayout>
+                app:layout_constraintStart_toStartOf="parent">
 
-            <TextView
-                android:id="@+id/textView9"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="42dp"
-                android:layout_marginTop="171dp"
-                android:layout_marginEnd="293dp"
-                android:layout_marginBottom="7dp"
-                android:background="@color/white"
-                android:fontFamily="serif"
-                android:text="Top Doctor: "
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                app:layout_constraintBottom_toTopOf="@+id/imageView2"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scrollbarSize="10sp">
 
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="60dp"
-                android:layout_height="93dp"
-                android:layout_marginStart="80dp"
-                android:layout_marginTop="7dp"
-                android:layout_marginEnd="45dp"
-                android:layout_marginBottom="12dp"
-                android:src="@drawable/doctor_male1"
-                app:layout_constraintBottom_toTopOf="@+id/textView12"
-                app:layout_constraintEnd_toStartOf="@+id/imageView4"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView9" />
+                    <TextView
+                        android:id="@+id/textView9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:background="@color/white"
+                        android:fontFamily="serif"
+                        android:text="Top Doctor: "
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.037"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/imageView4"
-                android:layout_width="73dp"
-                android:layout_height="59dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="217dp"
-                android:layout_marginEnd="43dp"
-                android:layout_marginBottom="26dp"
-                android:src="@drawable/doctor_female2"
-                app:layout_constraintBottom_toTopOf="@+id/textView13"
-                app:layout_constraintEnd_toStartOf="@+id/imageView5"
-                app:layout_constraintStart_toEndOf="@+id/imageView2"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
+                    <ImageView
+                        android:id="@+id/imageView5"
+                        android:layout_width="61dp"
+                        android:layout_height="67dp"
+                        android:layout_marginEnd="28dp"
+                        android:src="@drawable/img_3"
+                        app:layout_constraintBottom_toTopOf="@+id/textView14"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.66" />
 
-            <ImageView
-                android:id="@+id/imageView5"
-                android:layout_width="51dp"
-                android:layout_height="102dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="40dp"
-                android:layout_marginEnd="81dp"
-                android:src="@drawable/doctor_male2"
-                app:layout_constraintBottom_toTopOf="@+id/textView14"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/imageView4"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
+                    <TextView
+                        android:id="@+id/textView12"
+                        android:layout_width="104dp"
+                        android:layout_height="49dp"
+                        android:fontFamily="serif"
+                        android:text="Dr Chan Mei Wai Family Medicine Island Hospital"
+                        android:textAlignment="center"
+                        android:textSize="10sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/textView13"
+                        app:layout_constraintHorizontal_bias="0.516"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.828" />
 
-            <TextView
-                android:id="@+id/textView12"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="70dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="77dp"
-                android:layout_marginBottom="46dp"
-                android:fontFamily="serif"
-                android:text="Doctor "
-                app:layout_constraintBottom_toTopOf="@+id/healthInfoTextView"
-                app:layout_constraintEnd_toStartOf="@+id/textView13"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+                    <TextView
+                        android:id="@+id/textView13"
+                        android:layout_width="102dp"
+                        android:layout_height="60dp"
+                        android:fontFamily="serif"
+                        android:text="Dr Nurul Sharifah Internal Medicine Clinic Putra Simpang Ampat"
+                        android:textAlignment="center"
+                        android:textSize="10sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.537"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.888" />
 
-            <TextView
-                android:id="@+id/textView13"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="67dp"
-                android:layout_marginBottom="40dp"
-                android:fontFamily="serif"
-                android:text="Doctor"
-                app:layout_constraintBottom_toTopOf="@+id/healthInfoTextView"
-                app:layout_constraintEnd_toStartOf="@+id/textView14"
-                app:layout_constraintStart_toEndOf="@+id/textView12"
-                app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+                    <TextView
+                        android:id="@+id/textView14"
+                        android:layout_width="89dp"
+                        android:layout_height="64dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="12dp"
+                        android:fontFamily="serif"
+                        android:text="Dr Christopher Nathan                   Family Medicine Clinic Medicris"
+                        android:textAlignment="center"
+                        android:textSize="10sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toEndOf="@+id/textView13" />
 
-            <TextView
-                android:id="@+id/textView14"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="82dp"
-                android:layout_marginBottom="24dp"
-                android:fontFamily="serif"
-                android:text="Doctor"
-                app:layout_constraintBottom_toTopOf="@+id/healthInfoTextView"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textView13"
-                app:layout_constraintTop_toBottomOf="@+id/imageView5" />
+                    <ImageView
+                        android:id="@+id/imageView2"
+                        android:layout_width="75dp"
+                        android:layout_height="66dp"
+                        android:src="@drawable/img_1"
+                        app:layout_constraintBottom_toTopOf="@+id/textView12"
+                        app:layout_constraintEnd_toStartOf="@+id/imageView5"
+                        app:layout_constraintHorizontal_bias="0.17"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView9"
+                        app:layout_constraintVertical_bias="0.444" />
 
-            <TextView
-                android:id="@+id/textView15"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="74dp"
-                android:layout_marginBottom="78dp"
-                android:fontFamily="serif"
-                android:text="Welcome To Soulmate!"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/textView9"
-                app:layout_constraintStart_toStartOf="@+id/linearLayout3"
-                app:layout_constraintTop_toTopOf="parent" />
+                    <ImageView
+                        android:id="@+id/imageView4"
+                        android:layout_width="82dp"
+                        android:layout_height="67dp"
+                        android:src="@drawable/img_2"
+                        tools:layout_editor_absoluteX="142dp"
+                        tools:layout_editor_absoluteY="40dp" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
