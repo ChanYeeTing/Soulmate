@@ -115,8 +115,6 @@ public class HealthTrackingFragment extends Fragment {
                     Log.d("HealthTrackingFragment", "Input is not valid");
                     // Display the detailed error message
                     showInputValidationMessages();
-//                    // Display an error message if input is not valid
-//                    Toast.makeText(requireContext(), "Please fix the errors.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -274,13 +272,7 @@ public class HealthTrackingFragment extends Fragment {
         // Show the detailed error message
         TextView validationMessageTextView = getView().findViewById(R.id.validationMessage);
         validationMessageTextView.setText(errorMessage.toString());
-
-//        // Disable the submit button
-//        Button submitButton = getView().findViewById(R.id.submitButton2);
-//        submitButton.setEnabled(false);
     }
-
-
 
     public static class HealthData implements Parcelable {
         public String age;

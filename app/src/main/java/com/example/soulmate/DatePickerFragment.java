@@ -33,7 +33,6 @@ public class DatePickerFragment extends DialogFragment implements android.app.Da
         return dialog;
     }
 
-
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         Calendar c = Calendar.getInstance();

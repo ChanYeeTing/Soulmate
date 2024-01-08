@@ -48,9 +48,6 @@ public class AnalyzeResultFragment extends Fragment {
     private TextView textViewSmokingHabit;
 
     private HealthTrackingFragment.HealthData healthData;
-
-//    private DatabaseReference databaseReference;
-
     public AnalyzeResultFragment () {
         // Required empty public constructor
     }
@@ -69,7 +66,6 @@ public class AnalyzeResultFragment extends Fragment {
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
-//        args.putParcelable("healthData", healthData);
         fragment.setArguments(args);
         return fragment;
     }
@@ -123,11 +119,6 @@ public class AnalyzeResultFragment extends Fragment {
         } else {
             Log.e("AnalyzeResultFragment", "Arguments are null");
         }
-
-//        // Initialize Firebase
-//        FirebaseDatabase database = FirebaseDatabase.getInstance();
-//        databaseReference = database.getReference("healthTrackingData");
-
     }
 
     private void analyzeHealthData(HealthTrackingFragment.HealthData healthData) {

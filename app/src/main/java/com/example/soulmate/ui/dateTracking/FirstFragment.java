@@ -64,10 +64,6 @@ public class FirstFragment extends Fragment {
         timeFormat.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
 
         String currentHour = timeFormat.format(calendar.getTime());
-//        Toast.makeText(getActivity(), currentHour, Toast.LENGTH_SHORT).show();
-
-
-
 
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = firebaseAuth.getCurrentUser(); // Check for null here

@@ -62,12 +62,6 @@ public class TelemedicineFragment extends Fragment {
             JitsiMeetConferenceOptions defaultOptions
                     = new JitsiMeetConferenceOptions.Builder()
                     .setServerURL(serverUrl)
-                    // When using JaaS, set the obtained JWT here
-//                    .setToken("MyJWT")
-                    // Different features flags can be set
-//                     .setFeatureFlag("toolbox.enabled", false)
-//                     .setFeatureFlag("filmstrip.enabled", false)
-//                    .setFeatureFlag("welcomepage.enabled", false)
                     .build();
 
             JitsiMeet.setDefaultConferenceOptions(defaultOptions);
@@ -118,7 +112,4 @@ public class TelemedicineFragment extends Fragment {
             }
         }
     }
-
-
-
 }
