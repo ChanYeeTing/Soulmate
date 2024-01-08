@@ -37,8 +37,6 @@ public class login_fragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-//        checkBox();
-
         firebaseAuth = FirebaseAuth.getInstance();
 
         loginEmail = getView().findViewById(R.id.EmailAddress);
@@ -114,15 +112,5 @@ public class login_fragment extends Fragment {
                     }
                 });
     }
-    //Skip login if already login
-    private void checkBox()
-    {
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(PREFS_NAME, 0);
-        Boolean check = sharedPreferences.getBoolean("hasLoggedIn", false);
-        if(check)
-        {
-            NavController controller = Navigation.findNavController(getView());
-            controller.navigate(R.id.action_login_fragment_to_main_page);
-        }
-    }
+
 }

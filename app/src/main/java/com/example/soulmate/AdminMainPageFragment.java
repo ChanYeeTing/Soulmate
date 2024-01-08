@@ -80,7 +80,6 @@ public class AdminMainPageFragment extends Fragment {
     }
 
     private void handleCheckBoxClick(CheckBox checkBox) {
-        //String userId = (String) checkBox.getTag();
         // Handle the checkbox click, e.g., add userId to a list if checked
         Toast.makeText(requireContext(), "The emergency call has made", Toast.LENGTH_SHORT).show();
     }

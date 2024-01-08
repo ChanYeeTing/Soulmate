@@ -125,14 +125,9 @@ public class SecondFragment extends Fragment {
                                 }
                             }
                         }
-//                        DataModel dataModel = new DataModel(value[0], value[1],value[5],value[2],value[6]);
-//                        HistoryList.add(dataModel);
-//                        Log.d("DataModel", "Added DataModel: " + dataModel.toString()); // Log for debugging
-
                     }
                     else
                         Toast.makeText(getActivity(), "Failed", Toast.LENGTH_SHORT).show();
-
                 }
                 arrayAdapter.notifyDataSetChanged();
                 if (history.getAdapter() == null || history.getAdapter().getCount() == 0) {
@@ -143,23 +138,12 @@ public class SecondFragment extends Fragment {
                     emptyView.setVisibility(View.GONE);
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
-
-
-
-
-
-
-
-
-
-        return view;
-
+     return view;
     }
 
     public void onViewCreated ( @NonNull View view, Bundle savedInstanceState ) {

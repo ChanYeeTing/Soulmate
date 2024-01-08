@@ -111,16 +111,11 @@ public class UpdateProfileFragment extends Fragment {
             }
         });
 
-
-
-
-
         TextWatcher submitTextWatcher = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
             }
-
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
@@ -290,43 +285,32 @@ public class UpdateProfileFragment extends Fragment {
                     // Handle error
                  }
             });
+            newGender = gender.getText().toString();
+            newName = editName.getText().toString();
+            newDOB = editDOB.getText().toString();
+            newEmail = emailView.getText().toString();
+            newMobile = editMobile.getText().toString();
+            newAddress = editAddress.getText().toString();
+            newNameEmergency = editNameEmergency.getText().toString();
+            newContactEmergency = editContactEmergency.getText().toString();
 
+            // Create a User object with the new values
+            User updatedUser = new User(newName, newDOB, newGender, newEmail, newMobile, newAddress, newNameEmergency, newContactEmergency);
 
-
-                            newGender = gender.getText().toString();
-
-                            newName = editName.getText().toString();
-
-                            newDOB = editDOB.getText().toString();
-
-                        newEmail = emailView.getText().toString();
-
-                            newMobile = editMobile.getText().toString();
-
-                            newAddress = editAddress.getText().toString();
-
-                        newNameEmergency = editNameEmergency.getText().toString();
-                        newContactEmergency = editContactEmergency.getText().toString();
-
-                        // Create a User object with the new values
-                        User updatedUser = new User(newName, newDOB, newGender, newEmail, newMobile, newAddress, newNameEmergency, newContactEmergency);
-
-                        // Update the user information in the database using userReference
-                        userReference.setValue(updatedUser.toMap())
-                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        if (task.isSuccessful()) {
-                                            // Show a toast message
-                                            Toast.makeText(getContext(), "Profile updated successfully", Toast.LENGTH_SHORT).show();
-                                        } else {
-                                            // Handle the error
-                                            Toast.makeText(getContext(), "Failed to update profile", Toast.LENGTH_SHORT).show();
-                                        }
-                                    }
-                                });
-
-
+            // Update the user information in the database using userReference
+            userReference.setValue(updatedUser.toMap())
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                // Show a toast message
+                                Toast.makeText(getContext(), "Profile updated successfully", Toast.LENGTH_SHORT).show();
+                            } else {
+                                // Handle the error
+                                Toast.makeText(getContext(), "Failed to update profile", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
         }
 
     }
@@ -354,7 +338,6 @@ public class UpdateProfileFragment extends Fragment {
             this.email = email;
             this.mobile = mobile;
             this.address = address;
-//            this.password = password;
             this.nameEmergency = nameEmergency;
             this.contactEmergency = contactEmergency;
         }

@@ -226,7 +226,6 @@ public class RegistrationFragment extends Fragment {
                                 Cpassword.setError("Password not matched");
                                 Cpassword.requestFocus();
                                 Cpassword.setText("");
-                                //                        Toast.makeText(getActivity(),"Password Not Same", Toast.LENGTH_SHORT).show();
                             }
                         } else {
                             Toast.makeText(getActivity(), "Password should be >= 6 characters", Toast.LENGTH_SHORT).show();
