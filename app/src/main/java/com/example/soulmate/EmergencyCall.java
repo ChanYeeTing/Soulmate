@@ -170,6 +170,9 @@ public class EmergencyCall extends Fragment implements OnMapReadyCallback {
 
             DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference().child("Users").child(uid);
 
+            // Generate a unique key using push
+            String newLocationKey = usersRef.child("Location").push().getKey();
+
             // Retrieve user information from "UserInfo" node
             usersRef.child("User Info").addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -179,11 +182,11 @@ public class EmergencyCall extends Fragment implements OnMapReadyCallback {
                         String nameEmergency = dataSnapshot.child("nameEmergency").getValue(String.class);
                         String contactEmergency = dataSnapshot.child("contactEmergency").getValue(String.class);
 
-                        // Save user information along with current location
-                        usersRef.child("Location").child("currentLocation").setValue(address);
-                        usersRef.child("Location").child("name").setValue(name);
-                        usersRef.child("Location").child("nameEmergency").setValue(nameEmergency);
-                        usersRef.child("Location").child("contactEmergency").setValue(contactEmergency);
+                        // Save user information along with current location using the generated key
+                        usersRef.child("Location").child(newLocationKey).child("currentLocation").setValue(address);
+                        usersRef.child("Location").child(newLocationKey).child("name").setValue(name);
+                        usersRef.child("Location").child(newLocationKey).child("nameEmergency").setValue(nameEmergency);
+                        usersRef.child("Location").child(newLocationKey).child("contactEmergency").setValue(contactEmergency);
                     }
                 }
 
@@ -191,11 +194,9 @@ public class EmergencyCall extends Fragment implements OnMapReadyCallback {
                 public void onCancelled(@NonNull DatabaseError databaseError) {
                     Log.e("Firebase", "Error saving data to Firebase: " + databaseError.getMessage());
                 }
-
             });
         }
     }
-
 
     @Override
     public void onResume() {
@@ -223,4 +224,5 @@ public class EmergencyCall extends Fragment implements OnMapReadyCallback {
         super.onLowMemory();
         mapView.onLowMemory();
     }
+
 }

@@ -70,7 +70,7 @@ public class AdminVaccinationFragment extends Fragment {
                     String number = String.valueOf(vaccinationData.get("number"));
 
                     // Build a string with vaccination information
-                    String vaccinationInfo = "\nAppointment Number: " + number + "\nDate: " + date + "\nTime: " + time + "\nName: " + name + "\n";
+                    String vaccinationInfo = "\nDate: " + date + "\nTime: " + time + "\nName: " + name + "\nPhone Number: " + number  + "\n";
 
                     vaccinationList.add(vaccinationInfo);
                 }
