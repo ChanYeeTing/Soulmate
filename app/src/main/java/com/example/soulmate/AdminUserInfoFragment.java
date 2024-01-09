@@ -21,6 +21,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -68,7 +70,7 @@ public class AdminUserInfoFragment extends Fragment {
                 String email = String.valueOf(userData.get("email"));
                 String address = String.valueOf(userData.get("Address"));
 
-                    // Build a string with user information
+                // Build a string with user information
                 String userInfo = "\nUser ID:\n" + uid + "\nName: " + username + "\nGender: " + gender + "\nDate of Birth: " + dob
                         + "\nMobile Number: " + phone + "\nEmail: " + email + "\nAddress: " + address + "\n";
 
@@ -76,12 +78,32 @@ public class AdminUserInfoFragment extends Fragment {
             }
         }
 
+        // Sort the list based on usernames
+        Collections.sort(userList, new Comparator<String>() {
+            @Override
+            public int compare(String s1, String s2) {
+                // Extract usernames from the strings and compare
+                String username1 = extractValue(s1, "Name: ", "\nGender: ");
+                String username2 = extractValue(s2, "Name: ", "\nGender: ");
+                return username1.compareTo(username2);
+            }
+        });
+
         // Create an adapter to populate the ListView
         ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(),
                 android.R.layout.simple_list_item_1, userList);
 
         userListView.setAdapter(adapter);
     }
+
+    // Helper method to extract a value from a string
+    private String extractValue(String source, String start, String end) {
+        int startIndex = source.indexOf(start) + start.length();
+        int endIndex = source.indexOf(end, startIndex);
+        return source.substring(startIndex, endIndex);
+    }
+
+
 
     @Override
     public void onViewCreated( @NonNull View view, @Nullable Bundle savedInstanceState) {
