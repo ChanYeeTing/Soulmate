@@ -11,7 +11,7 @@ android {
     defaultConfig {
         applicationId = "com.example.soulmate"
         minSdk = 25
-        targetSdk = 34
+        targetSdk = 32
         versionCode = 1
         versionName = "1.0"
 
@@ -70,7 +70,7 @@ dependencies {
     implementation ("com.google.android.gms:play-services-maps:17.0.0")
 
     //Jitsi Meet
-    implementation ("org.jitsi.react:jitsi-meet-sdk:+")
+    implementation ("org.jitsi.react:jitsi-meet-sdk:8.6.0")
 
 
 

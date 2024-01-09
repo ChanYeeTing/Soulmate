@@ -50,6 +50,7 @@ public class TelemedicineFragment extends Fragment {
         super.onDestroyView ();
         binding = null;
     }
+
     @Override
     public void onActivityCreated ( @Nullable Bundle savedInstanceState ) {
         super.onActivityCreated(savedInstanceState);
@@ -57,8 +58,9 @@ public class TelemedicineFragment extends Fragment {
         input = getView().findViewById(R.id.roomId);
         button = getView().findViewById(R.id.button);
 
+
         try {
-            serverUrl = new URL("https:meet.jit.si");
+            serverUrl = new URL("https://meet.jit.si");
             JitsiMeetConferenceOptions defaultOptions
                     = new JitsiMeetConferenceOptions.Builder()
                     .setServerURL(serverUrl)
@@ -82,7 +84,7 @@ public class TelemedicineFragment extends Fragment {
                             REQUEST_CODE); // Replace REQUEST_CODE with your own code
                 }
                 else {
-                    String text = input.getText().toString();
+                    String text = input.getText().toString().trim();
                     if(text.length()>0)
                     {
                         JitsiMeetConferenceOptions options = new JitsiMeetConferenceOptions.Builder()
@@ -97,6 +99,7 @@ public class TelemedicineFragment extends Fragment {
 
 
             }
+
         });
 
 

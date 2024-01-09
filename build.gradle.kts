@@ -11,14 +11,14 @@ plugins {
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin") version "2.0.1" apply false
 
 }
-//allprojects {
-//    repositories {
-//        maven {
-//            url = uri("https://github.com/jitsi/jitsi-maven-repository/raw/master/releases")
-//        }
-//        google()
-//        mavenCentral()
-//        maven { url = uri("https://www.jitpack.io") }
-//    }
-//}
+allprojects {
+    repositories {
+        maven {
+            url = uri("https://github.com/jitsi/jitsi-maven-repository/raw/master/releases")
+        }
+        google()
+        mavenCentral()
+        maven { url = uri("https://www.jitpack.io") }
+    }
+}
 
