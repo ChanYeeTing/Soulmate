@@ -21,8 +21,15 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.database.annotations.Nullable;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class AdminTelemedicineFragment extends Fragment {
@@ -36,7 +43,7 @@ public class AdminTelemedicineFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_admin_telemedicine, container, false);
 
         telemedicineListView = view.findViewById(R.id.telemedicineListView);
-        telemedicineReference = FirebaseDatabase.getInstance().getReference().child("Appointment").child("Telemedicine");
+        telemedicineReference = FirebaseDatabase.getInstance().getReference().child("Activity");
 
         // Add a ValueEventListener to fetch telemedicine information
         telemedicineReference.addValueEventListener(new ValueEventListener() {
@@ -58,24 +65,66 @@ public class AdminTelemedicineFragment extends Fragment {
         // Create a list to store telemedicine information
         List<String> telemedicineList = new ArrayList<>();
 
+        Date currentDate = Calendar.getInstance().getTime();
+
         for (DataSnapshot telemedicineSnapshot : dataSnapshot.getChildren()) {
-            String date = telemedicineSnapshot.getKey();
+            String uid = telemedicineSnapshot.getKey();
 
             for (DataSnapshot timeSnapshot : telemedicineSnapshot.getChildren()) {
-                String time = timeSnapshot.getKey();
+                String timeAppointment = timeSnapshot.getKey();
                 Map<String, Object> telemedicineData = (Map<String, Object>) timeSnapshot.getValue();
 
                 if (telemedicineData != null) {
-                    String name = String.valueOf(telemedicineData.get("name"));
-                    String number = String.valueOf(telemedicineData.get("number"));
+                    String appointment = String.valueOf(telemedicineData.get("Appointment"));
 
-                    // Build a string with telemedicine information
-                    String telemedicineInfo = "\nDate: " + date + "\nTime: " + time + "\nName: " + name + "\nPhone Number: " + number  + "\n";
+                    if ("Telemedicine".equals(appointment)) {
+                        String name = String.valueOf(telemedicineData.get("name"));
+                        String number = String.valueOf(telemedicineData.get("number"));
+                        String zid = String.valueOf(telemedicineData.get("zId"));
+                        String date = String.valueOf(telemedicineData.get("date"));
+                        String time = String.valueOf(telemedicineData.get("time"));
 
-                    telemedicineList.add(telemedicineInfo);
+                        // Build a string with telemedicine information
+                        String telemedicineInfo = "\nTime: " + date + " (" + time + ") " + "\nMeeting ID: " + zid
+                                + "\nUser ID: " + uid + "\nName: " + name + "\nPhone Number: " + number + "\n";
+
+                        try {
+                            // Parse telemedicine date and time
+                            Date telemedicineDateTime = new SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault())
+                                    .parse(date + " " + time);
+
+                            // Check if the telemedicine is in the future
+                            if (telemedicineDateTime != null && telemedicineDateTime.after(currentDate)) {
+                                telemedicineList.add(telemedicineInfo);
+                            }
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                    }
                 }
             }
         }
+
+        Collections.sort(telemedicineList, new Comparator<String>() {
+            @Override
+            public int compare(String s1, String s2) {
+                // Extract date and time from the strings and compare
+                String dateTime1 = s1.substring(s1.indexOf("Time: ") + 6, s1.indexOf("\nMeeting ID:"));
+                String dateTime2 = s2.substring(s2.indexOf("Time: ") + 6, s2.indexOf("\nMeeting ID:"));
+
+                // Assuming dateTime is in "dd-MM-yyyy HH:mm" format, adjust the parsing logic
+                SimpleDateFormat sdfDateTime = new SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault());
+                try {
+                    Date date1 = sdfDateTime.parse(dateTime1);
+                    Date date2 = sdfDateTime.parse(dateTime2);
+                    return date1.compareTo(date2);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                return 0; // Default return if parsing fails
+            }
+        });
 
         // Create an adapter to populate the ListView
         ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(),
@@ -83,6 +132,7 @@ public class AdminTelemedicineFragment extends Fragment {
 
         telemedicineListView.setAdapter(adapter);
     }
+
 
     @Override
     public void onViewCreated( @NonNull View view, @Nullable Bundle savedInstanceState) {
