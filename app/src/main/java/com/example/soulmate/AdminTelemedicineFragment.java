@@ -70,7 +70,7 @@ public class AdminTelemedicineFragment extends Fragment {
                     String number = String.valueOf(telemedicineData.get("number"));
 
                     // Build a string with telemedicine information
-                    String telemedicineInfo = "\nAppointment Number: " + number + "\nDate: " + date + "\nTime: " + time + "\nName: " + name + "\n";
+                    String telemedicineInfo = "\nDate: " + date + "\nTime: " + time + "\nName: " + name + "\nPhone Number: " + number  + "\n";
 
                     telemedicineList.add(telemedicineInfo);
                 }

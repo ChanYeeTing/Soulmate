@@ -70,7 +70,7 @@ public class AdminClinicHospitalFragment extends Fragment {
                     String number = String.valueOf(clinicHospitalData.get("number"));
 
                     // Build a string with clinicHospital information
-                    String clinicHospitalInfo = "\nAppointment Number: " + number + "\nDate: " + date + "\nTime: " + time + "\nName: " + name + "\n";
+                    String clinicHospitalInfo = "\nDate: " + date + "\nTime: " + time + "\nName: " + name + "\nPhone Number: " + number + "\n";
 
                     clinicHospitalList.add(clinicHospitalInfo);
                 }

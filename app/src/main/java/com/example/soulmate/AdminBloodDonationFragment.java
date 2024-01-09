@@ -70,7 +70,7 @@ public class AdminBloodDonationFragment extends Fragment {
                     String number = String.valueOf(donorData.get("number"));
 
                     // Build a string with blood donation information
-                    String donationInfo = "\nAppointment Number: " + number + "\nDate: " + date + "\nTime: " + time + "\nName: " + name + "\n";
+                    String donationInfo = "\nDate: " + date + "\nTime: " + time + "\nName: " + name + "\nPhone Number: " + number + "\n";
 
                     bloodDonationList.add(donationInfo);
                 }

@@ -40,31 +40,39 @@ public class AdminMainPageFragment extends Fragment {
         usersReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                checkboxContainer.removeAllViews(); // Clear existing checkboxes
 
                 for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
                     String uid = userSnapshot.getKey();
-                    Map<String, Object> userData = (Map<String, Object>) userSnapshot.child("Location").getValue();
 
-                    if (userData != null) {
-                        String username = String.valueOf(userData.get("name"));
-                        String location = String.valueOf(userData.get("currentLocation"));
-                        String nameEmergency = String.valueOf(userData.get("nameEmergency"));
-                        String contactEmergency = String.valueOf(userData.get("contactEmergency"));
+                    // Access the "Location" node
+                    DataSnapshot locationSnapshot = userSnapshot.child("Location");
 
-                        if (location != null) {
-                            // Create a CheckBox for each user and add it to the checkboxContainer
-                            CheckBox checkBox = new CheckBox(requireContext());
-                            checkBox.setText("\n" + "User ID:" + uid + "\nName: " + username + "\n\nCurrent Location: " + location + "\n\nEmergency Contact: " + nameEmergency + " (" + contactEmergency + ") " + "\n");
-                            checkBox.setTag(userSnapshot.getKey()); // Set a tag to identify the user
-                            checkBox.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    handleCheckBoxClick((CheckBox) v);
-                                }
-                            });
+                    // Iterate over the child nodes of "Location"
+                    for (DataSnapshot idSnapshot : locationSnapshot.getChildren()) {
+                        String id = idSnapshot.getKey();
 
-                            checkboxContainer.addView(checkBox);
+                        // Check if the value is a JSON object (a map-like structure)
+                        if (idSnapshot.getValue() instanceof Map) {
+                            Map<String, Object> userData = (Map<String, Object>) idSnapshot.getValue();
+                            String username = String.valueOf(userData.get("name"));
+                            String location = String.valueOf(userData.get("currentLocation"));
+                            String nameEmergency = String.valueOf(userData.get("nameEmergency"));
+                            String contactEmergency = String.valueOf(userData.get("contactEmergency"));
+
+                            if (location != null) {
+                                // Create a CheckBox for each user and add it to the checkboxContainer
+                                CheckBox checkBox = new CheckBox(requireContext());
+                                checkBox.setText("\n" + "User ID:" + uid + "\nName: " + username + "\n\nCurrent Location: " + location + "\n\nEmergency Contact: " + nameEmergency + " (" + contactEmergency + ") " + "\n");
+                                checkBox.setTag(userSnapshot.getKey()); // Set a tag to identify the user
+                                checkBox.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        handleCheckBoxClick((CheckBox) v);
+                                    }
+                                });
+
+                                checkboxContainer.addView(checkBox);
+                            }
                         }
                     }
                 }
