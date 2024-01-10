@@ -1,6 +1,7 @@
 package com.example.soulmate;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,7 +63,7 @@ public class AdminMainPageFragment extends Fragment {
                             if (location != null) {
                                 // Create a CheckBox for each user and add it to the checkboxContainer
                                 CheckBox checkBox = new CheckBox(requireContext());
-                                checkBox.setText("\n" + "User ID:" + uid + "\nName: " + username + "\n\nCurrent Location: " + location + "\n\nEmergency Contact: " + nameEmergency + " (" + contactEmergency + ") " + "\n");
+                                checkBox.setText("\n" + "Call ID:" + id + "\nName: " + username + "\n\nCurrent Location: " + location + "\n\nEmergency Contact: " + nameEmergency + " (" + contactEmergency + ") " + "\n");
                                 checkBox.setTag(userSnapshot.getKey()); // Set a tag to identify the user
                                 checkBox.setOnClickListener(new View.OnClickListener() {
                                     @Override
@@ -89,8 +90,18 @@ public class AdminMainPageFragment extends Fragment {
 
     private void handleCheckBoxClick(CheckBox checkBox) {
         // Handle the checkbox click, e.g., add userId to a list if checked
-        Toast.makeText(requireContext(), "The emergency call has made", Toast.LENGTH_SHORT).show();
+        Toast.makeText(requireContext(), "The emergency call has been made", Toast.LENGTH_SHORT).show();
+
+        // Delayed removal of the checked checkbox after 3 seconds
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                // Remove the checked checkbox from the checkboxContainer
+                ((ViewGroup) checkBox.getParent()).removeView(checkBox);
+            }
+        }, 2000); // 3000 milliseconds (3 seconds)
     }
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {

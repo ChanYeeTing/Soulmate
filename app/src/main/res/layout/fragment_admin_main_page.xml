@@ -79,25 +79,31 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.981" />
 
-    <!-- Use a vertical LinearLayout to hold the checkboxes -->
-
-    <LinearLayout
-        android:id="@+id/checkboxContainer"
-        android:layout_width="383dp"
-        android:layout_height="476dp"
-        android:background="#D3EEFA"
-        android:orientation="vertical"
+    <ScrollView
+        android:layout_width="375dp"
+        android:layout_height="424dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.48"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.397"
-        tools:ignore="UnknownId">
+        app:layout_constraintVertical_bias="0.4">
 
-        <!-- Checkbox for each user will be added here programmatically -->
+        <LinearLayout
+            android:id="@+id/checkboxContainer"
+            android:layout_width="371dp"
+            android:layout_height="425dp"
+            android:background="#D3EEFA"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.48"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.397"
+            tools:ignore="UnknownId">
 
-    </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
     <TextView
         android:id="@+id/textView6"
