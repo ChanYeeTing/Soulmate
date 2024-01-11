@@ -18,6 +18,31 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
+        <!-- Title -->
+        <TextView
+            android:id="@+id/textViewTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Medical History"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp"/>
+
+        <!-- Reminder Guidelines -->
+        <TextView
+            android:id="@+id/textViewReminder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Please provide detailed and accurate information about your medical history. Include relevant details such as past illnesses, surgeries, medications, and allergies. This information is crucial for effective healthcare."
+            android:textSize="14sp"
+            android:textColor="#FF0000" />
+
+        <!-- Spacer -->
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="16dp"/>
+
+        <!-- Medical History Text -->
         <TextView
             android:id="@+id/textViewMedicalHistory"
             android:layout_width="match_parent"
@@ -27,6 +52,7 @@
             android:text="Medical History will be displayed here"
             android:textSize="18dp" />
 
+        <!-- Edit Button -->
         <Button
             android:id="@+id/buttonEdit"
             android:layout_width="wrap_content"
@@ -50,6 +76,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
+        <!-- Edit Text Medical History -->
         <EditText
             android:id="@+id/editTextMedicalHistory"
             android:layout_width="match_parent"
@@ -62,6 +89,7 @@
             android:lines="5"
             android:textSize="18dp" />
 
+        <!-- Save Button -->
         <Button
             android:id="@+id/buttonSave"
             android:layout_width="wrap_content"
@@ -73,4 +101,3 @@
             android:textStyle="bold" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
-
