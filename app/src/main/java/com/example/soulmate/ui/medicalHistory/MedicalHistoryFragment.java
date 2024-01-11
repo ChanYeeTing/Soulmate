@@ -92,8 +92,15 @@ public class MedicalHistoryFragment extends Fragment {
         editModeLayout.setVisibility(View.VISIBLE);
 
         // Set the current medical history text to the edit text
-        editTextMedicalHistory.setText(textViewMedicalHistory.getText());
+        editTextMedicalHistory.setText("");
+
+        // Set the hint to guide users to fill in medical history
+        editTextMedicalHistory.setHint("Enter Medical History");
+
+        // Enable editing
+        editTextMedicalHistory.setEnabled(true);
     }
+
 
     private void loadMedicalHistory() {
         // Load medical history from Firebase and display in view mode
@@ -101,11 +108,18 @@ public class MedicalHistoryFragment extends Fragment {
             databaseReference.get().addOnCompleteListener(task -> {
                 if (task.isSuccessful() && task.getResult() != null) {
                     String loadedMedicalHistory = String.valueOf(task.getResult().getValue());
-                    textViewMedicalHistory.setText(loadedMedicalHistory);
+                    if (loadedMedicalHistory != null && !loadedMedicalHistory.equals("null")) {
+                        textViewMedicalHistory.setText(loadedMedicalHistory);
+                    } else {
+                        textViewMedicalHistory.setText("Please fill in medical history");
+                    }
+                } else {
+                    textViewMedicalHistory.setText("Please fill in medical history");
                 }
             });
         }
     }
+
 
     private void saveMedicalHistory() {
         String medicalHistory = editTextMedicalHistory.getText().toString().trim();
