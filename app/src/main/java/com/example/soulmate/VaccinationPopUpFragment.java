@@ -115,6 +115,7 @@ public class VaccinationPopUpFragment extends DialogFragment {
 
                 //save into database
                 Toast.makeText(getActivity(), "Booking Successful", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "You may check the your appointment in the date tracking", Toast.LENGTH_LONG).show();
                 String user_id = auth.getCurrentUser().getUid();
                 String dateTime=date+" "+time;
                 DatabaseReference userRef = ref.child("Activity").child(user_id).child(dateTime);
