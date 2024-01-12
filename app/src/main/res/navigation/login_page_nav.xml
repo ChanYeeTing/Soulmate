@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_login_fragment_to_adminLoginFragment"
             app:destination="@id/adminLoginFragment" />
+        <action
+            android:id="@+id/action_login_fragment_to_doctorLoginFragment"
+            app:destination="@id/doctorLoginFragment" />
     </fragment>
     <fragment
         android:id="@+id/registrationFragment"
@@ -69,6 +72,9 @@
         <action
             android:id="@+id/action_adminMainPageFragment_to_adminMedicalHistoryFragment"
             app:destination="@id/adminMedicalHistoryFragment" />
+        <action
+            android:id="@+id/action_adminMainPageFragment_to_adminLoginFragment"
+            app:destination="@id/adminLoginFragment" />
     </fragment>
     <fragment
         android:id="@+id/adminAppointmentFragment"
@@ -144,5 +150,76 @@
         <action
             android:id="@+id/action_adminVaccinationFragment_to_adminAppointmentFragment"
             app:destination="@id/adminAppointmentFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/doctorLoginFragment"
+        android:name="com.example.soulmate.DoctorLoginFragment"
+        android:label="fragment_doctor_login"
+        tools:layout="@layout/fragment_doctor_login" >
+        <action
+            android:id="@+id/action_doctorLoginFragment_to_teleDoctorLoginFragment"
+            app:destination="@id/teleDoctorLoginFragment" />
+        <action
+            android:id="@+id/action_doctorLoginFragment_to_doctorMainPageFragment"
+            app:destination="@id/doctorMainPageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/teleDoctorLoginFragment"
+        android:name="com.example.soulmate.TeleDoctorLoginFragment"
+        android:label="fragment_tele_doctor_login"
+        tools:layout="@layout/fragment_tele_doctor_login" >
+        <action
+            android:id="@+id/action_teleDoctorLoginFragment_to_teleDoctorMainPageFragment"
+            app:destination="@id/teleDoctorMainPageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/doctorMainPageFragment"
+        android:name="com.example.soulmate.DoctorMainPageFragment"
+        android:label="fragment_doctor_main_page"
+        tools:layout="@layout/fragment_doctor_main_page" >
+        <action
+            android:id="@+id/action_doctorMainPageFragment_to_doctorBloodDonationFragment"
+            app:destination="@id/doctorBloodDonationFragment" />
+        <action
+            android:id="@+id/action_doctorMainPageFragment_to_doctorVaccinationFragment"
+            app:destination="@id/doctorVaccinationFragment" />
+        <action
+            android:id="@+id/action_doctorMainPageFragment_to_doctorLoginFragment"
+            app:destination="@id/doctorLoginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/teleDoctorMainPageFragment"
+        android:name="com.example.soulmate.TeleDoctorMainPageFragment"
+        android:label="fragment_tele_doctor_main_page"
+        tools:layout="@layout/fragment_tele_doctor_main_page" />
+    <fragment
+        android:id="@+id/doctorBloodDonationFragment"
+        android:name="com.example.soulmate.DoctorBloodDonationFragment"
+        android:label="fragment_doctor_blood_donation"
+        tools:layout="@layout/fragment_doctor_blood_donation" >
+        <action
+            android:id="@+id/action_doctorBloodDonationFragment_to_doctorMainPageFragment"
+            app:destination="@id/doctorMainPageFragment" />
+        <action
+            android:id="@+id/action_doctorBloodDonationFragment_to_doctorVaccinationFragment"
+            app:destination="@id/doctorVaccinationFragment" />
+        <action
+            android:id="@+id/action_doctorBloodDonationFragment_to_doctorLoginFragment"
+            app:destination="@id/doctorLoginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/doctorVaccinationFragment"
+        android:name="com.example.soulmate.DoctorVaccinationFragment"
+        android:label="fragment_doctor_vaccination"
+        tools:layout="@layout/fragment_doctor_vaccination" >
+        <action
+            android:id="@+id/action_doctorVaccinationFragment_to_doctorBloodDonationFragment"
+            app:destination="@id/doctorBloodDonationFragment" />
+        <action
+            android:id="@+id/action_doctorVaccinationFragment_to_doctorMainPageFragment"
+            app:destination="@id/doctorMainPageFragment" />
+        <action
+            android:id="@+id/action_doctorVaccinationFragment_to_doctorLoginFragment"
+            app:destination="@id/doctorLoginFragment" />
     </fragment>
 </navigation>

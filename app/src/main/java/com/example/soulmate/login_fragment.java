@@ -68,6 +68,12 @@ public class login_fragment extends Fragment {
             NavController controller = Navigation.findNavController(v);
             controller.navigate(R.id.action_login_fragment_to_adminLoginFragment);
         });
+
+        Button doctor = getView ().findViewById ( R.id.doctorLoginButton );
+        doctor.setOnClickListener ( v -> {
+            NavController controller = Navigation.findNavController ( v );
+            controller.navigate ( R.id.action_login_fragment_to_doctorLoginFragment );
+        } );
     }
 
     private Boolean validateEmail(String email) {

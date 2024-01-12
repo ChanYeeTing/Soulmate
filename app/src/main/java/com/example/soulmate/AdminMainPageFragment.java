@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -110,6 +111,7 @@ public class AdminMainPageFragment extends Fragment {
         Button appointment = view.findViewById(R.id.appointmentRecord);
         Button userInfo = view.findViewById(R.id.userInfoButton);
         Button medicalHistory = view.findViewById(R.id.medicalHistoryRecord);
+        Button logoutButton = view.findViewById(R.id.LogoutButton);
 
         appointment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,6 +134,18 @@ public class AdminMainPageFragment extends Fragment {
             public void onClick(View v) {
                 NavController controller = Navigation.findNavController(v);
                 controller.navigate(R.id.action_adminMainPageFragment_to_adminMedicalHistoryFragment);
+            }
+        });
+
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Sign out the user from Firebase Authentication
+                FirebaseAuth.getInstance().signOut();
+
+                // Navigate to the login fragment
+                NavController controller = Navigation.findNavController(v);
+                controller.navigate(R.id.action_adminMainPageFragment_to_adminLoginFragment);
             }
         });
     }
