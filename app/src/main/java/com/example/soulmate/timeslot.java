@@ -151,7 +151,7 @@ public class timeslot extends DialogFragment {
 
 
                 // Use the NavController obtained from NavHostFragment
-                navController.navigate(R.id.action_popUpFragment_to_nav_date_tracking);
+                navController.navigate(R.id.action_popUpTimeSlot_to_telemedicineBooking);
                 dismiss();
             }
         });

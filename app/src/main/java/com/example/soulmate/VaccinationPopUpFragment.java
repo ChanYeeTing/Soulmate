@@ -141,7 +141,7 @@ public class VaccinationPopUpFragment extends DialogFragment {
                 check.setValue(hash);
 
                 // Use the NavController obtained from NavHostFragment
-                navController.navigate(R.id.action_popUpFragment_to_nav_date_tracking);
+                navController.navigate(R.id.action_popUpVaccination_to_vaccinationBooking);
                 dismiss();
             }
         });

@@ -139,7 +139,7 @@ public class BloodPopUpFragment extends DialogFragment {
                 check.setValue(hash);
 
                 // Use the NavController obtained from NavHostFragment
-                navController.navigate(R.id.action_popUpFragment_to_nav_date_tracking);
+                navController.navigate(R.id.action_popUpBlood_to_bloodDonationBooking);
                 dismiss();
             }
         });

@@ -141,7 +141,7 @@ public class ClinicPopUpFragment extends DialogFragment {
                 check.setValue(hash);
 
                 // Use the NavController obtained from NavHostFragment
-                navController.navigate(R.id.action_popUpFragment_to_nav_date_tracking);
+                navController.navigate(R.id.action_popUpClinic_to_clinicBooking);
                 dismiss();
             }
         });
