@@ -21,9 +21,10 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.041" />
+        app:layout_constraintVertical_bias="0.022" />
 
     <Button
         android:id="@+id/appointmentRecord"
@@ -98,13 +99,13 @@
         app:layout_constraintVertical_bias="0.976" />
 
     <ScrollView
-        android:layout_width="377dp"
-        android:layout_height="378dp"
+        android:layout_width="371dp"
+        android:layout_height="417dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.342">
+        app:layout_constraintVertical_bias="0.299">
 
         <LinearLayout
             android:id="@+id/checkboxContainer"
@@ -139,7 +140,7 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.109"
+        app:layout_constraintVertical_bias="0.079"
         tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
