@@ -129,10 +129,15 @@ public class ClinicPopUpFragment extends DialogFragment {
 
                 userRef.setValue(hashMap);
 
-                DatabaseReference check = ref.child("Appointment").child("ClinicHospital").child(date).child(time);
+                DatabaseReference check = ref.child("Appointment").child("ClinicHospital").child(hospital).child(date).child(time);
                 HashMap<String, Object> hash = new HashMap<>();
+                hash.put("Appointment", "Clinic and Hospital");
+                hash.put("date", date);
+                hash.put("hospital", hospital);
                 hash.put("name", name);
                 hash.put("number", number);
+                hash.put("time", time);
+                hash.put("zCategory", category);
                 check.setValue(hash);
 
                 // Use the NavController obtained from NavHostFragment

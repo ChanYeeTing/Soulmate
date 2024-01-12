@@ -114,8 +114,7 @@ public class BloodDonationFragment extends Fragment {
             ((main_page) getActivity()).getSupportActionBar().setTitle("Blood Donation Booking");
         }
 
-        String[] hospitalNames = {"Island Hospital", "Clinic Medicris", "Hospital Lam Wah Ee", "Clinic Dr. Dashindar Singh",
-                "Medivici Clinic & Surgery", "Clinic Putra Simpang Ampat", "Clinic Lim", "House Call Doctor", "Clinic Medilife"};
+        String[] hospitalNames = {"Island Hospital", "Clinic Medicris", "Clinic Putra Simpang Ampat", "Clinic Medilife"};
 
         Spinner hospitalSpinner = view.findViewById(R.id.static_spinner);
 
@@ -208,7 +207,7 @@ public class BloodDonationFragment extends Fragment {
                 for(int i=0; i<9;i++)
                 {
                     int finalI = i;
-                    reference.child(getDate).child(checkTime[i]).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                    reference.child(getHospital).child(getDate).child(checkTime[i]).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DataSnapshot> task) {
                             if (task.isSuccessful()) {

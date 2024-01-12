@@ -113,8 +113,7 @@ public class VaccinationFragment extends Fragment {
             ((main_page) getActivity()).getSupportActionBar().setTitle("Vaccination Booking");
         }
 
-        String[] hospitalNames = {"Island Hospital", "Clinic Medicris", "Hospital Lam Wah Ee", "Clinic Dr. Dashindar Singh",
-                "Medivici Clinic & Surgery", "Clinic Putra Simpang Ampat", "Clinic Lim", "House Call Doctor", "Clinic Medilife"};
+        String[] hospitalNames = {"Island Hospital", "Clinic Medicris","Clinic Putra Simpang Ampat", "Clinic Medilife"};
 
         Spinner hospitalSpinner = view.findViewById(R.id.hospital_spinner);
 
@@ -229,7 +228,7 @@ public class VaccinationFragment extends Fragment {
                 enableButton();
                 getDate = Selectdate.getText().toString().trim();
 
-                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Appointment").child("Vaccination").child(getDate);
+                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Appointment").child("Vaccination").child(getHospital).child(getDate);
                 for(int i=0; i<9;i++)
                 {
                     int finalI = i;

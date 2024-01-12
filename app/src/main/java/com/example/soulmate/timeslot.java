@@ -139,8 +139,13 @@ public class timeslot extends DialogFragment {
 
                     DatabaseReference check = ref.child("Appointment").child("Telemedicine").child(date).child(time);
                     HashMap<String, Object> hash = new HashMap<>();
+                    hash.put("Appointment", "Telemedicine");
+                    hash.put("date", date);
+                    hash.put("hospital","-");
                     hash.put("name", name);
                     hash.put("number", number);
+                    hash.put("time", time);
+                    hash.put("zId", roomId);
                     check.setValue(hash);
 
 
