@@ -156,6 +156,8 @@ public class EmergencyCall extends Fragment implements OnMapReadyCallback {
 
                     saveAddressToFirebase(address.getAddressLine(0));
                     Toast.makeText(getContext(), "Notified admin and will call for help!", Toast.LENGTH_SHORT).show();
+
+                    isCall = false;
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -187,6 +189,8 @@ public class EmergencyCall extends Fragment implements OnMapReadyCallback {
                         usersRef.child("Location").child(newLocationKey).child("name").setValue(name);
                         usersRef.child("Location").child(newLocationKey).child("nameEmergency").setValue(nameEmergency);
                         usersRef.child("Location").child(newLocationKey).child("contactEmergency").setValue(contactEmergency);
+
+                        isCall = false;
                     }
                 }
 

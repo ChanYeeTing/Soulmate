@@ -1,19 +1,16 @@
 package com.example.soulmate;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageButton;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -85,6 +82,7 @@ public class PopUpCallFragment extends DialogFragment {
         yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                EmergencyCall.isCall = true;
                 // Use the NavController obtained from NavHostFragment
                 navController.navigate(R.id.action_popUpCallFragment2_to_emergencyCall3);
                 dismiss();
