@@ -119,8 +119,7 @@ public class ClinicBookingFragment extends Fragment {
             ((main_page) getActivity()).getSupportActionBar().setTitle("Clinic/Hospital Booking");
         }
 
-        String[] hospitalNames = {"Island Hospital", "Clinic Medicris", "Hospital Lam Wah Ee", "Clinic Dr. Dashindar Singh",
-                "Medivici Clinic & Surgery", "Clinic Putra Simpang Ampat", "Clinic Lim", "House Call Doctor", "Clinic Medilife"};
+        String[] hospitalNames = {"Island Hospital", "Clinic Medicris","Clinic Putra Simpang Ampat", "Clinic Medilife"};
 
         Spinner hospitalSpinner = view.findViewById(R.id.hospital_spinner);
 
@@ -178,15 +177,10 @@ public class ClinicBookingFragment extends Fragment {
     private void populateHospitalInfo(Map<String, List<String>> hospitalInfo) {
         // Populate the hospitalInfo map with hospital names as keys and categories as values
         // You can adjust this according to your actual data
-        hospitalInfo.put("Island Hospital", List.of("Cardiology", "Cardiothoracic Surgery", "Family Medicine", "General Paediatrics", "General Surgery", "Orthodontist", "Neurology", "Neurosurgery", "Plastic Surgery"));
-        hospitalInfo.put("Clinic Medicris", List.of("Family medicine", "Advanced Wound Care Management", "Women and Child Care"));
-        hospitalInfo.put("Hospital Lam Wah Ee", List.of("Cardiology", "Cardiothoracic Surgery", "Dentistry", "Ear, Nose and Throat Surgery", "Emergency Medicine", "General Medicine", "Neurosurgery", "Respiratory Medicine", "Urology"));
-        hospitalInfo.put("Clinic Dr. Dashindar Singh", List.of("General Medicine"));
-        hospitalInfo.put("Medivici Clinic & Surgery", List.of("General Medicine", "Health Check", "Home Visit"));
-        hospitalInfo.put("Clinic Putra Simpang Ampat", List.of("Internal & Family Medicine", "Home Visit", "Medical Check Up", "Chronic illnesses"));
-        hospitalInfo.put("Clinic Lim", List.of("Medical & Dental Surgery"));
-        hospitalInfo.put("House Call Doctor", List.of("Medical Check Up", "Home Consultation", "Diabetes Care"));
-        hospitalInfo.put("Clinic Medilife", List.of("Physiotherapy and Rehab Centre", "Hemodialysis"));
+        hospitalInfo.put("Island Hospital", List.of("Family Medicine"));
+        hospitalInfo.put("Clinic Medicris", List.of("Family medicine"));
+        hospitalInfo.put("Clinic Putra Simpang Ampat", List.of("Family Medicine"));
+        hospitalInfo.put("Clinic Medilife", List.of("Family medicine"));
     }
     @Override
     public void onActivityCreated ( @Nullable Bundle savedInstanceState ) {
@@ -250,7 +244,8 @@ public class ClinicBookingFragment extends Fragment {
                 enableButton();
                 getDate = Selectdate.getText().toString().trim();
 
-                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Appointment").child("ClinicHospital").child(getDate);
+                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Appointment")
+                        .child("ClinicHospital").child(getHospital).child(getDate);
                 for(int i=0; i<9;i++)
                 {
                     int finalI = i;
