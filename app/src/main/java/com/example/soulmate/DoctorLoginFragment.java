@@ -141,7 +141,8 @@ import com.google.firebase.database.ValueEventListener;
 public class DoctorLoginFragment extends Fragment {
 
     private EditText nameEditText, emailDoctorEditText, passDoctorEditText;
-    private Button loginBtn;
+    private Button loginBtn, teleBtn;
+
     private DatabaseReference doctorDatabase;
 
     public DoctorLoginFragment() {
@@ -168,6 +169,12 @@ public class DoctorLoginFragment extends Fragment {
         emailDoctorEditText = getView().findViewById(R.id.editTextTextEmailAddress2);
         passDoctorEditText = getView().findViewById(R.id.editTextPassword2);
         loginBtn = getView().findViewById(R.id.loginButton2);
+        teleBtn = getView().findViewById(R.id.TeleDoctorLoginButton);
+
+        teleBtn.setOnClickListener ( v -> {
+            NavController controller = Navigation.findNavController ( v );
+            controller.navigate ( R.id.action_doctorLoginFragment_to_teleDoctorLoginFragment);
+        } );
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,12 +1,32 @@
 package com.example.soulmate;
 
+import android.os.Build;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
+import java.util.TimeZone;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,6 +43,9 @@ public class TeleDoctorMainPageFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private ArrayList<TeleDataModel> Telemedicine;
+    private TeleCustomAdapter arrayAdapter;
+
 
     public TeleDoctorMainPageFragment () {
         // Required empty public constructor
@@ -61,4 +84,106 @@ public class TeleDoctorMainPageFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate ( R.layout.fragment_tele_doctor_main_page, container, false );
     }
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+
+
+        ListView updated = getView().findViewById(R.id.telemedicineList);
+        Telemedicine = new ArrayList<>();
+
+        TimeZone specificTimeZone = TimeZone.getTimeZone("Asia/Kuala_Lumpur");
+        Calendar calendar = Calendar.getInstance(specificTimeZone);;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+        String todayDateFormat = dateFormat.format(calendar.getTime());
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
+
+        dateFormat.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
+        timeFormat.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
+
+        String currentHour = timeFormat.format(calendar.getTime());
+
+
+        arrayAdapter = new TeleCustomAdapter(getActivity(),Telemedicine);
+        updated.setAdapter(arrayAdapter);
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Appointment");
+
+        //Telemedicine
+        databaseReference.child("Telemedicine").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Telemedicine.clear();
+
+                for(DataSnapshot snapshot1: snapshot.getChildren()) {
+                    String childKey = snapshot1.getKey();
+
+                    DataSnapshot snapshotDate = snapshot.child(childKey);
+
+                    for (DataSnapshot snapshotTime : snapshotDate.getChildren()) {
+                        String Key = snapshotTime.getKey();
+                        DataSnapshot snapshotData = snapshot1.child(Key);
+
+
+                        if (snapshotData.exists()) {
+                            int i = 0;
+                            String[] value = new String[7];
+                            for (DataSnapshot snapshot2 : snapshotData.getChildren()) {
+                                value[i] = String.valueOf(snapshot2.getValue());
+                                i++;
+
+                            }
+                            // Current date
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                                LocalDate currentDate = LocalDate.now();
+                                LocalDate dateFromString = LocalDate.parse(value[1], formatter);
+
+                                // Date from the string "22-12-2023"
+                                if (dateFromString.isAfter(currentDate)) {
+                                    TeleDataModel dataModel = new TeleDataModel(value[1], value[5], value[3], value[4], value[6]);
+                                    Telemedicine.add(dataModel);
+                                    Log.d("DataModel", "Added DataModel: " + dataModel.toString()); // Log for debugging
+                                } else if (value[1].equals(todayDateFormat)) {
+                                    try {
+                                        if (timeFormat.parse(value[5]).before(timeFormat.parse(currentHour))) {
+
+                                        } else {
+                                            TeleDataModel dataModel = new TeleDataModel(value[1], value[5], value[3], value[4], value[6]);
+                                            Telemedicine.add(dataModel);
+                                        }
+                                    } catch (ParseException e) {
+                                        throw new RuntimeException(e);
+                                    }
+                                }
+                            }
+                        } else
+                            Toast.makeText(getActivity(), "Failed", Toast.LENGTH_SHORT).show();
+
+                    }
+                    arrayAdapter.notifyDataSetChanged();
+                    if (updated.getAdapter() == null || updated.getAdapter().getCount() == 0) {
+                        updated.setVisibility(View.GONE);
+                    } else {
+                        updated.setVisibility(View.VISIBLE);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
+
+
+
+
+
+
+    }
+
 }

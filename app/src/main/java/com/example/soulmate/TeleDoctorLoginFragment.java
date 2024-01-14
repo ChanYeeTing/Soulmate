@@ -1,6 +1,13 @@
 package com.example.soulmate;
 
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -8,10 +15,11 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,6 +32,10 @@ public class TeleDoctorLoginFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+    EditText emailDoctorEditText,passDoctorEditText, nameEditText;
+    Button loginTele;
+    private DatabaseReference TeleDatabase;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -58,6 +70,7 @@ public class TeleDoctorLoginFragment extends Fragment {
             mParam1 = getArguments ().getString ( ARG_PARAM1 );
             mParam2 = getArguments ().getString ( ARG_PARAM2 );
         }
+        TeleDatabase = FirebaseDatabase.getInstance().getReference().child("Doctor");
     }
 
     @Override
@@ -71,12 +84,66 @@ public class TeleDoctorLoginFragment extends Fragment {
     public void onViewCreated ( @NonNull View view, @Nullable Bundle savedInstanceState ) {
         super.onViewCreated ( view, savedInstanceState );
 
-        Button loginTele = view.findViewById(R.id.loginButton3);
+    }
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        nameEditText = getView().findViewById(R.id.editTextname3);
+        emailDoctorEditText = getView().findViewById(R.id.editTextTextEmailAddress3);
+        passDoctorEditText = getView().findViewById(R.id.editTextPassword3);
+        loginTele = getView().findViewById(R.id.loginButton3);
+
         loginTele.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NavController controller = Navigation.findNavController(v);
-                controller.navigate(R.id.action_teleDoctorLoginFragment_to_teleDoctorMainPageFragment);
+                String name = nameEditText.getText().toString().trim();
+                String email = emailDoctorEditText.getText().toString().trim();
+                String password = passDoctorEditText.getText().toString().trim();
+
+                if (validateInputs(name, email, password)) {
+                    // Check doctor credentials in the Firebase Realtime Database
+                    checkDoctorCredentials(name, email, password, v);
+                }
+            }
+        });
+    }
+    private boolean validateInputs(String name, String email, String password) {
+        if (TextUtils.isEmpty(name) || TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
+            Toast.makeText(getActivity(), "Please fill in all fields.", Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (password.length() < 6) {
+            Toast.makeText(getActivity(), "Password must be at least 6 characters.", Toast.LENGTH_SHORT).show();
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    private void checkDoctorCredentials(String name, String email, String password, View v) {
+        TeleDatabase.child(name).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    String storedEmail = dataSnapshot.child("email").getValue(String.class);
+                    String storedPassword = dataSnapshot.child("password").getValue(String.class);
+                    if (email.equals(storedEmail) && password.equals(storedPassword)) {
+                        // Doctor login successful
+                        Toast.makeText(getActivity(), "Telemedicine login successful.", Toast.LENGTH_SHORT).show();
+                        // Add your navigation logic here
+                        NavController controller = Navigation.findNavController(v);
+                        controller.navigate(R.id.action_teleDoctorLoginFragment_to_teleDoctorMainPageFragment);
+
+                    } else {
+                        Toast.makeText(getActivity(), "Incorrect email or password.", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(getActivity(), "Telemedicine not found.", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(getActivity(), "Error checking your credentials.", Toast.LENGTH_SHORT).show();
             }
         });
     }
