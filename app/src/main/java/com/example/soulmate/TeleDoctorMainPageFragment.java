@@ -3,6 +3,13 @@ package com.example.soulmate;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +34,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 import java.util.TimeZone;
+import android.widget.Button;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -83,6 +93,24 @@ public class TeleDoctorMainPageFragment extends Fragment {
                                Bundle savedInstanceState ) {
         // Inflate the layout for this fragment
         return inflater.inflate ( R.layout.fragment_tele_doctor_main_page, container, false );
+    }
+
+    @Override
+    public void onViewCreated ( @NonNull View view, @Nullable Bundle savedInstanceState ) {
+        super.onViewCreated ( view, savedInstanceState );
+
+        Button logoutButton = view.findViewById(R.id.logoutButton4);
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Sign out the user from Firebase Authentication
+                FirebaseAuth.getInstance().signOut();
+
+                // Navigate to the login fragment
+                NavController controller = Navigation.findNavController(v);
+                controller.navigate(R.id.action_teleDoctorMainPageFragment_to_teleDoctorLoginFragment);
+            }
+        });
     }
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
