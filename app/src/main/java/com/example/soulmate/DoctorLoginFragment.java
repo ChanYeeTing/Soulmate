@@ -1,7 +1,6 @@
 //package com.example.soulmate;
 //
 //import android.os.Bundle;
-//import android.text.TextUtils;
 //import android.view.LayoutInflater;
 //import android.view.View;
 //import android.view.ViewGroup;
@@ -14,8 +13,11 @@
 //import androidx.navigation.NavController;
 //import androidx.navigation.Navigation;
 //
+//import com.google.firebase.database.DataSnapshot;
+//import com.google.firebase.database.DatabaseError;
 //import com.google.firebase.database.DatabaseReference;
 //import com.google.firebase.database.FirebaseDatabase;
+//import com.google.firebase.database.ValueEventListener;
 //
 //public class DoctorLoginFragment extends Fragment {
 //
@@ -118,6 +120,8 @@
 
 package com.example.soulmate;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -127,6 +131,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
@@ -201,11 +206,13 @@ public class DoctorLoginFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
+                    String hospitalName = dataSnapshot.getKey();
                     String storedEmail = dataSnapshot.child("emailDoctor").getValue(String.class);
                     String storedPassword = dataSnapshot.child("passwordDoctor").getValue(String.class);
                     if (email.equals(storedEmail) && password.equals(storedPassword)) {
                         // Doctor login successful
                         Toast.makeText(getActivity(), "Doctor login successful.", Toast.LENGTH_SHORT).show();
+                        saveHospitalNameToPreferences(hospitalName);
                         // Add your navigation logic here
                         NavController controller = Navigation.findNavController(v);
                         // Replace with the appropriate action for doctor's main page
@@ -224,4 +231,35 @@ public class DoctorLoginFragment extends Fragment {
             }
         });
     }
+
+    private void saveHospitalNameToPreferences(String hospitalName) {
+        // Use SharedPreferences to store hospitalName
+        SharedPreferences preferences = getActivity().getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("hospitalName", hospitalName);
+        editor.apply();
+    }
+
+    @Override
+    public void onViewCreated ( @NonNull View view, @Nullable Bundle savedInstanceState ) {
+        super.onViewCreated ( view, savedInstanceState );
+
+        Button teledoctor = view.findViewById(R.id.TeleDoctorLoginButton);
+        Button loginDoctor = view.findViewById ( R.id.loginButton2 );
+        teledoctor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavController controller = Navigation.findNavController(v);
+                controller.navigate(R.id.action_doctorLoginFragment_to_teleDoctorLoginFragment);
+            }
+        });
+        loginDoctor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavController controller = Navigation.findNavController(v);
+                controller.navigate(R.id.action_doctorLoginFragment_to_doctorMainPageFragment);
+            }
+        });
+    }
+
 }

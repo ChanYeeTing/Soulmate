@@ -106,4 +106,3 @@ public class AdminLoginFragment extends Fragment {
         });
     }
 }
-
