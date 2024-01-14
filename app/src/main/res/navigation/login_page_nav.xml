@@ -191,7 +191,11 @@
         android:id="@+id/teleDoctorMainPageFragment"
         android:name="com.example.soulmate.TeleDoctorMainPageFragment"
         android:label="fragment_tele_doctor_main_page"
-        tools:layout="@layout/fragment_tele_doctor_main_page" />
+        tools:layout="@layout/fragment_tele_doctor_main_page" >
+        <action
+            android:id="@+id/action_teleDoctorMainPageFragment_to_teleDoctorLoginFragment"
+            app:destination="@id/teleDoctorLoginFragment" />
+    </fragment>
     <fragment
         android:id="@+id/doctorBloodDonationFragment"
         android:name="com.example.soulmate.DoctorBloodDonationFragment"
