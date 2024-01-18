@@ -120,15 +120,15 @@
 
 package com.example.soulmate;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -147,7 +147,7 @@ public class DoctorLoginFragment extends Fragment {
 
     private EditText nameEditText, emailDoctorEditText, passDoctorEditText;
     private Button loginBtn, teleBtn;
-
+    private Spinner hospitalSpinner;
     private DatabaseReference doctorDatabase;
 
     public DoctorLoginFragment() {
@@ -170,34 +170,37 @@ public class DoctorLoginFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        nameEditText = getView().findViewById(R.id.editTextname2);
         emailDoctorEditText = getView().findViewById(R.id.editTextTextEmailAddress2);
         passDoctorEditText = getView().findViewById(R.id.editTextPassword2);
         loginBtn = getView().findViewById(R.id.loginButton2);
         teleBtn = getView().findViewById(R.id.TeleDoctorLoginButton);
+        hospitalSpinner = getView().findViewById(R.id.hospitalSpinner);
 
-        teleBtn.setOnClickListener ( v -> {
-            NavController controller = Navigation.findNavController ( v );
-            controller.navigate ( R.id.action_doctorLoginFragment_to_teleDoctorLoginFragment);
-        } );
+        String hospitalNames[] = {"Clinic Medicris", "Clinic Medilife", "Clinic Putra Simpang Ampat", "Island Hospital"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, hospitalNames);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        loginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String name = nameEditText.getText().toString().trim();
-                String email = emailDoctorEditText.getText().toString().trim();
-                String password = passDoctorEditText.getText().toString().trim();
+        hospitalSpinner.setAdapter(adapter);
 
-                if (validateInputs(name, email, password)) {
-                    // Check doctor credentials in the Firebase Realtime Database
-                    checkDoctorCredentials(name, email, password, v);
-                }
+        teleBtn.setOnClickListener(v -> {
+            NavController controller = Navigation.findNavController(v);
+            controller.navigate(R.id.action_doctorLoginFragment_to_teleDoctorLoginFragment);
+        });
+
+        loginBtn.setOnClickListener(v -> {
+            String hospitalName = hospitalSpinner.getSelectedItem().toString();
+            String email = emailDoctorEditText.getText().toString().trim();
+            String password = passDoctorEditText.getText().toString().trim();
+
+            if (validateInputs(email, password)) {
+                // Check doctor credentials in the Firebase Realtime Database
+                checkDoctorCredentials(email, password, hospitalName, v);
             }
         });
     }
 
-    private boolean validateInputs(String name, String email, String password) {
-        if (TextUtils.isEmpty(name) || TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
+    private boolean validateInputs(String email, String password) {
+        if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
             Toast.makeText(getActivity(), "Please fill in all fields.", Toast.LENGTH_SHORT).show();
             return false;
         } else if (password.length() < 6) {
@@ -208,22 +211,24 @@ public class DoctorLoginFragment extends Fragment {
         }
     }
 
-    private void checkDoctorCredentials(String name, String email, String password, View v) {
-        doctorDatabase.child(name).addListenerForSingleValueEvent(new ValueEventListener() {
+    private void checkDoctorCredentials(String email, String password, String hospitalName, View v) {
+        doctorDatabase.child(hospitalName).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    String hospitalName = dataSnapshot.getKey();
                     String storedEmail = dataSnapshot.child("emailDoctor").getValue(String.class);
                     String storedPassword = dataSnapshot.child("passwordDoctor").getValue(String.class);
                     if (email.equals(storedEmail) && password.equals(storedPassword)) {
                         // Doctor login successful
                         Toast.makeText(getActivity(), "Doctor login successful.", Toast.LENGTH_SHORT).show();
-                        saveHospitalNameToPreferences(hospitalName);
-                        // Add your navigation logic here
+
+                        // Pass hospitalName to DoctorMainPageFragment using Bundle
+                        Bundle bundle = new Bundle();
+                        bundle.putString("hospitalName", hospitalName);
+
+
                         NavController controller = Navigation.findNavController(v);
-                        // Replace with the appropriate action for doctor's main page
-                        controller.navigate(R.id.action_doctorLoginFragment_to_doctorMainPageFragment);
+                        controller.navigate(R.id.action_doctorLoginFragment_to_doctorMainPageFragment, bundle);
                     } else {
                         Toast.makeText(getActivity(), "Incorrect email or password.", Toast.LENGTH_SHORT).show();
                     }
@@ -239,34 +244,19 @@ public class DoctorLoginFragment extends Fragment {
         });
     }
 
-    private void saveHospitalNameToPreferences(String hospitalName) {
-        // Use SharedPreferences to store hospitalName
-        SharedPreferences preferences = getActivity().getPreferences(Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("hospitalName", hospitalName);
-        editor.apply();
-    }
-
     @Override
-    public void onViewCreated ( @NonNull View view, @Nullable Bundle savedInstanceState ) {
-        super.onViewCreated ( view, savedInstanceState );
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
         Button teledoctor = view.findViewById(R.id.TeleDoctorLoginButton);
-        Button loginDoctor = view.findViewById ( R.id.loginButton2 );
-        teledoctor.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                NavController controller = Navigation.findNavController(v);
-                controller.navigate(R.id.action_doctorLoginFragment_to_teleDoctorLoginFragment);
-            }
+        Button loginDoctor = view.findViewById(R.id.loginButton2);
+        teledoctor.setOnClickListener(v -> {
+            NavController controller = Navigation.findNavController(v);
+            controller.navigate(R.id.action_doctorLoginFragment_to_teleDoctorLoginFragment);
         });
-        loginDoctor.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                NavController controller = Navigation.findNavController(v);
-                controller.navigate(R.id.action_doctorLoginFragment_to_doctorMainPageFragment);
-            }
+        loginDoctor.setOnClickListener(v -> {
+            NavController controller = Navigation.findNavController(v);
+            controller.navigate(R.id.action_doctorLoginFragment_to_doctorMainPageFragment);
         });
     }
-
 }
