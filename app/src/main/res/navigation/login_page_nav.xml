@@ -195,6 +195,9 @@
         <action
             android:id="@+id/action_teleDoctorMainPageFragment_to_teleDoctorLoginFragment"
             app:destination="@id/teleDoctorLoginFragment" />
+        <action
+            android:id="@+id/action_teleDoctorMainPageFragment_to_teleRoom2"
+            app:destination="@id/teleRoom2" />
     </fragment>
     <fragment
         android:id="@+id/doctorBloodDonationFragment"
@@ -225,5 +228,13 @@
         <action
             android:id="@+id/action_doctorVaccinationFragment_to_doctorLoginFragment"
             app:destination="@id/doctorLoginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/teleRoom2"
+        android:name="com.example.soulmate.TeleRoom"
+        android:label="TeleRoom" >
+        <action
+            android:id="@+id/action_teleRoom2_to_teleDoctorMainPageFragment"
+            app:destination="@id/teleDoctorMainPageFragment" />
     </fragment>
 </navigation>
