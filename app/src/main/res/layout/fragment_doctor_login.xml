@@ -117,19 +117,16 @@
             app:layout_constraintTop_toTopOf="@+id/guideline21"
             app:layout_constraintVertical_bias="0.616" />
 
-        <EditText
-            android:id="@+id/editTextname2"
+        <Spinner
+            android:id="@+id/hospitalSpinner"
             android:layout_width="250dp"
             android:layout_height="48dp"
-            android:ems="10"
-            android:hint="Name"
-            android:inputType="textEmailAddress"
             app:layout_constraintBottom_toTopOf="@+id/guideline14"
             app:layout_constraintEnd_toStartOf="@+id/guideline18"
             app:layout_constraintHorizontal_bias="0.487"
             app:layout_constraintStart_toStartOf="@+id/guideline19"
             app:layout_constraintTop_toTopOf="@+id/guideline21"
-            app:layout_constraintVertical_bias="0.52" />
+            app:layout_constraintVertical_bias="0.517" />
 
         <EditText
             android:id="@+id/editTextPassword2"
@@ -144,5 +141,6 @@
             app:layout_constraintStart_toStartOf="@+id/guideline19"
             app:layout_constraintTop_toTopOf="@+id/guideline21"
             app:layout_constraintVertical_bias="0.708" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
