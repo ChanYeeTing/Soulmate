@@ -33,7 +33,7 @@
             android:id="@+id/textViewReminder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Please provide detailed and accurate information about your medical history. Include relevant details such as past illnesses, surgeries, medications, and allergies. This information is crucial for effective healthcare."
+            android:text="Your medical history shows how many times it was taken in one day. How long do you take it? Your last date to take it."
             android:textSize="14sp"
             android:textColor="#FF0000" />
 
