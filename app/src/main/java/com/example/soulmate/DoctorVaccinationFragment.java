@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
@@ -37,7 +38,9 @@ public class DoctorVaccinationFragment extends Fragment {
 
     // Rename and change types of parameters
     private static final String ARG_HOSPITAL_NAME = "hospitalName";
-    private String hospitalName;
+    private static String hospitalName;
+    TextView hospitalViewText;
+    private SharedViewModel viewModel;
 
     public DoctorVaccinationFragment() {
         // Required empty public constructor
@@ -54,9 +57,8 @@ public class DoctorVaccinationFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            hospitalName = getArguments().getString(ARG_HOSPITAL_NAME);
-        }
+
+        viewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
     }
 
     @Override
@@ -69,88 +71,97 @@ public class DoctorVaccinationFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        SharedViewModel viewModel1 = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
+        hospitalViewText = view.findViewById(R.id.hospitalTextView2);
+
+        String data = viewModel.getData();
+
+        if(data!=null){
+            hospitalViewText.setText(data);
+            hospitalName = data;
+        }
+        viewModel1.setSharedData(hospitalName);
+
 
         if (hospitalName != null) {
-            TextView hospitalViewText = view.findViewById(R.id.hospitalTextView2);
-            hospitalViewText.setText(hospitalName);
+                            DatabaseReference appointmentRef = FirebaseDatabase.getInstance().getReference().child("Appointment");
 
-            DatabaseReference appointmentRef = FirebaseDatabase.getInstance().getReference().child("Appointment");
+                            // Query appointments for the specific hospital
+                            appointmentRef.child("Vaccination").child(hospitalName).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    List<String> vaccinationDetailsList = new ArrayList<>();
+                                    Date currentDate = Calendar.getInstance().getTime();
 
-            // Query appointments for the specific hospital
-            appointmentRef.child("Vaccination").child(hospitalName).addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    List<String> vaccinationDetailsList = new ArrayList<>();
-                    Date currentDate = Calendar.getInstance().getTime();
+                                    for (DataSnapshot dateSnapshot : dataSnapshot.getChildren()) {
+                                        String date = dateSnapshot.getKey();
 
-                    for (DataSnapshot dateSnapshot : dataSnapshot.getChildren()) {
-                        String date = dateSnapshot.getKey();
+                                        for (DataSnapshot timeSnapshot : dateSnapshot.getChildren()) {
+                                            String time = timeSnapshot.getKey();
 
-                        for (DataSnapshot timeSnapshot : dateSnapshot.getChildren()) {
-                            String time = timeSnapshot.getKey();
+                                            Map<String, Object> appointmentData = (Map<String, Object>) timeSnapshot.getValue();
 
-                            Map<String, Object> appointmentData = (Map<String, Object>) timeSnapshot.getValue();
+                                            if (appointmentData != null) {
+                                                String name = String.valueOf(appointmentData.get("name"));
+                                                String number = String.valueOf(appointmentData.get("number"));
+                                                String dateRecords = String.valueOf(appointmentData.get("date"));
+                                                String timeRecords = String.valueOf(appointmentData.get("time"));
+                                                String vaccine = String.valueOf(appointmentData.get("vaccine"));
 
-                            if (appointmentData != null) {
-                                String name = String.valueOf(appointmentData.get("name"));
-                                String number = String.valueOf(appointmentData.get("number"));
-                                String dateRecords = String.valueOf(appointmentData.get("date"));
-                                String timeRecords = String.valueOf(appointmentData.get("time"));
+                                                // Check if any of the required fields are null
+                                                if (name != null && number != null && dateRecords != null && timeRecords != null) {
+                                                    try {
+                                                        // Parse appointment date and time
+                                                        Date appointmentDateTime = new SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault())
+                                                                .parse(dateRecords + " " + timeRecords);
 
-                                // Check if any of the required fields are null
-                                if (name != null && number != null && dateRecords != null && timeRecords != null) {
-                                    try {
-                                        // Parse appointment date and time
-                                        Date appointmentDateTime = new SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault())
-                                                .parse(dateRecords + " " + timeRecords);
-
-                                        // Check if the appointment is in the future
-                                        if (appointmentDateTime != null && appointmentDateTime.after(currentDate)) {
-                                            // Build a string with appointment information
-                                            String appointmentDetails = "\nDate: " + dateRecords + "\nTime: " + timeRecords +
-                                                    "\nName: " + name + "\nPhone Number: " + number + "\n";
-                                            vaccinationDetailsList.add(appointmentDetails);
+                                                        // Check if the appointment is in the future
+                                                        if (appointmentDateTime != null && appointmentDateTime.after(currentDate)) {
+                                                            // Build a string with appointment information
+                                                            String appointmentDetails = "\nDate: " + dateRecords + "\nTime: " + timeRecords + "\nVaccine Type: " + vaccine +
+                                                                    "\nName: " + name + "\nPhone Number: " + number + "\n";
+                                                            vaccinationDetailsList.add(appointmentDetails);
+                                                        }
+                                                    } catch (ParseException e) {
+                                                        e.printStackTrace();
+                                                    }
+                                                }
+                                            }
                                         }
-                                    } catch (ParseException e) {
-                                        e.printStackTrace();
                                     }
+
+                                    Collections.sort(vaccinationDetailsList, new Comparator<String>() {
+                                        @Override
+                                        public int compare(String s1, String s2) {
+                                            String dateTime1 = s1.substring(s1.indexOf("Date: ") + 6, s1.indexOf("\nTime: "));
+                                            String dateTime2 = s2.substring(s2.indexOf("Date: ") + 6, s2.indexOf("\nTime: "));
+
+                                            // Assuming dateTime is in "dd-MM-yyyy HH:mm" format, adjust the parsing logic
+                                            SimpleDateFormat sdfDateTime = new SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault());
+                                            try {
+                                                Date date1 = sdfDateTime.parse(dateTime1);
+                                                Date date2 = sdfDateTime.parse(dateTime2);
+                                                return date1.compareTo(date2);
+                                            } catch (ParseException e) {
+                                                e.printStackTrace();
+                                            }
+
+                                            return 0; // Default return if parsing fails
+                                        }
+                                    });
+
+                                    // Create an adapter to populate the ListView
+                                    ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, vaccinationDetailsList);
+                                    ListView vaccinationListView = view.findViewById(R.id.vaccinationListView);
+                                    vaccinationListView.setAdapter(adapter);
                                 }
-                            }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+                                    // Handle errors if needed
+                                }
+                            });
                         }
-                    }
-
-                    Collections.sort(vaccinationDetailsList, new Comparator<String>() {
-                        @Override
-                        public int compare(String s1, String s2) {
-                            String dateTime1 = s1.substring(s1.indexOf("Date: ") + 6, s1.indexOf("\nTime: "));
-                            String dateTime2 = s2.substring(s2.indexOf("Date: ") + 6, s2.indexOf("\nTime: "));
-
-                            // Assuming dateTime is in "dd-MM-yyyy HH:mm" format, adjust the parsing logic
-                            SimpleDateFormat sdfDateTime = new SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault());
-                            try {
-                                Date date1 = sdfDateTime.parse(dateTime1);
-                                Date date2 = sdfDateTime.parse(dateTime2);
-                                return date1.compareTo(date2);
-                            } catch (ParseException e) {
-                                e.printStackTrace();
-                            }
-
-                            return 0; // Default return if parsing fails
-                        }
-                    });
-
-                    // Create an adapter to populate the ListView
-                    ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, vaccinationDetailsList);
-                    ListView vaccinationListView = view.findViewById(R.id.vaccinationListView);
-                    vaccinationListView.setAdapter(adapter);
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                    // Handle errors if needed
-                }
-            });
-
             // Adding buttons for navigation
             Button clinicHospitalButton = view.findViewById(R.id.appointmentRecord2);
             Button bloodDonationButton = view.findViewById(R.id.appointmentRecord3);
@@ -182,6 +193,6 @@ public class DoctorVaccinationFragment extends Fragment {
                     controller.navigate(R.id.action_doctorVaccinationFragment_to_doctorLoginFragment);
                 }
             });
-        }
+
     }
 }

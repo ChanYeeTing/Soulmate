@@ -134,6 +134,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
@@ -148,6 +149,7 @@ public class DoctorLoginFragment extends Fragment {
     private EditText nameEditText, emailDoctorEditText, passDoctorEditText;
     private Button loginBtn, teleBtn;
     private Spinner hospitalSpinner;
+    private SharedViewModel viewModel;
     private DatabaseReference doctorDatabase;
 
     public DoctorLoginFragment() {
@@ -158,6 +160,7 @@ public class DoctorLoginFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         doctorDatabase = FirebaseDatabase.getInstance().getReference().child("Doctor");
+        viewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
     }
 
     @Override
@@ -218,6 +221,9 @@ public class DoctorLoginFragment extends Fragment {
                 if (dataSnapshot.exists()) {
                     String storedEmail = dataSnapshot.child("emailDoctor").getValue(String.class);
                     String storedPassword = dataSnapshot.child("passwordDoctor").getValue(String.class);
+//                    SharedViewModel viewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
+
+
                     if (email.equals(storedEmail) && password.equals(storedPassword)) {
                         // Doctor login successful
                         Toast.makeText(getActivity(), "Doctor login successful.", Toast.LENGTH_SHORT).show();
@@ -225,6 +231,7 @@ public class DoctorLoginFragment extends Fragment {
                         // Pass hospitalName to DoctorMainPageFragment using Bundle
                         Bundle bundle = new Bundle();
                         bundle.putString("hospitalName", hospitalName);
+                        viewModel.setSharedData(hospitalName);
 
 
                         NavController controller = Navigation.findNavController(v);

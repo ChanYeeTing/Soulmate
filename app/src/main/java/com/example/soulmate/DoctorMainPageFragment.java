@@ -8,10 +8,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
@@ -36,8 +38,8 @@ import java.util.Map;
 public class DoctorMainPageFragment extends Fragment {
 
     private static final String ARG_HOSPITAL_NAME = "hospitalName";
-    private String hospitalName;
-
+    private static String hospitalName;
+    private SharedViewModel viewModel;
     public DoctorMainPageFragment() {
         // Required empty public constructor
     }
@@ -53,9 +55,8 @@ public class DoctorMainPageFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            hospitalName = getArguments().getString(ARG_HOSPITAL_NAME);
-        }
+
+        viewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
     }
 
     @Override
@@ -67,10 +68,21 @@ public class DoctorMainPageFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        if (hospitalName != null) {
+        SharedViewModel viewModel1 = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
             TextView hospitalViewText = view.findViewById(R.id.hospitalTextView);
-            hospitalViewText.setText(hospitalName);
 
+
+
+        // Observe the LiveData
+        String data = viewModel1.getData();
+        // Update UI with the shared data
+        hospitalViewText.setText(data);
+        hospitalName = data;
+        viewModel1.setSharedData(hospitalName);
+
+
+
+        if (hospitalName != null) {
             DatabaseReference appointmentRef = FirebaseDatabase.getInstance().getReference().child("Appointment");
 
             // Query appointments for the specific hospital
@@ -148,6 +160,12 @@ public class DoctorMainPageFragment extends Fragment {
                     // Handle errors if needed
                 }
             });
+        }
+
+        else {
+            Toast.makeText(getActivity(), "Something wrong", Toast.LENGTH_SHORT).show();
+        }
+
 
             // Adding buttons for navigation
             Button vaccinationButton = view.findViewById(R.id.appointmentRecord7);
@@ -180,6 +198,6 @@ public class DoctorMainPageFragment extends Fragment {
                     controller.navigate(R.id.action_doctorMainPageFragment_to_doctorLoginFragment);
                 }
             });
-        }
+
     }
 }

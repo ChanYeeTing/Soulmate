@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
@@ -38,7 +39,8 @@ public class DoctorBloodDonationFragment extends Fragment {
     // Rename and change types of parameters
     private static final String ARG_HOSPITAL_NAME = "hospitalName";
     private String hospitalName;
-
+    TextView hospitalViewText;
+    private SharedViewModel viewModel;
     public DoctorBloodDonationFragment() {
         // Required empty public constructor
     }
@@ -54,9 +56,8 @@ public class DoctorBloodDonationFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            hospitalName = getArguments().getString(ARG_HOSPITAL_NAME);
-        }
+
+        viewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
     }
 
     @Override
@@ -69,11 +70,20 @@ public class DoctorBloodDonationFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        SharedViewModel viewModel1 = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
+        hospitalViewText = view.findViewById(R.id.hospitalTextView1);
+
+        String data = viewModel.getData();
+        // Update UI with the shared data
+        if(data!=null){
+            hospitalViewText.setText(data);
+            hospitalName = data;
+        }
+        viewModel1.setSharedData(hospitalName);
+
+
 
         if (hospitalName != null) {
-            TextView hospitalViewText = view.findViewById(R.id.hospitalTextView1);
-            hospitalViewText.setText(hospitalName);
-
             DatabaseReference donationRef = FirebaseDatabase.getInstance().getReference().child("Appointment");
 
             // Query blood donation records for the specific hospital
@@ -150,7 +160,7 @@ public class DoctorBloodDonationFragment extends Fragment {
                     // Handle errors if needed
                 }
             });
-
+            }
             // Adding buttons for navigation
             Button clinicHospitalButton = view.findViewById(R.id.appointmentRecord8);
             Button vaccinationButton = view.findViewById(R.id.appointmentRecord10);
@@ -182,6 +192,6 @@ public class DoctorBloodDonationFragment extends Fragment {
                     controller.navigate(R.id.action_doctorBloodDonationFragment_to_doctorLoginFragment);
                 }
             });
-        }
+
     }
 }
