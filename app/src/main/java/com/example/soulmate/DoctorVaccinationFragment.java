@@ -106,6 +106,7 @@ public class DoctorVaccinationFragment extends Fragment {
                                                 String number = String.valueOf(appointmentData.get("number"));
                                                 String dateRecords = String.valueOf(appointmentData.get("date"));
                                                 String timeRecords = String.valueOf(appointmentData.get("time"));
+                                                String vaccine = String.valueOf(appointmentData.get("vaccine"));
 
                                                 // Check if any of the required fields are null
                                                 if (name != null && number != null && dateRecords != null && timeRecords != null) {
@@ -117,7 +118,7 @@ public class DoctorVaccinationFragment extends Fragment {
                                                         // Check if the appointment is in the future
                                                         if (appointmentDateTime != null && appointmentDateTime.after(currentDate)) {
                                                             // Build a string with appointment information
-                                                            String appointmentDetails = "\nDate: " + dateRecords + "\nTime: " + timeRecords +
+                                                            String appointmentDetails = "\nDate: " + dateRecords + "\nTime: " + timeRecords + "\nVaccine Type: " + vaccine +
                                                                     "\nName: " + name + "\nPhone Number: " + number + "\n";
                                                             vaccinationDetailsList.add(appointmentDetails);
                                                         }
