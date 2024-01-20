@@ -10,6 +10,8 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.text.Editable;
+import android.text.TextWatcher;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -129,6 +131,41 @@ public class MedicalHistoryFragment extends Fragment {
 
         // Load and display medical history in view mode
         loadMedicalHistory();
+
+        buttonSave.setEnabled(false);  // Initially disable the Save button
+
+
+        // Define a TextWatcher to handle changes in the required EditText fields
+        TextWatcher textWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                // Check if all required fields are not empty to enable the Save button
+                boolean isAllFieldsFilled = !editTextMedicationName.getText().toString().trim().isEmpty()
+                        && !editTextDosage.getText().toString().trim().isEmpty()
+                        && !editTextFrequency.getText().toString().trim().isEmpty()
+                        && !editTextDuration.getText().toString().trim().isEmpty()
+                        && !editTextLastDate.getText().toString().trim().isEmpty()
+                        && !editTextInstructions.getText().toString().trim().isEmpty();
+
+                buttonSave.setEnabled(isAllFieldsFilled);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        };
+
+        // AddTextChangedListener to each required EditText to enable/disable the Save button
+        editTextMedicationName.addTextChangedListener(textWatcher);
+        editTextDosage.addTextChangedListener(textWatcher);
+        editTextFrequency.addTextChangedListener(textWatcher);
+        editTextDuration.addTextChangedListener(textWatcher);
+        editTextLastDate.addTextChangedListener(textWatcher);
+        editTextInstructions.addTextChangedListener(textWatcher);
     }
 
     private void switchToEditMode() {
@@ -166,10 +203,6 @@ public class MedicalHistoryFragment extends Fragment {
         editTextInstructions.setEnabled(false);
         editTextAllergicDetails.setEnabled(false);
         editTextSurgeryDetails.setEnabled(false);
-
-//        // Disable editing for allergic and surgery details
-//        checkBoxAllergic.setEnabled(false);
-//        checkBoxSurgery.setEnabled(false);
 
     }
 
@@ -210,8 +243,15 @@ public class MedicalHistoryFragment extends Fragment {
         boolean hasSurgery = checkBoxSurgery.isChecked();
 
         // Validate your data here before saving
+        if (medicationName.isEmpty() || dosage.isEmpty() || frequency.isEmpty() || duration.isEmpty()
+                || lastDate.isEmpty() || instructions.isEmpty()) {
+            // Show an error message if any of the required fields is empty
+            Toast.makeText(getContext(), "Please fill in all required fields.", Toast.LENGTH_SHORT).show();
+            return; // Exit the method without saving
+        }
 
-        if (!medicationName.isEmpty() && !dosage.isEmpty() && !frequency.isEmpty() && !duration.isEmpty() && !lastDate.isEmpty()) {
+        if (!medicationName.isEmpty() && !dosage.isEmpty() && !frequency.isEmpty() && !duration.isEmpty()
+                && !lastDate.isEmpty() && !instructions.isEmpty()) {
             // Save the data to Firebase
             if (firebaseAuth != null) {
                 FirebaseUser currentUser = firebaseAuth.getCurrentUser();
