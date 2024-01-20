@@ -63,7 +63,7 @@ public class SettingsFragment extends Fragment {
                     userData = (Map<String, Object>) dataSnapshot.getValue();
                     if (userData != null) {
 
-                        DOB = String.valueOf(dataSnapshot.child("Date Of Birth").getValue());
+                        DOB = String.valueOf(dataSnapshot.child("Date of Birth").getValue());
                         name = String.valueOf(dataSnapshot.child("name").getValue());
                         gender = String.valueOf(dataSnapshot.child("Gender").getValue());
                         email = String.valueOf(dataSnapshot.child("email").getValue());

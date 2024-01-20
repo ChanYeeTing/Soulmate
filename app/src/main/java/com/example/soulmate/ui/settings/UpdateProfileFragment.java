@@ -128,17 +128,31 @@ public class UpdateProfileFragment extends Fragment {
                 String address = editAddress.getText().toString().trim();
                 String E = editNameEmergency.getText().toString().trim();
                 String numE = editContactEmergency.getText().toString().trim();
+                String phonePattern = "^01\\d\\d{7,8}$";
+                if(numE!="") {
+
+                    if (!mobile.matches(phonePattern)&&!mobile.isEmpty()) {
+
+                        editMobile.setError("Invalid phone number format");
+                        editMobile.requestFocus();
+                    }
+                    if (!numE.matches(phonePattern)&&!numE.isEmpty()) {
+
+                        editContactEmergency.setError("Invalid phone number format");
+                        editContactEmergency.requestFocus();
+                    }
+                }
 
                 rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(RadioGroup group, int checkedId) {
                         submit.setEnabled(!name.isEmpty() && !DOB.isEmpty() && !email.isEmpty() && !mobile.isEmpty() && !address.isEmpty()
-                                && !E.isEmpty() && !numE.isEmpty() && (genid!=-1));
+                                && !E.isEmpty() && !numE.isEmpty() && (genid!=-1)&&numE.matches(phonePattern)&&mobile.matches(phonePattern));
                     }
                 });
 
                 submit.setEnabled(!name.isEmpty() && !DOB.isEmpty() && !email.isEmpty() && !mobile.isEmpty() && !address.isEmpty()
-                && !E.isEmpty() && !numE.isEmpty() && (genid!=-1));
+                && !E.isEmpty() && !numE.isEmpty() && (genid!=-1)&&numE.matches(phonePattern)&&mobile.matches(phonePattern));
             }
 
             @Override
@@ -156,8 +170,22 @@ public class UpdateProfileFragment extends Fragment {
                         String address = editAddress.getText().toString().trim();
                         String E = editNameEmergency.getText().toString().trim();
                         String numE = editContactEmergency.getText().toString().trim();
+                        String phonePattern = "^01\\d\\d{7,8}$";
+                        if(numE!="") {
+
+                            if (!mobile.matches(phonePattern)&&!mobile.isEmpty()) {
+
+                                editMobile.setError("Invalid phone number format");
+                                editMobile.requestFocus();
+                            }
+                            if (!numE.matches(phonePattern)&&!numE.isEmpty()) {
+
+                                editContactEmergency.setError("Invalid phone number format");
+                                editContactEmergency.requestFocus();
+                            }
+                        }
                         submit.setEnabled(!name.isEmpty() && !DOB.isEmpty() && !email.isEmpty() && !mobile.isEmpty() && !address.isEmpty()
-                                && !E.isEmpty() && !numE.isEmpty() && (genid != -1));
+                                && !E.isEmpty() && !numE.isEmpty() && (genid != -1)&&numE.matches(phonePattern)&&mobile.matches(phonePattern));
                     }
                 });
             }
@@ -233,7 +261,7 @@ public class UpdateProfileFragment extends Fragment {
                     // Set the initial values in the EditText fields
                     if (currentUserData != null) {
                         editName.setText(currentUserData.getName());
-                        editDOB.setText(String.valueOf(dataSnapshot.child("Date Of Birth").getValue()));
+                        editDOB.setText(String.valueOf(dataSnapshot.child("Date of Birth").getValue()));
                         Genderchoice = String.valueOf(dataSnapshot.child("Gender").getValue());
                         emailView.setText(currentUserData.getEmail());
                         editMobile.setText(String.valueOf(dataSnapshot.child("Mobile Number").getValue()));
@@ -274,7 +302,7 @@ public class UpdateProfileFragment extends Fragment {
                     // Assuming your data structure is a Map<String, Object>
                     getGender = String.valueOf(dataSnapshot.child("gender").getValue());
                     getName = String.valueOf(dataSnapshot.child("name").getValue());
-                    getDOB = String.valueOf(dataSnapshot.child("Date Of Birth").getValue());
+                    getDOB = String.valueOf(dataSnapshot.child("Date of Birth").getValue());
                     getMobile = String.valueOf(dataSnapshot.child("Mobile Number").getValue());
                     getAddress = String.valueOf(dataSnapshot.child("Address").getValue());
 
@@ -417,7 +445,7 @@ public class UpdateProfileFragment extends Fragment {
         public Map<String, Object> toMap() {
             Map<String, Object> userMap = new HashMap<>();
             userMap.put("name", name);
-            userMap.put("Date Of Birth", dateOfBirth);
+            userMap.put("Date of Birth", dateOfBirth);
             userMap.put("Gender", gender);
             userMap.put("email", email);
             userMap.put("Mobile Number", mobile);
