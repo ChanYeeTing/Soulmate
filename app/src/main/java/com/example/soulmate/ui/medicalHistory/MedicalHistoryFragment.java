@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -15,7 +16,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.soulmate.databinding.FragmentMedicalHistoryBinding;
-import com.example.soulmate.main_page;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -30,10 +30,35 @@ public class MedicalHistoryFragment extends Fragment {
 
     private LinearLayout viewModeLayout;
     private LinearLayout editModeLayout;
-    private TextView textViewMedicalHistory;
-    private EditText editTextMedicalHistory;
+
     private Button buttonEdit;
     private Button buttonSave;
+
+    private EditText editTextMedicationName;
+    private EditText editTextDosage;
+    private EditText editTextFrequency;
+    private EditText editTextDuration;
+    private EditText editTextLastDate;
+    private EditText editTextInstructions;
+
+    private CheckBox checkBoxAllergic;
+    private CheckBox checkBoxSurgery;
+    private EditText editTextAllergicDetails;
+    private EditText editTextSurgeryDetails;
+
+    private TextView textViewMedicationName;
+    private TextView textViewDosage;
+    private TextView textViewFrequency;
+
+    private TextView textViewDuration;
+    private TextView textViewLastDate;
+    private TextView textViewInstructions;
+    private TextView textViewAllergicStatus;
+    private  TextView textViewAllergicStatusValue;
+    private TextView textViewSurgeryStatus;
+    private TextView textViewSurgeryStatusValue;
+
+    private boolean isInEditMode = false;
 
     private DatabaseReference databaseReference;
     private FirebaseAuth firebaseAuth;
@@ -42,10 +67,6 @@ public class MedicalHistoryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentMedicalHistoryBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-
-        if (getActivity() instanceof main_page) {
-            ((main_page) getActivity()).getSupportActionBar().setTitle("Medical History");
-        }
 
         return root;
     }
@@ -56,10 +77,30 @@ public class MedicalHistoryFragment extends Fragment {
 
         viewModeLayout = binding.viewModeLayout;
         editModeLayout = binding.editModeLayout;
-        textViewMedicalHistory = binding.textViewMedicalHistory;
-        editTextMedicalHistory = binding.editTextMedicalHistory;
+
+        editTextMedicationName = binding.editTextMedicationName;
+        editTextDosage = binding.editTextDosage;
+        editTextFrequency = binding.editTextFrequency;
+        editTextDuration = binding.editTextDuration;
+        editTextLastDate = binding.editTextLastDate;
+        editTextInstructions = binding.editTextInstructions;
+        editTextAllergicDetails = binding.editTextAllergicDetails;
+        editTextSurgeryDetails = binding.editTextSurgeryDetails;
+        checkBoxAllergic = binding.checkBoxAllergic;
+        checkBoxSurgery = binding.checkBoxSurgery;
         buttonEdit = binding.buttonEdit;
         buttonSave = binding.buttonSave;
+
+        textViewMedicationName = binding.TextViewMedicationName;
+        textViewDosage = binding.TextDosage;
+        textViewFrequency = binding.TextFrequency;
+        textViewDuration = binding.TextDuration;
+        textViewLastDate = binding.TextLastDate;
+        textViewInstructions = binding.TextInstructions;
+        textViewAllergicStatusValue = binding.textViewAllergicStatusValue;
+        textViewAllergicStatus = binding.textViewAllergicStatus;
+        textViewSurgeryStatusValue = binding.textViewSurgeryStatusValue;
+        textViewSurgeryStatus = binding.textViewSurgeryStatus;
 
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
@@ -72,7 +113,9 @@ public class MedicalHistoryFragment extends Fragment {
         buttonEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switchToEditMode();
+                if (!isInEditMode) {
+                    switchToEditMode();
+                }
             }
         });
 
@@ -80,6 +123,7 @@ public class MedicalHistoryFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 saveMedicalHistory();
+                switchToViewMode();
             }
         });
 
@@ -88,17 +132,45 @@ public class MedicalHistoryFragment extends Fragment {
     }
 
     private void switchToEditMode() {
+        isInEditMode = true;
         viewModeLayout.setVisibility(View.GONE);
         editModeLayout.setVisibility(View.VISIBLE);
 
-        // Set the current medical history text to the edit text
-        editTextMedicalHistory.setText("");
+        // Enable editing for medication details
+        editTextMedicationName.setEnabled(true);
+        editTextDosage.setEnabled(true);
+        editTextFrequency.setEnabled(true);
+        editTextDuration.setEnabled(true);
+        editTextLastDate.setEnabled(true);
+        editTextInstructions.setEnabled(true);
+        editTextAllergicDetails.setEnabled(true);
+        editTextSurgeryDetails.setEnabled(true);
 
-        // Set the hint to guide users to fill in medical history
-        editTextMedicalHistory.setHint("Enter Medical History");
+        // Enable editing for allergic and surgery details
+        checkBoxAllergic.setEnabled(true);
+        checkBoxSurgery.setEnabled(true);
 
-        // Enable editing
-        editTextMedicalHistory.setEnabled(true);
+    }
+
+    private void switchToViewMode() {
+        isInEditMode = false;
+        viewModeLayout.setVisibility(View.VISIBLE);
+        editModeLayout.setVisibility(View.GONE);
+
+        // Disable editing for medication details
+        editTextMedicationName.setEnabled(false);
+        editTextDosage.setEnabled(false);
+        editTextFrequency.setEnabled(false);
+        editTextDuration.setEnabled(false);
+        editTextLastDate.setEnabled(false);
+        editTextInstructions.setEnabled(false);
+        editTextAllergicDetails.setEnabled(false);
+        editTextSurgeryDetails.setEnabled(false);
+
+//        // Disable editing for allergic and surgery details
+//        checkBoxAllergic.setEnabled(false);
+//        checkBoxSurgery.setEnabled(false);
+
     }
 
 
@@ -107,24 +179,39 @@ public class MedicalHistoryFragment extends Fragment {
         if (databaseReference != null) {
             databaseReference.get().addOnCompleteListener(task -> {
                 if (task.isSuccessful() && task.getResult() != null) {
-                    String loadedMedicalHistory = String.valueOf(task.getResult().getValue());
-                    if (loadedMedicalHistory != null && !loadedMedicalHistory.equals("null")) {
-                        textViewMedicalHistory.setText(loadedMedicalHistory);
-                    } else {
-                        textViewMedicalHistory.setText("Please fill in medical history");
+                    MedicationDetails medicationDetails = task.getResult().getValue(MedicationDetails.class);
+                    if (medicationDetails != null) {
+                        textViewMedicationName.setText(medicationDetails.getMedicationName());
+                        textViewDosage.setText(medicationDetails.getDosage());
+                        textViewFrequency.setText(medicationDetails.getFrequency());
+                        textViewDuration.setText(medicationDetails.getDuration());
+                        textViewLastDate.setText(medicationDetails.getLastDate());
+                        textViewInstructions.setText(medicationDetails.getInstructions());
+                        textViewAllergicStatusValue.setText(medicationDetails.isAllergic() ? "Yes" : "No");
+                        textViewAllergicStatus.setText(medicationDetails.getAllergicDetails());
+                        textViewSurgeryStatusValue.setText(medicationDetails.isSurgery() ? "Yes" : "No");
+                        textViewSurgeryStatus.setText(medicationDetails.getSurgeryDetails());
                     }
-                } else {
-                    textViewMedicalHistory.setText("Please fill in medical history");
                 }
             });
         }
     }
 
-
     private void saveMedicalHistory() {
-        String medicalHistory = editTextMedicalHistory.getText().toString().trim();
+        String medicationName = editTextMedicationName.getText().toString().trim();
+        String dosage = editTextDosage.getText().toString().trim();
+        String frequency = editTextFrequency.getText().toString().trim();
+        String duration = editTextDuration.getText().toString().trim();
+        String lastDate = editTextLastDate.getText().toString().trim();
+        String instructions = editTextInstructions.getText().toString().trim();
+        String allergicDetails = editTextAllergicDetails.getText().toString().trim();
+        String surgeryDetails = editTextSurgeryDetails.getText().toString().trim();
+        boolean isAllergic = checkBoxAllergic.isChecked();
+        boolean hasSurgery = checkBoxSurgery.isChecked();
 
-        if (!medicalHistory.isEmpty()) {
+        // Validate your data here before saving
+
+        if (!medicationName.isEmpty() && !dosage.isEmpty() && !frequency.isEmpty() && !duration.isEmpty() && !lastDate.isEmpty()) {
             // Save the data to Firebase
             if (firebaseAuth != null) {
                 FirebaseUser currentUser = firebaseAuth.getCurrentUser();
@@ -144,18 +231,30 @@ public class MedicalHistoryFragment extends Fragment {
                             if (dataSnapshot.exists()) {
                                 String name = dataSnapshot.getValue(String.class);
 
+                                // Create a MedicationDetails object
+                                MedicationDetails medicalHistory = new MedicationDetails(
+                                        medicationName,
+                                        dosage,
+                                        frequency,
+                                        duration,
+                                        lastDate,
+                                        instructions,
+                                        isAllergic,
+                                        allergicDetails,
+                                        hasSurgery,
+                                        surgeryDetails
+                                );
+
                                 // Save the user's name under "Name"
                                 userMedicalHistoryReference.child("Name").setValue(name);
 
                                 // Save the medical history under "medicalHistory" under the user's UID
                                 userMedicalHistoryReference.child("medicalHistory").setValue(medicalHistory);
 
-                                // Display the saved medical history in view mode
-                                textViewMedicalHistory.setText(medicalHistory);
+                                loadMedicalHistory();
 
                                 // Switch back to view mode
-                                viewModeLayout.setVisibility(View.VISIBLE);
-                                editModeLayout.setVisibility(View.GONE);
+                                switchToViewMode();
 
                                 Toast.makeText(getContext(), "Medical history saved successfully", Toast.LENGTH_SHORT).show();
                             }
@@ -169,10 +268,9 @@ public class MedicalHistoryFragment extends Fragment {
                 }
             }
         } else {
-            Toast.makeText(getContext(), "Please enter medical history", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Please enter all required field.", Toast.LENGTH_SHORT).show();
         }
     }
-
 
     @Override
     public void onDestroyView() {
