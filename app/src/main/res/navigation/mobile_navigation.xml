@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_popUpCallFragment2_to_emergencyCall3"
             app:destination="@id/emergencyCall3" />
+        <action
+            android:id="@+id/action_nav_home_to_login_fragment3"
+            app:destination="@id/login_fragment3" />
     </fragment>
 
     <fragment
@@ -182,4 +185,9 @@
         android:name="com.example.soulmate.VaccinationPopUpFragment"
         android:label="fragment_vaccination_pop_up"
         tools:layout="@layout/fragment_vaccination_pop_up" />
+    <fragment
+        android:id="@+id/login_fragment3"
+        android:name="com.example.soulmate.login_fragment"
+        android:label="fragment_login_fragment"
+        tools:layout="@layout/fragment_login_fragment" />
 </navigation>

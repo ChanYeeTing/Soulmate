@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -44,7 +45,21 @@ public class TeleDoctorLoginFragment extends Fragment {
     public TeleDoctorLoginFragment () {
         // Required empty public constructor
     }
+    @Override
+    public void onStart() {
+        super.onStart();
 
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+
+                NavController controller = Navigation.findNavController(requireView());
+                controller.navigate(R.id.action_teleDoctorLoginFragment_to_doctorLoginFragment);
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
+
+    }
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.

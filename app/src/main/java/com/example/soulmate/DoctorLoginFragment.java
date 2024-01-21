@@ -131,6 +131,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -155,7 +156,21 @@ public class DoctorLoginFragment extends Fragment {
     public DoctorLoginFragment() {
         // Required empty public constructor
     }
+    @Override
+    public void onStart() {
+        super.onStart();
 
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+
+                NavController controller = Navigation.findNavController(requireView());
+                controller.navigate(R.id.action_doctorLoginFragment_to_login_fragment);
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
+
+    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

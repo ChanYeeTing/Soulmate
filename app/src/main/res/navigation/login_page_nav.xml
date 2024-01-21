@@ -57,6 +57,9 @@
         <action
             android:id="@+id/action_adminLoginFragment_to_adminMainPageFragment"
             app:destination="@id/adminMainPageFragment" />
+        <action
+            android:id="@+id/action_adminLoginFragment_to_login_fragment"
+            app:destination="@id/login_fragment" />
     </fragment>
     <fragment
         android:id="@+id/adminMainPageFragment"
@@ -162,6 +165,9 @@
         <action
             android:id="@+id/action_doctorLoginFragment_to_doctorMainPageFragment"
             app:destination="@id/doctorMainPageFragment" />
+        <action
+            android:id="@+id/action_doctorLoginFragment_to_login_fragment"
+            app:destination="@id/login_fragment" />
     </fragment>
     <fragment
         android:id="@+id/teleDoctorLoginFragment"
@@ -171,6 +177,9 @@
         <action
             android:id="@+id/action_teleDoctorLoginFragment_to_teleDoctorMainPageFragment"
             app:destination="@id/teleDoctorMainPageFragment" />
+        <action
+            android:id="@+id/action_teleDoctorLoginFragment_to_doctorLoginFragment"
+            app:destination="@id/doctorLoginFragment" />
     </fragment>
     <fragment
         android:id="@+id/doctorMainPageFragment"
