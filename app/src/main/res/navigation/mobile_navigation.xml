@@ -89,11 +89,6 @@
         android:name="com.example.soulmate.EmergencyCall"
         android:label="fragment_emergency_call"
         tools:layout="@layout/fragment_emergency_call" />
-    <dialog
-        android:id="@+id/popUpReminderFragment"
-        android:name="com.example.soulmate.PopUpReminderFragment"
-        android:label="fragment_pop_up_reminder"
-        tools:layout="@layout/fragment_pop_up_reminder" />
     <fragment
         android:id="@+id/telemedicineBooking"
         android:name="com.example.soulmate.ui.appointment.TelemedicineBookingFragment"

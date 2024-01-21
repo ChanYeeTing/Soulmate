@@ -35,10 +35,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class EmergencyCall extends Fragment implements OnMapReadyCallback {
 
@@ -54,6 +57,11 @@ public class EmergencyCall extends Fragment implements OnMapReadyCallback {
     private LocationRequest locationRequest;
     private GoogleMap googleMap;
     private MapView mapView;
+
+    private Timer locationUpdateTimer;
+    private TimerTask locationUpdateTask;
+
+    private long lastNotificationTime = 0;
 
     public EmergencyCall() {
         // Required empty public constructor
@@ -97,6 +105,46 @@ public class EmergencyCall extends Fragment implements OnMapReadyCallback {
         googleMap = map;
         enableMyLocation();
         startLocationUpdates();
+        startLocationUpdateTimer();
+    }
+
+    private void startLocationUpdateTimer() {
+        locationUpdateTimer = new Timer();
+        locationUpdateTask = new TimerTask() {
+            @Override
+            public void run() {
+                // Call the method to update location
+                updateLocation();
+            }
+        };
+
+        // Schedule the timer to run every 30 seconds (adjust the interval as needed)
+        locationUpdateTimer.schedule(locationUpdateTask, 0, 30000); // 30 seconds
+    }
+
+    private void stopLocationUpdateTimer() {
+        if (locationUpdateTimer != null) {
+            locationUpdateTimer.cancel();
+            locationUpdateTimer = null;
+        }
+        if (locationUpdateTask != null) {
+            locationUpdateTask.cancel();
+            locationUpdateTask = null;
+        }
+    }
+
+    private void updateLocation() {
+        if (googleMap != null) {
+            fusedLocationClient.getLastLocation()
+                    .addOnSuccessListener(requireActivity(), new OnSuccessListener<Location>() {
+                        @Override
+                        public void onSuccess(Location location) {
+                            if (location != null) {
+                                updateLocationUI(location);
+                            }
+                        }
+                    });
+        }
     }
 
     private void enableMyLocation() {
@@ -154,8 +202,15 @@ public class EmergencyCall extends Fragment implements OnMapReadyCallback {
                     TextView addressTextView = getView().findViewById(R.id.textView5);
                     addressTextView.setText("Address: " + address.getAddressLine(0));
 
-                    saveAddressToFirebase(address.getAddressLine(0));
-                    Toast.makeText(getContext(), "Notified admin and will call for help!", Toast.LENGTH_SHORT).show();
+                    // Check if five minutes have passed since the last notification
+                    long currentTime = System.currentTimeMillis();
+                    if (currentTime - lastNotificationTime >= 5 * 60 * 1000) { // 5 minutes in milliseconds
+                        saveAddressToFirebase(address.getAddressLine(0));
+                        Toast.makeText(getContext(), "Notified admin and will call for help!", Toast.LENGTH_SHORT).show();
+
+                        // Update the time of the last notification
+                        lastNotificationTime = currentTime;
+                    }
 
                     isCall = false;
                 }
@@ -211,6 +266,7 @@ public class EmergencyCall extends Fragment implements OnMapReadyCallback {
     @Override
     public void onPause() {
         super.onPause();
+        stopLocationUpdateTimer();
         if (fusedLocationClient != null && locationCallback != null) {
             fusedLocationClient.removeLocationUpdates(locationCallback);
         }
