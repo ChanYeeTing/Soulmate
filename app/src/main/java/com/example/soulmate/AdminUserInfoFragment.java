@@ -147,22 +147,18 @@ public class AdminUserInfoFragment extends Fragment {
 
     // Delete user data in firebase
     private void deleteUserAccount(String userId) {
-        if (userId != null) {
-            DatabaseReference userRef = usersReference.child(userId);
-            userRef.removeValue()
-                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()) {
-                                Toast.makeText(requireContext(), "Please wait for a while", Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(requireContext(), "Failed to delete user account", Toast.LENGTH_SHORT).show();
-                            }
+        DatabaseReference userRef = usersReference.child(userId);
+        userRef.removeValue()
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(requireContext(), "Please wait for a while", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(requireContext(), "Failed to delete user account", Toast.LENGTH_SHORT).show();
                         }
-                    });
-        } else {
-            Toast.makeText(requireContext(), "Invalid user ID", Toast.LENGTH_SHORT).show();
-        }
+                    }
+                });
     }
 
     //Delete user account in authentication
