@@ -72,7 +72,7 @@ public class AdminUserInfoFragment extends Fragment {
 
             if (userData != null) {
                 String username = String.valueOf(userData.get("name"));
-                String dob = String.valueOf(userData.get("Date Of Birth"));
+                String dob = String.valueOf(userData.get("Date of Birth"));
                 String gender = String.valueOf(userData.get("Gender"));
                 String phone = String.valueOf(userData.get("Mobile Number"));
                 String email = String.valueOf(userData.get("email"));
