@@ -1,12 +1,16 @@
 package com.example.soulmate;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,6 +18,10 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -94,6 +102,23 @@ public class AdminUserInfoFragment extends Fragment {
                 android.R.layout.simple_list_item_1, userList);
 
         userListView.setAdapter(adapter);
+
+        // Add long click listener to the ListView items
+        userListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                // Get the selected user information
+                String selectedUserInfo = userList.get(position);
+
+                // Extract the user ID from the selected information
+                String uid = extractValue(selectedUserInfo, "User ID:\n", "\nName:");
+
+                // Prompt the admin for confirmation to delete the user account
+                showDeleteConfirmationDialog(uid);
+
+                return true; // Consume the long click event
+            }
+        });
     }
 
     // Helper method to extract a value from a string
@@ -103,13 +128,71 @@ public class AdminUserInfoFragment extends Fragment {
         return source.substring(startIndex, endIndex);
     }
 
+    // Add a method to show a confirmation dialog
+    private void showDeleteConfirmationDialog(final String userId) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        builder.setTitle("Delete User Account");
+        builder.setMessage("Are you sure you want to delete this user account?");
+        builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Delete the user account
+                deleteUserAccount(userId);
+                deleteAuthenticationAccount(userId);
+            }
+        });
+        builder.setNegativeButton("Cancel", null);
+        builder.show();
+    }
 
+    // Delete user data in firebase
+    private void deleteUserAccount(String userId) {
+        if (userId != null) {
+            DatabaseReference userRef = usersReference.child(userId);
+            userRef.removeValue()
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(requireContext(), "Please wait for a while", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(requireContext(), "Failed to delete user account", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+        } else {
+            Toast.makeText(requireContext(), "Invalid user ID", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    //Delete user account in authentication
+    private void deleteAuthenticationAccount(String userId) {
+        // Get the authenticated user using the UID
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (user != null) {
+            // Delete the user's authentication account
+            user.delete()
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(requireContext(), "User account deleted", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(requireContext(), "Failed to delete user authentication account", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+        } else {
+            Toast.makeText(requireContext(), "User is not authenticated", Toast.LENGTH_SHORT).show();
+        }
+    }
 
     @Override
-    public void onViewCreated( @NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Button backButton = getView().findViewById(R.id.backButton2);
+        Button backButton = view.findViewById(R.id.backButton2);
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
