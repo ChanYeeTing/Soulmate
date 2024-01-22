@@ -3,17 +3,26 @@ package com.example.soulmate;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.jitsi.meet.sdk.JitsiMeet;
 import org.jitsi.meet.sdk.JitsiMeetActivity;
@@ -37,6 +46,8 @@ public class TeleRoom extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private DatabaseReference userReference;
+    static String value ="";
     Button button;
     EditText input;
     int REQUEST_CODE=123;
@@ -85,6 +96,35 @@ public class TeleRoom extends Fragment {
         input = getView().findViewById(R.id.roomId);
         button = getView().findViewById(R.id.button);
 
+        String text = input.getText().toString().trim();
+        button.setEnabled(text.length()==10);
+        TextWatcher submitTextWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                String text = input.getText().toString().trim();
+                button.setEnabled(text.length()==10);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String text = input.getText().toString().trim();
+                if(text.length()>10)
+                {
+                    input.setError("Room code must be 10 digit");
+                    input.requestFocus();
+                    button.setEnabled(text.length()==10);
+                }
+                else{
+                    button.setEnabled(text.length()==10);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        };
+        input.addTextChangedListener(submitTextWatcher);
 
         try {
             serverUrl = new URL("https://meet.jit.si");
@@ -101,6 +141,7 @@ public class TeleRoom extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String text = input.getText().toString().trim();
 
                 // Check if the permission is granted
                 if (ContextCompat.checkSelfPermission(getActivity(), android.Manifest.permission.FOREGROUND_SERVICE_MEDIA_PROJECTION)
@@ -111,17 +152,48 @@ public class TeleRoom extends Fragment {
                             REQUEST_CODE); // Replace REQUEST_CODE with your own code
                 }
                 else {
-                    String text = input.getText().toString().trim();
-                    if(text.length()>0)
-                    {
-                        JitsiMeetConferenceOptions options = new JitsiMeetConferenceOptions.Builder()
-                                .setRoom(text)
-                                .setFeatureFlag("invite.enabled", false)
-                                .setAudioMuted(true)
-                                .setVideoMuted(true)
-                                .build();
-                        JitsiMeetActivity.launch(getActivity(), options);
-                    }
+                    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Appointment");
+                    databaseReference.child("Telemedicine").addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            outerLoop:
+                            for(DataSnapshot snapshot1: snapshot.getChildren()) {
+                                String childKey = snapshot1.getKey();
+
+                                DataSnapshot snapshotDate = snapshot.child(childKey);
+
+                                for (DataSnapshot snapshotTime : snapshotDate.getChildren()) {
+                                    String Key = snapshotTime.getKey();
+                                    DataSnapshot snapshotData = snapshot1.child(Key);
+
+                                    if (snapshotData.exists()) {
+
+                                        String text = input.getText().toString().trim();
+                                        value = String.valueOf(snapshotData.child("zId").getValue());
+                                        if (value.equals(text)) {
+                                            JitsiMeetConferenceOptions options = new JitsiMeetConferenceOptions.Builder()
+                                                    .setRoom(text)
+                                                    .setFeatureFlag("invite.enabled", false)
+                                                    .setAudioMuted(true)
+                                                    .setVideoMuted(true)
+                                                    .build();
+                                            JitsiMeetActivity.launch(getActivity(), options);
+                                            break outerLoop;
+                                        }
+                                    }}}
+                            if(!value.equals(text))
+                            {
+                                Toast.makeText(getContext(), "Invalid Room Code", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
                 }
 
 
