@@ -242,6 +242,8 @@ public class AnalyzeResultFragment extends Fragment {
 
         if (glucoseLevel >= 70 && glucoseLevel <= 100) {
             textViewBloodSugar.setText("Blood Sugar Level: " + healthData.blood_sugar +" mg/dL\n# (Normal Range) \n- Advice: Maintain a balanced diet, regular physical activity, and monitor blood sugar levels as advised by healthcare professionals.");
+        } else if (glucoseLevel < 70){
+            textViewBloodSugar.setText("Blood Sugar Level: " + healthData.blood_sugar +" mg/dL\n# (Hypoglycemia) \n- Advice: Consume a fast-acting source of glucose, such as fruit juice or glucose tablets, to raise blood sugar levels, but consult with a healthcare professional to address underlying causes and establish a long-term management plan.");
         } else if (glucoseLevel >= 101 && glucoseLevel <= 125) {
             textViewBloodSugar.setText("Blood Sugar Level: " + healthData.blood_sugar +" mg/dL\n# (Pre-diabetes) \n- Advice: Implement lifestyle changes, including diet and exercise, to prevent progression to diabetes. Consult with healthcare professionals.");
         } else {
