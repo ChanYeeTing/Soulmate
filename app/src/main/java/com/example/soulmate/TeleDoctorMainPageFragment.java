@@ -154,11 +154,16 @@ public class TeleDoctorMainPageFragment extends Fragment {
                         String Key = snapshotTime.getKey();
                         DataSnapshot snapshotData = snapshot1.child(Key);
 
+                        for (DataSnapshot snapshotUid : snapshotData.getChildren()) {
+                            String uidKey = snapshotUid.getKey();
 
-                        if (snapshotData.exists()) {
+                            DataSnapshot snapshotDetail = snapshotTime.child(uidKey);
+
+
+                        if (snapshotDetail.exists()) {
                             int i = 0;
                             String[] value = new String[7];
-                            for (DataSnapshot snapshot2 : snapshotData.getChildren()) {
+                            for (DataSnapshot snapshot2 : snapshotDetail.getChildren()) {
                                 value[i] = String.valueOf(snapshot2.getValue());
                                 i++;
 
@@ -189,7 +194,7 @@ public class TeleDoctorMainPageFragment extends Fragment {
                             }
                         } else
                             Toast.makeText(getActivity(), "Failed", Toast.LENGTH_SHORT).show();
-
+                    }
                     }
                     arrayAdapter.notifyDataSetChanged();
                     if (updated.getAdapter() == null || updated.getAdapter().getCount() == 0) {
