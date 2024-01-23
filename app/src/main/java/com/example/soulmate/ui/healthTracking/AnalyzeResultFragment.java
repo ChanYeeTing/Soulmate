@@ -176,7 +176,7 @@ public class AnalyzeResultFragment extends Fragment {
         int systolic = Integer.parseInt(pressureValues[0]);
         int diastolic = Integer.parseInt(pressureValues[1]);
 
-        if (systolic < 120 && diastolic < 80) {
+        if (systolic < 120 && diastolic >= 60 && diastolic < 80) {
             textViewBloodPressure.setText("Blood Pressure Level: "+ healthData.blood_pressure + " mmHg" + "\n# (Normal Range)");
         } else if (systolic < 90 && diastolic < 60){
             textViewBloodPressure.setText("Blood Pressure Level: "+ healthData.blood_pressure + " mmHg" + "\n# (Hypotension) \n- Advice: \n" +
@@ -194,7 +194,7 @@ public class AnalyzeResultFragment extends Fragment {
         // Assume temperature is in Celsius
         double tempCelsius = Double.parseDouble(temperature);
 
-        if (tempCelsius < 38.0) {
+        if (tempCelsius >= 35.0 && tempCelsius < 38.0) {
             textViewBodyTemperature.setText("Body Temperature: " + healthData.temperature + " °C" + "\n# (Normal Range) \n- Advice: Keep it normal: Maintain good hygiene practices and a healthy lifestyle.");
         } else if (tempCelsius < 35.0){
             textViewBodyTemperature.setText("Body Temperature: " + healthData.temperature + " °C" + "\n# (Hypothermia) \n- Advice: Seek shelter, remove wet clothing, and gradually re-warm with blankets and warm fluids, but seek immediate medical attention if severe symptoms persist.");
