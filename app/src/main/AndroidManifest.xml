@@ -47,6 +47,11 @@
             android:name=".AdminUserInfoFragment"
             android:windowSoftInputMode="adjustPan">
         </activity>
+
+        <activity
+            android:name=".AdminMedicalHistoryFragment"
+            android:windowSoftInputMode="adjustPan">
+        </activity>
         <!--
              TODO: Before you run your application, you need a Google Maps API key.
 

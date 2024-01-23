@@ -2,11 +2,14 @@ package com.example.soulmate;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
@@ -29,6 +32,7 @@ public class AdminMedicalHistoryFragment extends Fragment {
 
     private ListView medicalHistoryListView;
     private DatabaseReference medicalHistoryReference;
+    private List<String> medicalHistoryList; // Declare the list here
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -37,6 +41,28 @@ public class AdminMedicalHistoryFragment extends Fragment {
 
         medicalHistoryListView = view.findViewById(R.id.medicalHistoryListView);
         medicalHistoryReference = FirebaseDatabase.getInstance().getReference().child("Users");
+        EditText searchEditText = view.findViewById(R.id.searchEditText);
+
+        // Initialize the list
+        medicalHistoryList = new ArrayList<>();
+
+        searchEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                // Not needed for this example
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                // Update the ListView dynamically as the user types
+                performSearch(charSequence.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                // Not needed for this example
+            }
+        });
 
         // Add a ValueEventListener to fetch medical history information
         medicalHistoryReference.addValueEventListener(new ValueEventListener() {
@@ -54,9 +80,26 @@ public class AdminMedicalHistoryFragment extends Fragment {
         return view;
     }
 
+    private void performSearch(String userNameToSearch) {
+        List<String> searchResults = new ArrayList<>();
+
+        for (String medicalHistoryInfo : medicalHistoryList) {
+            // Check if the medical history information contains the searched user name
+            if (medicalHistoryInfo.toLowerCase().contains(userNameToSearch.toLowerCase())) {
+                searchResults.add(medicalHistoryInfo);
+            }
+        }
+
+        // Update the ListView with search results
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(),
+                android.R.layout.simple_list_item_1, searchResults);
+
+        medicalHistoryListView.setAdapter(adapter);
+    }
+
     private void updateListView(DataSnapshot dataSnapshot) {
-        // Create a list to store medical history information
-        List<String> medicalHistoryList = new ArrayList<>();
+        // Clear the list before updating
+        medicalHistoryList.clear();
 
         for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
             String uid = userSnapshot.getKey();
