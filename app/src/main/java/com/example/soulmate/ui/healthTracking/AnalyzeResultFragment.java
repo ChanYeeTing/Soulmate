@@ -178,6 +178,9 @@ public class AnalyzeResultFragment extends Fragment {
 
         if (systolic < 120 && diastolic < 80) {
             textViewBloodPressure.setText("Blood Pressure Level: "+ healthData.blood_pressure + " mmHg" + "\n# (Normal Range)");
+        } else if (systolic < 90 && diastolic < 60){
+            textViewBloodPressure.setText("Blood Pressure Level: "+ healthData.blood_pressure + " mmHg" + "\n# (Hypotension) \n- Advice: \n" +
+                    "Increase your fluid and salt intake, move slowly between positions, and consider wearing compression stockings to help manage hypotension.");
         } else if (systolic >= 120 && systolic <= 129 && diastolic < 80) {
             textViewBloodPressure.setText("Blood Pressure Level: "+ healthData.blood_pressure + " mmHg" + "\n# (Elevated) \n- Advice: Monitor your blood pressure regularly and adopt a healthy lifestyle.");
         } else if ((systolic >= 130 && systolic <= 139) || (diastolic >= 80 && diastolic <= 89)) {
@@ -193,6 +196,8 @@ public class AnalyzeResultFragment extends Fragment {
 
         if (tempCelsius < 38.0) {
             textViewBodyTemperature.setText("Body Temperature: " + healthData.temperature + " °C" + "\n# (Normal Range) \n- Advice: Keep it normal: Maintain good hygiene practices and a healthy lifestyle.");
+        } else if (tempCelsius < 35.0){
+            textViewBodyTemperature.setText("Body Temperature: " + healthData.temperature + " °C" + "\n# (Hypothermia) \n- Advice: Seek shelter, remove wet clothing, and gradually re-warm with blankets and warm fluids, but seek immediate medical attention if severe symptoms persist.");
         } else {
             textViewBodyTemperature.setText("Body Temperature: " + healthData.temperature + " °C" + "\n# (Fever) \n- Advice: Take appropriate measures to manage fever. "
                     + "Stay hydrated, rest, and use fever-reducing medications (such as acetaminophen or ibuprofen) under medical guidance. "

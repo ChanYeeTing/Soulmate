@@ -121,7 +121,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:text="Last date taken:"
+            android:text="Last date taken/Currently taking:"
             android:textStyle="bold"
             android:textSize="18sp" />
 
@@ -148,8 +148,6 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:fontFamily="serif"
-            android:inputType="textMultiLine"
-            android:lines="2"
             android:textSize="18dp" />
 
         <!-- Allergic Title -->
@@ -240,10 +238,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="serif"
-            android:inputType="text"
+            android:inputType="textMultiLine"
             android:textSize="18dp"
             android:layout_marginBottom="16dp"
-            android:hint="e.g. Sulfonylureas"/>
+            android:hint="e.g. 1. Sulfonylureas"/>
 
         <TextView
             android:id="@+id/textViewDosageEdit"
@@ -258,10 +256,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="serif"
-            android:inputType="text"
+            android:inputType="textMultiLine"
             android:textSize="18dp"
             android:layout_marginBottom="16dp"
-            android:hint="e.g. 10 mg 1 pill"/>
+            android:hint="e.g. 1. 10 mg 1 pill"/>
 
         <TextView
             android:id="@+id/textViewFrequencyEdit"
@@ -276,10 +274,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="serif"
-            android:inputType="number"
+            android:inputType="textMultiLine"
             android:textSize="18dp"
             android:layout_marginBottom="16dp"
-            android:hint="e.g. 1"/>
+            android:hint="e.g. 1. 1"/>
 
         <TextView
             android:id="@+id/textViewDurationEdit"
@@ -294,16 +292,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="serif"
-            android:inputType="text"
+            android:inputType="textMultiLine"
             android:textSize="18dp"
             android:layout_marginBottom="16dp"
-            android:hint="e.g. After lunch daily"/>
+            android:hint="e.g. 1. After lunch daily"/>
 
         <TextView
             android:id="@+id/textViewLastDateEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Last date taken:"
+            android:text="Last date taken/Currently taking:"
             android:textSize="18sp"
             android:layout_marginBottom="8dp" />
 
@@ -312,10 +310,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="serif"
-            android:inputType="date"
+            android:inputType="textMultiLine"
             android:textSize="18dp"
             android:layout_marginBottom="16dp"
-            android:hint="e.g. 20/1/2024"/>
+            android:hint="e.g. 1. 20/1/2024"/>
 
         <TextView
             android:id="@+id/textViewInstructionsEdit"
@@ -331,10 +329,9 @@
             android:layout_height="wrap_content"
             android:fontFamily="serif"
             android:inputType="textMultiLine"
-            android:lines="2"
             android:textSize="18dp"
             android:layout_marginBottom="16dp"
-            android:hint="e.g. -"/>
+            android:hint="e.g. 1. Sleepy after taking medicine"/>
 
         <!-- Allergic -->
         <CheckBox
@@ -359,7 +356,6 @@
             android:layout_height="wrap_content"
             android:fontFamily="serif"
             android:inputType="textMultiLine"
-            android:lines="2"
             android:textSize="18dp"
             android:layout_marginBottom="16dp"
             android:hint="e.g. Egg"/>
@@ -387,7 +383,6 @@
             android:layout_height="wrap_content"
             android:fontFamily="serif"
             android:inputType="textMultiLine"
-            android:lines="2"
             android:textSize="18dp"
             android:layout_marginBottom="16dp"
             android:hint="e.g. Cataract surgery on 1/1/2024"/>
