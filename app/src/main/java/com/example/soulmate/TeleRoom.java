@@ -166,10 +166,15 @@ public class TeleRoom extends Fragment {
                                     String Key = snapshotTime.getKey();
                                     DataSnapshot snapshotData = snapshot1.child(Key);
 
-                                    if (snapshotData.exists()) {
+                                    for (DataSnapshot snapshotUid : snapshotData.getChildren()) {
+                                        String uidKey = snapshotUid.getKey();
+
+                                        DataSnapshot snapshotDetail = snapshotTime.child(uidKey);
+
+                                    if (snapshotDetail.exists()) {
 
                                         String text = input.getText().toString().trim();
-                                        value = String.valueOf(snapshotData.child("zId").getValue());
+                                        value = String.valueOf(snapshotDetail.child("zId").getValue());
                                         if (value.equals(text)) {
                                             JitsiMeetConferenceOptions options = new JitsiMeetConferenceOptions.Builder()
                                                     .setRoom(text)
@@ -181,6 +186,7 @@ public class TeleRoom extends Fragment {
                                             break outerLoop;
                                         }
                                     }}}
+                            }
                             if(!value.equals(text))
                             {
                                 Toast.makeText(getContext(), "Invalid Room Code", Toast.LENGTH_SHORT).show();
