@@ -60,25 +60,52 @@ public class AdminMedicalHistoryFragment extends Fragment {
 
         for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
             String uid = userSnapshot.getKey();
-            Map<String, Object> medicalData = (Map<String, Object>) userSnapshot.child("Medical History").getValue();
 
-            if (medicalData != null) {
-                // Get medical history for the current user
-                String name = String.valueOf(medicalData.get("Name"));
-                String medical = String.valueOf(medicalData.get("medicalHistory"));
+            // Check if the "Medical History" node exists for the current user
+            if (userSnapshot.hasChild("Medical History")) {
+                DataSnapshot medicalHistorySnapshot = userSnapshot.child("Medical History");
 
-                // Build a string with medical history information
-                String medicalHistoryInfo = "\nUser ID:\n" + uid + "\nName: " + name + "\nMedical History: " + medical + "\n";
+                // Check if the "medicalHistory" node exists
+                if (medicalHistorySnapshot.hasChild("medicalHistory")) {
+                    DataSnapshot medicalDataSnapshot = medicalHistorySnapshot.child("medicalHistory");
 
-                medicalHistoryList.add(medicalHistoryInfo);
+                    // Retrieve "Name" directly from medicalHistorySnapshot
+                    String name = String.valueOf(medicalHistorySnapshot.child("Name").getValue());
+
+                    // Retrieve medical history data
+                    String allergic = String.valueOf(medicalDataSnapshot.child("allergic").getValue());
+                    String duration = String.valueOf(medicalDataSnapshot.child("duration").getValue());
+                    String medicationName = String.valueOf(medicalDataSnapshot.child("medicationName").getValue());
+                    String dosage = String.valueOf(medicalDataSnapshot.child("dosage").getValue());
+                    String instruction = String.valueOf(medicalDataSnapshot.child("instruction").getValue());
+                    String allergicDetails = String.valueOf(medicalDataSnapshot.child("allergicDetails").getValue());
+                    String surgeryDetails = String.valueOf(medicalDataSnapshot.child("surgeryDetails").getValue());
+                    String frequency = String.valueOf(medicalDataSnapshot.child("frequency").getValue());
+                    String surgery = String.valueOf(medicalDataSnapshot.child("surgery").getValue());
+
+                    // Build a string with formatted medical history information
+                    String medicalHistoryInfo = "\nUser ID:\n" + uid +
+                            "\nName: " + name +
+                            "\nMedication Name: \n" + medicationName +
+                            "\nDosage: \n" + dosage +
+                            "\nFrequency: \n" + frequency +
+                            "\nDuration: \n" + duration +
+                            "\nInstruction: \n" + instruction +
+                            "\nAllergic: " + allergic +
+                            "\nAllergic Details: " + allergicDetails +
+                            "\nSurgery: " + surgery +
+                            "\nSurgery Details: " + surgeryDetails + "\n";
+
+                    medicalHistoryList.add(medicalHistoryInfo);
+                }
             }
-
-            // Create an adapter to populate the ListView
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(),
-                    android.R.layout.simple_list_item_1, medicalHistoryList);
-
-            medicalHistoryListView.setAdapter(adapter);
         }
+
+        // Create an adapter to populate the ListView
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(),
+                android.R.layout.simple_list_item_1, medicalHistoryList);
+
+        medicalHistoryListView.setAdapter(adapter);
     }
 
     @Override

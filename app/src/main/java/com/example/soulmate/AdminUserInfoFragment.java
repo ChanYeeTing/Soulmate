@@ -3,12 +3,15 @@ package com.example.soulmate;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -39,12 +42,34 @@ public class AdminUserInfoFragment extends Fragment {
     private ListView userListView;
     private DatabaseReference usersReference;
 
+    private EditText searchEditText;
+    private List<String> allUserList;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_admin_user_info, container, false);
 
         userListView = view.findViewById(R.id.userInfoListView);
         usersReference = FirebaseDatabase.getInstance().getReference().child("Users");
+        searchEditText = view.findViewById(R.id.searchEditText);
+
+        searchEditText.addTextChangedListener(new TextWatcher () {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                // Not used in this case
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                // Filter the user list based on the entered text
+                filterUserList(charSequence.toString());
+            }
+
+            @Override
+            public void afterTextChanged( Editable editable) {
+                // Not used in this case
+            }
+        });
 
         // Add a ValueEventListener to fetch user information
         usersReference.addValueEventListener(new ValueEventListener() {
@@ -97,9 +122,12 @@ public class AdminUserInfoFragment extends Fragment {
             }
         });
 
+        // Initialize allUserList with a new ArrayList
+        allUserList = new ArrayList<>(userList);
+
         // Create an adapter to populate the ListView
         ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(),
-                android.R.layout.simple_list_item_1, userList);
+                android.R.layout.simple_list_item_1, allUserList);
 
         userListView.setAdapter(adapter);
 
@@ -197,5 +225,22 @@ public class AdminUserInfoFragment extends Fragment {
                 controller.navigate(R.id.action_adminUserInfoFragment_to_adminMainPageFragment);
             }
         });
+    }
+
+    private void filterUserList(String searchText) {
+        List<String> filteredList = new ArrayList<>();
+
+        for (String userInfo : allUserList) {
+            // Check if the username contains the search text (case-insensitive)
+            if (extractValue(userInfo, "Name: ", "\nGender: ").toLowerCase().contains(searchText.toLowerCase())) {
+                filteredList.add(userInfo);
+            }
+        }
+
+        // Update the adapter with the filtered list
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(),
+                android.R.layout.simple_list_item_1, filteredList);
+
+        userListView.setAdapter(adapter);
     }
 }
