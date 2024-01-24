@@ -55,24 +55,6 @@
                     tools:layout_conversion_absoluteWidth="286dp" />
 
                 <TextView
-                    android:id="@+id/textView27"
-                    android:layout_width="304dp"
-                    android:layout_height="59dp"
-                    android:fontFamily="serif"
-                    android:gravity="center"
-                    android:text="After joined, please choose WAIT FOR MODERATOR"
-                    android:textAlignment="center"
-                    android:textSize="13dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.36"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/Telemedicine"
-                    app:layout_constraintVertical_bias="0.332"
-                    tools:layout_conversion_absoluteHeight="0dp"
-                    tools:layout_conversion_absoluteWidth="286dp" />
-
-                <TextView
                     android:id="@+id/Telemedicine"
                     android:layout_width="240dp"
                     android:layout_height="53dp"
@@ -103,7 +85,9 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.497"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView11"
+                    app:layout_constraintVertical_bias="0.889" />
 
                 <EditText
                     android:id="@+id/roomId"
