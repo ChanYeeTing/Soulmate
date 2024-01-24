@@ -98,7 +98,7 @@ public class TelemedicineFragment extends Fragment {
         input.addTextChangedListener(submitTextWatcher);
 
         try {
-            serverUrl = new URL("https://meet.jit.si");
+            serverUrl = new URL("https://meet.guifi.net/");
             JitsiMeetConferenceOptions defaultOptions
                     = new JitsiMeetConferenceOptions.Builder()
                     .setServerURL(serverUrl)
