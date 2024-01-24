@@ -83,9 +83,10 @@ public class AdminVaccinationFragment extends Fragment {
                         String hospital = String.valueOf(vaccinationData.get("hospital"));
                         String date = String.valueOf(vaccinationData.get("date"));
                         String time = String.valueOf(vaccinationData.get("time"));
+                        String vaccine = String.valueOf(vaccinationData.get("vaccine"));
 
                         // Build a string with clinicHospital information
-                        String vaccinationInfo = "\nTime: " + date + " (" + time + ") " + "\nVenue: " + hospital
+                        String vaccinationInfo = "\nTime: " + date + " (" + time + ") " + "\nVenue: " + hospital + "\nVaccine Type: " + vaccine
                                 + "\nUser ID: " + uid + "\nName: " + name + "\nPhone Number: " + number + "\n";
 
                         try {
