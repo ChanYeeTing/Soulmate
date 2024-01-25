@@ -91,6 +91,7 @@ public class FirstFragment extends Fragment {
                         int i = 0;
                         String[] value = new String[7];
                         for (DataSnapshot snapshotTime : snapshotDate.getChildren()) {
+
                             value[i] = String.valueOf(snapshotTime.getValue());
                             i++;
 
@@ -103,7 +104,7 @@ public class FirstFragment extends Fragment {
 
                             // Date from the string "22-12-2023"
                             if (dateFromString.isAfter(currentDate)) {
-                                DataModel dataModel = new DataModel(value[0], value[1],value[5],value[2],value[6]);
+                                DataModel dataModel = new DataModel(value[0], value[1],value[5],value[2],value[6], childKey, uid);
                                 Telemedicine.add(dataModel);
                                 Log.d("DataModel", "Added DataModel: " + dataModel.toString()); // Log for debugging
                             }
@@ -116,7 +117,7 @@ public class FirstFragment extends Fragment {
                                     }
                                     else
                                     {
-                                        DataModel dataModel = new DataModel(value[0], value[1],value[5],value[2],value[6]);
+                                        DataModel dataModel = new DataModel(value[0], value[1],value[5],value[2],value[6],childKey, uid);
                                         Telemedicine.add(dataModel);
                                         Log.d("DataModel", "Added DataModel: " + dataModel.toString()); // Log for debugging
                                     }

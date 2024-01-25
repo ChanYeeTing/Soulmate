@@ -7,23 +7,32 @@ public class DataModel {
     private String text4;
     private String text5;
     private String text6;
-    private String text7;
+    private String key;
+    private String uid;
 
+    public DataModel(String text1, String text2, String text3, String text4, String text5,String key, String uid) {
+        this.text1 = text1;
+        this.text2 = text2;
+        this.text3 = text3;
+        this.text4 = text4;
+        this.text5 = text5;
+        this.key = key;
+        this.uid = uid;
+    }
     public DataModel(String text1, String text2, String text3, String text4, String text5) {
         this.text1 = text1;
         this.text2 = text2;
         this.text3 = text3;
         this.text4 = text4;
         this.text5 = text5;
+
     }
-    public DataModel(String text1, String text2, String text3, String text4, String text5, String text6) {
-        this.text1 = text1;
-        this.text2 = text2;
-        this.text3 = text3;
-        this.text4 = text4;
-        this.text5 = text5;
-        this.text6 = text6;
+
+
+    public String getKey() {
+        return key;
     }
+    public  String getUid(){return uid;}
 
     public String getText1() {
         return text1;

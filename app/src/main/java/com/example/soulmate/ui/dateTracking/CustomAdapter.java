@@ -1,13 +1,18 @@
 package com.example.soulmate.ui.dateTracking;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.soulmate.R;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -56,6 +61,7 @@ public class CustomAdapter extends BaseAdapter {
             holder.hospital = convertView.findViewById(R.id.hospital1);
             holder.detail = convertView.findViewById(R.id.detail1);
             holder.detail.setTextIsSelectable(true);
+            holder.cancel= convertView.findViewById(R.id.cancel);
 
 
 
@@ -73,10 +79,46 @@ public class CustomAdapter extends BaseAdapter {
         holder.hospital.setText(currentItem.getText4());
         holder.detail.setText(currentItem.getText5());
 
+        holder.cancel.setEnabled(currentItem.getUid()!=null);
+
+        holder.cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Identify the selected item
+                DataModel selectedItem = (DataModel) getItem(position);
+
+
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("Cancel Appointment");
+                builder.setMessage("Are you sure you want to cancel this appointment?");
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Remove the item from the ListView
+                        dataList.remove(position);
+                        notifyDataSetChanged();
+                        // Delete the corresponding data from the database
+                        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Activity");
+                        databaseReference.child(currentItem.getUid()).child(currentItem.getKey()).removeValue();
+
+                        DatabaseReference appointment = FirebaseDatabase.getInstance().getReference("Appointment").child(currentItem.getText1());
+                        appointment.child(currentItem.getText2()).child(currentItem.getText3()).child(currentItem.getUid()).removeValue();
+                    }
+                });
+                builder.setNegativeButton("No", null);
+                builder.show();
+//                // Delete the corresponding data from the database
+//                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Activity");
+//                databaseReference.child(currentItem.getUid()).child(currentItem.getKey()).removeValue();
+            }
+        });
+
 
 
         return convertView;
     }
+
 
     static class ViewHolder {
         TextView hospital;
@@ -84,6 +126,7 @@ public class CustomAdapter extends BaseAdapter {
         TextView appointment;
         TextView date;
         TextView time;
+        Button cancel;
         // Add more TextViews as needed
     }
 }
