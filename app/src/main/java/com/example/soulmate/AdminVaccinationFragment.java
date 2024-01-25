@@ -74,7 +74,7 @@ public class AdminVaccinationFragment extends Fragment {
                 String timeAppointment = timeSnapshot.getKey();
                 Map<String, Object> vaccinationData = (Map<String, Object>) timeSnapshot.getValue();
 
-                if (vaccinationData != null) {
+                if (vaccinationData != null && uid != null ) {
                     String appointment = String.valueOf(vaccinationData.get("Appointment"));
 
                     if ("Vaccination".equals(appointment)) {

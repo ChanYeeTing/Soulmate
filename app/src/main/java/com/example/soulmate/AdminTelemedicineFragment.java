@@ -74,7 +74,7 @@ public class AdminTelemedicineFragment extends Fragment {
                 String timeAppointment = timeSnapshot.getKey();
                 Map<String, Object> telemedicineData = (Map<String, Object>) timeSnapshot.getValue();
 
-                if (telemedicineData != null) {
+                if (telemedicineData != null && uid != null) {
                     String appointment = String.valueOf(telemedicineData.get("Appointment"));
 
                     if ("Telemedicine".equals(appointment)) {
