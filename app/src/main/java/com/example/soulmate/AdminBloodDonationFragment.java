@@ -74,7 +74,7 @@ public class AdminBloodDonationFragment extends Fragment {
                 String timeAppointment = timeSnapshot.getKey();
                 Map<String, Object> donorData = (Map<String, Object>) timeSnapshot.getValue();
 
-                if (donorData != null) {
+                if (donorData != null && uid != null) {
                     String appointment = String.valueOf(donorData.get("Appointment"));
 
                     if ("Blood Donation".equals(appointment)) {

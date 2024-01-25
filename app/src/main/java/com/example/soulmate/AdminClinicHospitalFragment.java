@@ -74,7 +74,7 @@ public class AdminClinicHospitalFragment extends Fragment {
                 String timeAppointment = timeSnapshot.getKey();
                 Map<String, Object> clinicHospitalData = (Map<String, Object>) timeSnapshot.getValue();
 
-                if (clinicHospitalData != null) {
+                if (clinicHospitalData != null  && uid != null) {
                     String appointment = String.valueOf(clinicHospitalData.get("Appointment"));
 
                     if ("Clinic and Hospital".equals(appointment)) {
