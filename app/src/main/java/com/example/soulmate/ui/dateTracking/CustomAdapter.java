@@ -102,8 +102,14 @@ public class CustomAdapter extends BaseAdapter {
                         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Activity");
                         databaseReference.child(currentItem.getUid()).child(currentItem.getKey()).removeValue();
 
-                        DatabaseReference appointment = FirebaseDatabase.getInstance().getReference("Appointment").child(currentItem.getText1());
-                        appointment.child(currentItem.getText2()).child(currentItem.getText3()).child(currentItem.getUid()).removeValue();
+                        if(currentItem.getText4()=="-") {
+                            DatabaseReference appointment = FirebaseDatabase.getInstance().getReference("Appointment").child(currentItem.getText1());
+                            appointment.child(currentItem.getText2()).child(currentItem.getText3()).child(currentItem.getUid()).removeValue();
+                        }
+                        else {
+                            DatabaseReference appointment = FirebaseDatabase.getInstance().getReference("Appointment").child(currentItem.getText1());
+                            appointment.child(currentItem.getText4()).child(currentItem.getText2()).child(currentItem.getText3()).child(currentItem.getUid()).removeValue();
+                        }
                     }
                 });
                 builder.setNegativeButton("No", null);
