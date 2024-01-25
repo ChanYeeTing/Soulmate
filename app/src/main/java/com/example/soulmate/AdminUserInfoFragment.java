@@ -166,7 +166,6 @@ public class AdminUserInfoFragment extends Fragment {
             public void onClick(DialogInterface dialog, int which) {
                 // Delete the user account
                 deleteUserAccount(userId);
-                deleteAuthenticationAccount(userId);
             }
         });
         builder.setNegativeButton("Cancel", null);
@@ -174,16 +173,43 @@ public class AdminUserInfoFragment extends Fragment {
     }
 
     // Delete user data in firebase
-    private void deleteUserAccount(String userId) {
+    private void deleteUserAccount(final String userId) {
         DatabaseReference userRef = usersReference.child(userId);
         userRef.removeValue()
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
+                            // Delete the user's activity data
+                            deleteActivityData(userId);
+
+                            // Introduce a delay before checking the authentication state
+                            // You can adjust the delay time based on your needs
+                            new android.os.Handler().postDelayed(
+                                    new Runnable() {
+                                        public void run() {
+                                            deleteAuthenticationAccount(userId);
+                                        }
+                                    }, 1000); // 1000 milliseconds delay (adjust as needed)
+
                             Toast.makeText(requireContext(), "Please wait for a while", Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(requireContext(), "Failed to delete user account", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
+
+    private void deleteActivityData(String userId) {
+        DatabaseReference activityRef = FirebaseDatabase.getInstance().getReference().child("Activity").child(userId);
+        activityRef.removeValue()
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(requireContext(), "User activity data deleted", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(requireContext(), "Failed to delete user activity data", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
