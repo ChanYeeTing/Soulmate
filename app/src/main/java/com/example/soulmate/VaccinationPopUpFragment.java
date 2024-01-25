@@ -130,7 +130,8 @@ public class VaccinationPopUpFragment extends DialogFragment {
 
                 userRef.setValue(hashMap);
 
-                DatabaseReference check = ref.child("Appointment").child("Vaccination").child(hospital).child(date).child(time);
+                DatabaseReference check = ref.child("Appointment").child("Vaccination")
+                        .child(hospital).child(date).child(time).child(user_id);
                 HashMap<String, Object> hash = new HashMap<>();
                 hash.put("Appointment", "Vaccination");
                 hash.put("date", date);

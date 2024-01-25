@@ -128,7 +128,8 @@ public class BloodPopUpFragment extends DialogFragment {
                 hashMap.put("z","-");
                 userRef.setValue(hashMap);
 
-                DatabaseReference check = ref.child("Appointment").child("Blood Donation").child(hospital).child(date).child(time);
+                DatabaseReference check = ref.child("Appointment").child("Blood Donation")
+                        .child(hospital).child(date).child(time).child(user_id);
                 HashMap<String, Object> hash = new HashMap<>();
                 hash.put("Appointment", "Blood Donation");
                 hash.put("date", date);

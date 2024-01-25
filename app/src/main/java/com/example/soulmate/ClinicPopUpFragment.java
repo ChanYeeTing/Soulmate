@@ -130,7 +130,8 @@ public class ClinicPopUpFragment extends DialogFragment {
 
                 userRef.setValue(hashMap);
 
-                DatabaseReference check = ref.child("Appointment").child("ClinicHospital").child(hospital).child(date).child(time);
+                DatabaseReference check = ref.child("Appointment").child("ClinicHospital").child(hospital)
+                        .child(date).child(time).child(user_id);
                 HashMap<String, Object> hash = new HashMap<>();
                 hash.put("Appointment", "Clinic and Hospital");
                 hash.put("date", date);
