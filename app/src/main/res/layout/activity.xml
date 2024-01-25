@@ -147,10 +147,11 @@
 
         <Button
             android:id="@+id/cancel"
-            android:layout_width="76dp"
-            android:layout_height="32dp"
+            android:layout_width="104dp"
+            android:layout_height="34dp"
+            android:layout_gravity="end"
             android:text="Cancel"
-            android:textSize="8sp" />
+            android:textSize="11sp" />/>
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>
