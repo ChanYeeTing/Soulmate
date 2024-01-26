@@ -44,11 +44,13 @@ public class AdminUserInfoFragment extends Fragment {
 
     private EditText searchEditText;
     private List<String> allUserList;
+    private List<String> userList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_admin_user_info, container, false);
 
+        userList = new ArrayList<>();
         userListView = view.findViewById(R.id.userInfoListView);
         usersReference = FirebaseDatabase.getInstance().getReference().child("Users");
         searchEditText = view.findViewById(R.id.searchEditText);
@@ -88,8 +90,8 @@ public class AdminUserInfoFragment extends Fragment {
     }
 
     private void updateListView(DataSnapshot dataSnapshot) {
-        // Create a list to store user information
-        List<String> userList = new ArrayList<>();
+        // Clear the class-level userList to start fresh
+        this.userList.clear();
 
         for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
             String uid = userSnapshot.getKey();
@@ -107,12 +109,12 @@ public class AdminUserInfoFragment extends Fragment {
                 String userInfo = "\nUser ID:\n" + uid + "\nName: " + username + "\nGender: " + gender + "\nDate of Birth: " + dob
                         + "\nMobile Number: " + phone + "\nEmail: " + email + "\nAddress: " + address + "\n";
 
-                userList.add(userInfo);
+                this.userList.add(userInfo);
             }
         }
 
         // Sort the list based on usernames
-        Collections.sort(userList, new Comparator<String>() {
+        Collections.sort(this.userList, new Comparator<String>() {
             @Override
             public int compare(String s1, String s2) {
                 // Extract usernames from the strings and compare
@@ -123,11 +125,11 @@ public class AdminUserInfoFragment extends Fragment {
         });
 
         // Initialize allUserList with a new ArrayList
-        allUserList = new ArrayList<>(userList);
+        allUserList = new ArrayList<>(this.userList);
 
         // Create an adapter to populate the ListView
         ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(),
-                android.R.layout.simple_list_item_1, allUserList);
+                android.R.layout.simple_list_item_1, this.userList);
 
         userListView.setAdapter(adapter);
 
@@ -135,7 +137,7 @@ public class AdminUserInfoFragment extends Fragment {
         userListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                // Get the selected user information
+                // Get the selected user information directly from the sorted list
                 String selectedUserInfo = userList.get(position);
 
                 // Extract the user ID from the selected information
@@ -305,7 +307,7 @@ public class AdminUserInfoFragment extends Fragment {
                         }
                     });
         } else {
-            Toast.makeText(requireContext(), "User is not authenticated", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), "Please delete manually in the Firebase Authentication", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -325,18 +327,19 @@ public class AdminUserInfoFragment extends Fragment {
     }
 
     private void filterUserList(String searchText) {
-        List<String> filteredList = new ArrayList<>();
+        // Clear the userList to start fresh
+        userList.clear();
 
         for (String userInfo : allUserList) {
             // Check if the username contains the search text (case-insensitive)
             if (extractValue(userInfo, "Name: ", "\nGender: ").toLowerCase().contains(searchText.toLowerCase())) {
-                filteredList.add(userInfo);
+                userList.add(userInfo);
             }
         }
 
         // Update the adapter with the filtered list
         ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(),
-                android.R.layout.simple_list_item_1, filteredList);
+                android.R.layout.simple_list_item_1, userList);
 
         userListView.setAdapter(adapter);
     }
