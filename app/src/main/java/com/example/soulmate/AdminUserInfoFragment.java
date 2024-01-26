@@ -219,12 +219,15 @@ public class AdminUserInfoFragment extends Fragment {
     private void deleteAppointment(String userId) {
         DatabaseReference appointmentRef = FirebaseDatabase.getInstance().getReference().child("Appointment");
         final String desiredUid = userId;
+
         appointmentRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot typeSnapshot : dataSnapshot.getChildren()) {
-                    for (DataSnapshot hospitalSnapshot : typeSnapshot.getChildren()) {
-                        for (DataSnapshot dateSnapshot : hospitalSnapshot.getChildren()) {
+                    String type = typeSnapshot.getKey();
+
+                    if (type.equals("Telemedicine")) {
+                        for (DataSnapshot dateSnapshot : typeSnapshot.getChildren()) {
                             for (DataSnapshot timeSnapshot : dateSnapshot.getChildren()) {
                                 for (DataSnapshot uidSnapshot : timeSnapshot.getChildren()) {
                                     String uid = uidSnapshot.getKey();
@@ -246,6 +249,31 @@ public class AdminUserInfoFragment extends Fragment {
                                 }
                             }
                         }
+                    } else {
+                        for (DataSnapshot hospitalSnapshot : typeSnapshot.getChildren()) {
+                            for (DataSnapshot dateSnapshot : hospitalSnapshot.getChildren()) {
+                                for (DataSnapshot timeSnapshot : dateSnapshot.getChildren()) {
+                                    for (DataSnapshot uidSnapshot : timeSnapshot.getChildren()) {
+                                        String uid = uidSnapshot.getKey();
+
+                                        // Check if the UID matches the desired UID
+                                        if (uid != null && uid.equals(desiredUid)) {
+                                            uidSnapshot.getRef().removeValue()
+                                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                        @Override
+                                                        public void onComplete(@NonNull Task<Void> task) {
+                                                            if (task.isSuccessful()) {
+                                                                Toast.makeText(requireContext(), "Appointment data deleted", Toast.LENGTH_SHORT).show();
+                                                            } else {
+                                                                Toast.makeText(requireContext(), "Failed to delete appointment data", Toast.LENGTH_SHORT).show();
+                                                            }
+                                                        }
+                                                    });
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -257,7 +285,8 @@ public class AdminUserInfoFragment extends Fragment {
         });
     }
 
-        //Delete user account in authentication
+
+    //Delete user account in authentication
     private void deleteAuthenticationAccount(String userId) {
         // Get the authenticated user using the UID
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
