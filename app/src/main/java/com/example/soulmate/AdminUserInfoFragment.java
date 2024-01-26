@@ -207,6 +207,7 @@ public class AdminUserInfoFragment extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
+                            deleteAppointment(userId);
                             Toast.makeText(requireContext(), "User activity data deleted", Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(requireContext(), "Failed to delete user activity data", Toast.LENGTH_SHORT).show();
@@ -215,12 +216,53 @@ public class AdminUserInfoFragment extends Fragment {
                 });
     }
 
-    //Delete user account in authentication
+    private void deleteAppointment(String userId) {
+        DatabaseReference appointmentRef = FirebaseDatabase.getInstance().getReference().child("Appointment");
+        final String desiredUid = userId;
+        appointmentRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot typeSnapshot : dataSnapshot.getChildren()) {
+                    for (DataSnapshot hospitalSnapshot : typeSnapshot.getChildren()) {
+                        for (DataSnapshot dateSnapshot : hospitalSnapshot.getChildren()) {
+                            for (DataSnapshot timeSnapshot : dateSnapshot.getChildren()) {
+                                for (DataSnapshot uidSnapshot : timeSnapshot.getChildren()) {
+                                    String uid = uidSnapshot.getKey();
+
+                                    // Check if the UID matches the desired UID
+                                    if (uid != null && uid.equals(desiredUid)) {
+                                        uidSnapshot.getRef().removeValue()
+                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                        if (task.isSuccessful()) {
+                                                            Toast.makeText(requireContext(), "Appointment data deleted", Toast.LENGTH_SHORT).show();
+                                                        } else {
+                                                            Toast.makeText(requireContext(), "Failed to delete appointment data", Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    }
+                                                });
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Handle onCancelled if needed
+            }
+        });
+    }
+
+        //Delete user account in authentication
     private void deleteAuthenticationAccount(String userId) {
         // Get the authenticated user using the UID
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-        if (user != null) {
+        if (user.getUid().equals(userId)) {
             // Delete the user's authentication account
             user.delete()
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
