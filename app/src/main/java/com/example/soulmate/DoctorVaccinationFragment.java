@@ -102,8 +102,8 @@ public class DoctorVaccinationFragment extends Fragment {
                             for (DataSnapshot uidSnapshot : timeSnapshot.getChildren()) {
                                 String uid = uidSnapshot.getKey();
 
-
-                                Map<String, Object> appointmentData = (Map<String, Object>) timeSnapshot.getValue();
+                                DataSnapshot snapshotDetail = timeSnapshot.child(uid);
+                                Map<String, Object> appointmentData = (Map<String, Object>) snapshotDetail.getValue();
 
                                 if (appointmentData != null && uid != null) {
                                     String name = String.valueOf(appointmentData.get("name"));

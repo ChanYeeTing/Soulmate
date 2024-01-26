@@ -304,30 +304,35 @@ public class DoctorMainPageFragment extends Fragment {
                         for (DataSnapshot timeSnapshot : dateSnapshot.getChildren()) {
                             String time = timeSnapshot.getKey();
 
-                            Map<String, Object> appointmentData = (Map<String, Object>) timeSnapshot.getValue();
+                            for (DataSnapshot uidSnapshot : timeSnapshot.getChildren()) {
+                                String uid = uidSnapshot.getKey();
 
-                            if (appointmentData != null) {
-                                String name = String.valueOf(appointmentData.get("name"));
-                                String number = String.valueOf(appointmentData.get("number"));
-                                String dateRecords = String.valueOf(appointmentData.get("date"));
-                                String timeRecords = String.valueOf(appointmentData.get("time"));
+                                DataSnapshot snapshotDetail = timeSnapshot.child(uid);
+                                Map<String, Object> appointmentData = (Map<String, Object>) snapshotDetail.getValue();
 
-                                // Check if any of the required fields are null
-                                if (name != null && number != null && dateRecords != null && timeRecords != null) {
-                                    try {
-                                        // Parse appointment date and time
-                                        Date appointmentDateTime = new SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault())
-                                                .parse(dateRecords + " " + timeRecords);
+                                if (appointmentData != null) {
+                                    String name = String.valueOf(appointmentData.get("name"));
+                                    String number = String.valueOf(appointmentData.get("number"));
+                                    String dateRecords = String.valueOf(appointmentData.get("date"));
+                                    String timeRecords = String.valueOf(appointmentData.get("time"));
 
-                                        // Check if the appointment is in the future
-                                        if (appointmentDateTime != null && appointmentDateTime.after(currentDate)) {
-                                            // Build a string with appointment information
-                                            String appointmentDetails = "\nDate: " + dateRecords + "\nTime: " + timeRecords +
-                                                    "\nName: " + name + "\nPhone Number: " + number + "\n";
-                                            appointmentDetailsList.add(appointmentDetails);
+                                    // Check if any of the required fields are null
+                                    if (name != null && number != null && dateRecords != null && timeRecords != null) {
+                                        try {
+                                            // Parse appointment date and time
+                                            Date appointmentDateTime = new SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault())
+                                                    .parse(dateRecords + " " + timeRecords);
+
+                                            // Check if the appointment is in the future
+                                            if (appointmentDateTime != null && appointmentDateTime.after(currentDate)) {
+                                                // Build a string with appointment information
+                                                String appointmentDetails = "\nDate: " + dateRecords + "\nTime: " + timeRecords +
+                                                        "\nName: " + name + "\nPhone Number: " + number + "\n";
+                                                appointmentDetailsList.add(appointmentDetails);
+                                            }
+                                        } catch (ParseException e) {
+                                            e.printStackTrace();
                                         }
-                                    } catch (ParseException e) {
-                                        e.printStackTrace();
                                     }
                                 }
                             }
