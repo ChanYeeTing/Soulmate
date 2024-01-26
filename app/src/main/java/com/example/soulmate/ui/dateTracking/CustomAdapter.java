@@ -106,6 +106,12 @@ public class CustomAdapter extends BaseAdapter {
                             DatabaseReference appointment = FirebaseDatabase.getInstance().getReference("Appointment").child(currentItem.getText1());
                             appointment.child(currentItem.getText2()).child(currentItem.getText3()).child(currentItem.getUid()).removeValue();
                         }
+                        else if(currentItem.getText1().equals("Clinic and Hospital"))
+                        {
+                            DatabaseReference appointment = FirebaseDatabase.getInstance().getReference("Appointment").child("ClinicHospital");
+                            appointment.child(currentItem.getText4()).child(currentItem.getText2()).child(currentItem.getText3()).child(currentItem.getUid()).removeValue();
+                        }
+
                         else {
                             DatabaseReference appointment = FirebaseDatabase.getInstance().getReference("Appointment").child(currentItem.getText1());
                             appointment.child(currentItem.getText4()).child(currentItem.getText2()).child(currentItem.getText3()).child(currentItem.getUid()).removeValue();
@@ -114,9 +120,7 @@ public class CustomAdapter extends BaseAdapter {
                 });
                 builder.setNegativeButton("No", null);
                 builder.show();
-//                // Delete the corresponding data from the database
-//                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Activity");
-//                databaseReference.child(currentItem.getUid()).child(currentItem.getKey()).removeValue();
+//
             }
         });
 
