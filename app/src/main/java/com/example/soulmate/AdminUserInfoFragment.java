@@ -183,15 +183,15 @@ public class AdminUserInfoFragment extends Fragment {
                             // Delete the user's activity data
                             deleteActivityData(userId);
 
-                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                            // Introduce a delay before checking the authentication state
+                            // You can adjust the delay time based on your needs
+                            new android.os.Handler().postDelayed(
+                                    new Runnable() {
+                                        public void run() {
+                                            deleteAuthenticationAccount(userId);
+                                        }
+                                    }, 1000); // 1000 milliseconds delay (adjust as needed)
 
-                            if (user != null) {
-                                // Now, initiate the deletion of the authentication account
-                                user.delete();
-                            } else {
-                                // User is not authenticated
-                                Toast.makeText(requireContext(), "Wait, User is not authenticated", Toast.LENGTH_SHORT).show();
-                            }
                             Toast.makeText(requireContext(), "Please wait for a while", Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(requireContext(), "Failed to delete user account", Toast.LENGTH_SHORT).show();
@@ -216,27 +216,27 @@ public class AdminUserInfoFragment extends Fragment {
     }
 
     //Delete user account in authentication
-//    private void deleteAuthenticationAccount() {
-////        // Get the authenticated user using the UID
-//        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-////        if (user != null) {
-////            // Delete the user's authentication account
-//            user.delete()
-//                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-//                        @Override
-//                        public void onComplete(@NonNull Task<Void> task) {
-//                            if (task.isSuccessful()) {
-//                                Toast.makeText(requireContext(), "User account deleted", Toast.LENGTH_SHORT).show();
-//                            } else {
-//                                Toast.makeText(requireContext(), "Failed to delete user authentication account", Toast.LENGTH_SHORT).show();
-//                            }
-//                        }
-//                    });
+    private void deleteAuthenticationAccount(String userId) {
+        // Get the authenticated user using the UID
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-//        } else {
-//            Toast.makeText(requireContext(), "User is not authenticated", Toast.LENGTH_SHORT).show();
-//        }
-//    }
+        if (user != null) {
+            // Delete the user's authentication account
+            user.delete()
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(requireContext(), "User account deleted", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(requireContext(), "Failed to delete user authentication account", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+        } else {
+            Toast.makeText(requireContext(), "User is not authenticated", Toast.LENGTH_SHORT).show();
+        }
+    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
