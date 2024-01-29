@@ -23,18 +23,20 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class AdminMainPageFragment extends Fragment {
 
     private LinearLayout checkboxContainer;
     private DatabaseReference usersReference;
+    private Map<String, CheckBox> checkboxMap;
 
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_admin_main_page, container, false);
 
         checkboxContainer = view.findViewById(R.id.checkboxContainer);
+        checkboxMap = new HashMap<> (); // Initialize the map
 
         usersReference = FirebaseDatabase.getInstance().getReference().child("Users");
 
@@ -42,6 +44,9 @@ public class AdminMainPageFragment extends Fragment {
         usersReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                // Clear the checkboxContainer and the map before adding new checkboxes
+                checkboxContainer.removeAllViews();
+                checkboxMap.clear();
 
                 for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
                     String uid = userSnapshot.getKey();
@@ -61,19 +66,20 @@ public class AdminMainPageFragment extends Fragment {
                             String nameEmergency = String.valueOf(userData.get("nameEmergency"));
                             String contactEmergency = String.valueOf(userData.get("contactEmergency"));
 
-                            if (location != null) {
+                            if (location != null && !checkboxMap.containsKey(id)) {
                                 // Create a CheckBox for each user and add it to the checkboxContainer
                                 CheckBox checkBox = new CheckBox(requireContext());
                                 checkBox.setText("\n" + "Call ID:" + id + "\nName: " + username + "\n\nCurrent Location: " + location + "\n\nEmergency Contact: " + nameEmergency + " (" + contactEmergency + ") " + "\n");
-                                checkBox.setTag(userSnapshot.getKey()); // Set a tag to identify the user
+                                checkBox.setTag(uid); // Set a tag to identify the user
                                 checkBox.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                        handleCheckBoxClick((CheckBox) v);
+                                        handleCheckBoxClick((CheckBox) v, uid, id);
                                     }
                                 });
 
                                 checkboxContainer.addView(checkBox);
+                                checkboxMap.put(id, checkBox); // Add the checkbox to the map
                             }
                         }
                     }
@@ -89,18 +95,14 @@ public class AdminMainPageFragment extends Fragment {
         return view;
     }
 
-    private void handleCheckBoxClick(CheckBox checkBox) {
+    private void handleCheckBoxClick(CheckBox checkBox, String uid, String id) {
         // Handle the checkbox click, e.g., add userId to a list if checked
         Toast.makeText(requireContext(), "The emergency call has been made", Toast.LENGTH_SHORT).show();
-
-        // Delayed removal of the checked checkbox after 3 seconds
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                // Remove the checked checkbox from the checkboxContainer
-                ((ViewGroup) checkBox.getParent()).removeView(checkBox);
-            }
-        }, 2000); // 3000 milliseconds (3 seconds)
+        ((ViewGroup) checkBox.getParent()).removeView(checkBox);
+        // Remove the data from the database
+        usersReference.child(uid).child("Location").child(id).removeValue();
+        // Remove the checkbox from the map
+        checkboxMap.remove(id);
     }
 
 
