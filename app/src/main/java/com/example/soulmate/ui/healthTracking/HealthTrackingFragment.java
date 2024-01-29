@@ -236,37 +236,37 @@ public class HealthTrackingFragment extends Fragment {
         StringBuilder errorMessage = new StringBuilder("");
 
         if (!isEditTextValid(R.id.age)) {
-            errorMessage.append("- Age(Greater than 0) ");
+            errorMessage.append("- Age(Greater than 0)\n");
         }
         if (!isEditTextValid(R.id.weight)) {
-            errorMessage.append("- Weight(Greater than 0) ");
+            errorMessage.append("- Weight(Greater than 0)\n");
         }
         if (!isEditTextValid(R.id.height)) {
-            errorMessage.append("- Height(Greater than 0) ");
+            errorMessage.append("- Height(Greater than 0)\n");
         }
         if (!isEditTextValid(R.id.blood_sugar)) {
-            errorMessage.append("- Blood Sugar(Greater than 0) ");
+            errorMessage.append("- Blood Sugar(Greater than 0)\n");
         }
         if (!isBloodPressureValid(R.id.blood_pressure)) {
-            errorMessage.append("- Blood Pressure(Must systolic/diastolic) ");
+            errorMessage.append("- Blood Pressure(Must systolic/diastolic)\n");
         }
         if (!isEditTextValid(R.id.temperature)) {
-            errorMessage.append("- Temperature(Greater than 0) ");
+            errorMessage.append("- Temperature(Greater than 0)\n");
         }
         if (!isEditTextValid(R.id.blood_oxygen)) {
-            errorMessage.append("- Blood Oxygen(1-100 only) ");
+            errorMessage.append("- Blood Oxygen(1-100 only)\n");
         }
         if (!isEditTextValid(R.id.respiration_rate)) {
-            errorMessage.append("- Respiration Rate(Greater than 0) ");
+            errorMessage.append("- Respiration Rate(Greater than 0)\n");
         }
         if (!isEditTextValid(R.id.pulse_rate)) {
-            errorMessage.append("- Pulse Rate(Greater than 0) ");
+            errorMessage.append("- Pulse Rate(Greater than 0)\n");
         }
 
         // Check if smoking habit is selected
         RadioGroup smokingHabitRadioGroup = getView().findViewById(R.id.smokingHabit);
         if (smokingHabitRadioGroup.getCheckedRadioButtonId() == -1) {
-            errorMessage.append("- Smoking Habit");
+            errorMessage.append("- Select Smoking Habit");
         }
 
         // Show the detailed error message
