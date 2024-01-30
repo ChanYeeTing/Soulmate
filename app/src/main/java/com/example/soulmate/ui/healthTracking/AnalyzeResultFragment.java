@@ -176,11 +176,11 @@ public class AnalyzeResultFragment extends Fragment {
         int systolic = Integer.parseInt(pressureValues[0]);
         int diastolic = Integer.parseInt(pressureValues[1]);
 
-        if (systolic < 120  && systolic >= 90 &&  diastolic <= 60 && diastolic < 80) {
-            textViewBloodPressure.setText("Blood Pressure Level: "+ healthData.blood_pressure + " mmHg" + "\n# (Normal Range)");
-        } else if (systolic < 90 || diastolic < 60){
+        if (systolic < 90 || diastolic < 60) {
             textViewBloodPressure.setText("Blood Pressure Level: "+ healthData.blood_pressure + " mmHg" + "\n# (Hypotension) \n- Advice: \n" +
                     "Increase your fluid and salt intake, move slowly between positions, and consider wearing compression stockings to help manage hypotension.");
+        } else if (systolic < 120  && systolic >= 90 &&  diastolic >= 60 && diastolic < 80){
+            textViewBloodPressure.setText("Blood Pressure Level: "+ healthData.blood_pressure + " mmHg" + "\n# (Normal Range)");
         } else if (systolic >= 120 && systolic <= 129 && diastolic < 80) {
             textViewBloodPressure.setText("Blood Pressure Level: "+ healthData.blood_pressure + " mmHg" + "\n# (Elevated) \n- Advice: Monitor your blood pressure regularly and adopt a healthy lifestyle.");
         } else if ((systolic >= 130 && systolic <= 139) || (diastolic >= 80 && diastolic <= 89)) {
