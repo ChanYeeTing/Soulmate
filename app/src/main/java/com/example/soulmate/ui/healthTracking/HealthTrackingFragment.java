@@ -362,6 +362,9 @@ public class HealthTrackingFragment extends Fragment {
                 if (validationMessageShown[0]) {
                     validationMessageTextView.setText("");
                     validationMessageShown[0] = false;
+                } else {
+                    // Enable the submit button when all input is valid
+                    submitButton.setEnabled(isInputValid());
                 }
             }
             @Override
