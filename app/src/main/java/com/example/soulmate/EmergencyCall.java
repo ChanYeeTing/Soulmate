@@ -35,7 +35,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.io.IOException;
 import java.util.List;
@@ -105,45 +104,13 @@ public class EmergencyCall extends Fragment implements OnMapReadyCallback {
         googleMap = map;
         enableMyLocation();
         startLocationUpdates();
-        startLocationUpdateTimer();
     }
 
-    private void startLocationUpdateTimer() {
-        locationUpdateTimer = new Timer();
-        locationUpdateTask = new TimerTask() {
-            @Override
-            public void run() {
-                // Call the method to update location
-                updateLocation();
-            }
-        };
 
-        // Schedule the timer to run every 30 seconds (adjust the interval as needed)
-        locationUpdateTimer.schedule(locationUpdateTask, 0, 30000); // 30 seconds
-    }
-
-    private void stopLocationUpdateTimer() {
-        if (locationUpdateTimer != null) {
-            locationUpdateTimer.cancel();
-            locationUpdateTimer = null;
-        }
-        if (locationUpdateTask != null) {
-            locationUpdateTask.cancel();
-            locationUpdateTask = null;
-        }
-    }
-
-    private void updateLocation() {
-        if (googleMap != null) {
-            fusedLocationClient.getLastLocation()
-                    .addOnSuccessListener(requireActivity(), new OnSuccessListener<Location>() {
-                        @Override
-                        public void onSuccess(Location location) {
-                            if (location != null) {
-                                updateLocationUI(location);
-                            }
-                        }
-                    });
+    private void stopLocationUpdates() {
+        // Stop location updates
+        if (fusedLocationClient != null && locationCallback != null) {
+            fusedLocationClient.removeLocationUpdates(locationCallback);
         }
     }
 
@@ -171,12 +138,11 @@ public class EmergencyCall extends Fragment implements OnMapReadyCallback {
                 for (Location location : locationResult.getLocations()) {
                     updateLocationUI(location);
                 }
+                stopLocationUpdates();
             }
         };
 
         locationRequest = new LocationRequest();
-        locationRequest.setInterval(10000); // 10 seconds
-        locationRequest.setFastestInterval(5000); // 5 seconds
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
         if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
@@ -266,7 +232,6 @@ public class EmergencyCall extends Fragment implements OnMapReadyCallback {
     @Override
     public void onPause() {
         super.onPause();
-        stopLocationUpdateTimer();
         if (fusedLocationClient != null && locationCallback != null) {
             fusedLocationClient.removeLocationUpdates(locationCallback);
         }
