@@ -163,12 +163,18 @@ public class HealthTrackingFragment extends Fragment {
         String input = editText.getText().toString().trim();
 
         if (!TextUtils.isEmpty(input)) {
-            if (editTextId == R.id.weight || editTextId == R.id.height || editTextId == R.id.temperature) {
+            if (editTextId == R.id.weight ) {
                 return isDecimalNumber(input)  && Double.parseDouble(input) > 0;
+            } else if (editTextId == R.id.temperature){
+                return isDecimalNumber(input) && Double.parseDouble(input) > 0 && Double.parseDouble(input) <= 46.5;
+            } else if (editTextId == R.id.age){
+                return TextUtils.isDigitsOnly(input) && Integer.parseInt(input) > 0 && Integer.parseInt(input) <= 200;
+            } else if(editTextId == R.id.height){
+                return isDecimalNumber(input) && Double.parseDouble(input) > 0 && Double.parseDouble(input) <= 300;
             } else if (editTextId == R.id.blood_oxygen) {
                 // Validate blood oxygen level (1 to 100)
                 return isDecimalNumber(input) && Double.parseDouble(input) >= 1 && Double.parseDouble(input) <= 100;
-            } else if (editTextId == R.id.age || editTextId == R.id.respiration_rate || editTextId == R.id.pulse_rate
+            } else if (editTextId == R.id.respiration_rate || editTextId == R.id.pulse_rate
                     || editTextId == R.id.blood_pressure || editTextId == R.id.blood_sugar) {
                 // Validate to avoid input digit 0 only
                 return TextUtils.isDigitsOnly(input) && Integer.parseInt(input) > 0;
@@ -236,22 +242,22 @@ public class HealthTrackingFragment extends Fragment {
         StringBuilder errorMessage = new StringBuilder("");
 
         if (!isEditTextValid(R.id.age)) {
-            errorMessage.append("- Age(Greater than 0)\n");
+            errorMessage.append("- Age(Greater than 0, Less than 200)\n");
         }
         if (!isEditTextValid(R.id.weight)) {
             errorMessage.append("- Weight(Greater than 0)\n");
         }
         if (!isEditTextValid(R.id.height)) {
-            errorMessage.append("- Height(Greater than 0)\n");
+            errorMessage.append("- Height(Greater than 0, Less than 301)\n");
         }
         if (!isEditTextValid(R.id.blood_sugar)) {
             errorMessage.append("- Blood Sugar(Greater than 0)\n");
         }
         if (!isBloodPressureValid(R.id.blood_pressure)) {
-            errorMessage.append("- Blood Pressure(Must systolic/diastolic)\n");
+            errorMessage.append("- Blood Pressure(Must systolic/diastolic, Greater than 0)\n");
         }
         if (!isEditTextValid(R.id.temperature)) {
-            errorMessage.append("- Temperature(Greater than 0)\n");
+            errorMessage.append("- Temperature(Greater than 0, Less than 46.6)\n");
         }
         if (!isEditTextValid(R.id.blood_oxygen)) {
             errorMessage.append("- Blood Oxygen(1-100 only)\n");
