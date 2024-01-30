@@ -372,7 +372,11 @@ public class HealthTrackingFragment extends Fragment {
             }
             @Override
             public void afterTextChanged(Editable editable) {
-                // Not needed
+                if (!validationMessageShown[0]) {
+                    showInputValidationMessages();
+                    validationMessageShown[0] = true;
+                    submitButton.setEnabled(false);
+                }
             }
         });
     }
